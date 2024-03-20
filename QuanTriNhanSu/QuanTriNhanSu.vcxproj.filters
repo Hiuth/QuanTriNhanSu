@@ -18,5 +18,13 @@
     <ClCompile Include="QuanTriNhanSu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HeThong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HeThong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
