@@ -6,6 +6,7 @@ using namespace std;
 int main()
 {
     cout << "Hello World!\n";
-    cout << " Toi ghet code mhuhuuhu";
+    cout << " Toi ghet code mhuhuuhu\n";
+    cout << "Ban QUAN muu hen ke ban an man dai khai hoc lop 2 khai lop 9";
 }
 
