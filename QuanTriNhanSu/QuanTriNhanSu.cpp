@@ -1,4 +1,4 @@
-// QuanTriNhanSu.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// QuanTriNhanSu.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -7,6 +7,10 @@ int main()
 {
     cout << "Hello World!\n";
     cout << " Toi ghet code mhuhuuhu\n";
+<<<<<<< HEAD
     cout << "Ban QUAN muu hen ke ban an man dai khai hoc lop 2 khai lop 9";
+=======
+    cout << "ĐCM GITHUB ĂN MẶN ĐÁI KHAI HỌC LỚP 2 KHAI LỚP 9";
+>>>>>>> 6d9c0bc61ce8b14383faa13f2b4deab60f0cae00
 }
 
