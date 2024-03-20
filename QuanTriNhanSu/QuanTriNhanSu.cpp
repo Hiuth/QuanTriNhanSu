@@ -10,5 +10,6 @@ int main()
     cout << "Ban QUAN muu hen ke ban an man dai khai hoc lop 2 khai lop 9\n";
     cout << "ĐCM GITHUB ĂN MẶN ĐÁI KHAI HỌC LỚP 2 KHAI LỚP 9\n";
     cout << "Chúng ta đã thắng";
+    cout << "siu";
 }
 
