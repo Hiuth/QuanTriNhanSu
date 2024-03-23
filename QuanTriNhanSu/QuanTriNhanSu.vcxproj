@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HeThong.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="QuanTriNhanSu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeThong.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
