@@ -10,7 +10,12 @@ public:
 	Node* GetRoot() { return root; }
 	void SetRoot(Node* val) { root = val; }
 	bool InsertNode(Node*);
-	bool deleteNode(Node*);
+	bool deleteAccount(Node*);//deleteNode;
 	void PrintAccount();
+	void CheckAccount(Node*);
+	void EditAccount(Node*);
+	void CreateAccount();
+
+
 };
 
