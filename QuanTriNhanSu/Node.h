@@ -1,14 +1,19 @@
 #pragma once
+#include<iostream>
 class Node
 {
 private:
-	int key;
+	long TenTaiKhoan;
+	int MatKhau;
+	int Admin;
+	int QuanLyNhanSu;
+	int QuanLyTienLuong;
 	Node* left;
 	Node* right;
 	Node* parent;
 public:
 	Node();
-	Node(int);
+	Node(long, int, int, int, int);
 	virtual ~Node();
 	Node* GetLeft() { return left; }
 	Node* GetRight() { return right; }
@@ -16,8 +21,17 @@ public:
 	void SetRight(Node* val) { right = val; }
 	Node* GetParent() { return parent; }
 	void SetParent(Node* val) { parent = val; }
-	int GetKey() { return key; }
-	void SetKey(int val) { key = val; }
+	long GetAccountName() { return TenTaiKhoan; }
+	void SetAccountName(long val) { TenTaiKhoan = val; }
+	int GetPassword() { return MatKhau; }
+	void SetPassword(int val) { MatKhau = val; }
+	int GetAdmin() { return Admin; }
+	void SetAdmin(int val) { Admin = val; }
+	int GetHRM() { return QuanLyNhanSu; }
+	void SetHRM(int val) { QuanLyNhanSu = val; }
+	int GetFM() { return QuanLyTienLuong; }//financial management
+	void SetFM(int val) { QuanLyTienLuong = val; }
+
 protected:
 };
 
