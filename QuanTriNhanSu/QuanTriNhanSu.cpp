@@ -3,7 +3,7 @@
 using namespace std;
 int main() {
 	int n;
-	string tk, mk, admin, hrm, fm;
+	string tk, mk, admin, hrm, fm,ten,xoa;
 	HeThong* Taikhoan = new HeThong();
 	Node* e;
 	//cout << "so luong tai khoang muon nhap vao: "; cin >> n;
@@ -18,5 +18,10 @@ int main() {
 	//	Taikhoan->CreateAccount(e);
 	//	cout << endl;
 	//}
+	Taikhoan->PrintAccount();
+	//cout << "Nhap ten tai khoan can tim: "; getline(cin, ten);
+	//Taikhoan->Search(ten);
+	/*cout << "Nhap vao ten tai khoan muon xoa: "; getline(cin, xoa);
+	Taikhoan->deleteAccount(xoa);*/
 	Taikhoan->PrintAccount();
 }
