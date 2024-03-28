@@ -1,24 +1,14 @@
 #include "Node.h"
 #include <iostream>
-Node::Node() {
-	this->TenTaiKhoan = 0;
-	this->QuanLyNhanSu = 0;
-	this->QuanLyTienLuong = 0;
-	this->MatKhau = 0;
-	this->left = NULL;
-	this->right = NULL;
-	this->parent = NULL;
-}
+using namespace std;
 
-Node::Node(long TenTk, int MatKhau,int admin, int HRM, int FM) {//financial management
+Node::Node(string TenTk, string MatKhau,string admin, string HRM, string FM) {//financial management
 	this->TenTaiKhoan = TenTk;
 	this->MatKhau = MatKhau;
 	this->Admin = admin;
 	this->QuanLyNhanSu = HRM;
 	this->QuanLyTienLuong = FM;
-	this->left = NULL;
-	this->right = NULL;
-	this->parent = NULL;
+	this->pointer = NULL;
 }
 
 Node::~Node() {
