@@ -12,12 +12,11 @@ public:
 	void SetHead(Node* val) { head = val; }
 	Node* GetTail() { return tail; }
 	void SetTail(Node* val) { tail = val; }
-	bool InsertNode(Node*);
-	bool deleteAccount(Node*);//deleteNode;
+	void deleteAccount(Node*);//deleteNode;
 	void PrintAccount();
 	void CheckAccount(Node*);
 	void EditAccount(Node*);
-	void CreateAccount(Node*);
+	void CreateAccount(Node* );
 
 
 };
