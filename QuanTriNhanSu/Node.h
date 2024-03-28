@@ -15,6 +15,7 @@ public:
 	virtual ~Node();
 	Node* GetPointer() { return pointer; }
 	void SetPointer(Node* val) { pointer = val; }
+	void SetPointer(Node* val) { pointer = val; }
 	long GetAccountName() { return TenTaiKhoan; }
 	void SetAccountName(long val) { TenTaiKhoan = val; }
 	int GetPassword() { return MatKhau; }
