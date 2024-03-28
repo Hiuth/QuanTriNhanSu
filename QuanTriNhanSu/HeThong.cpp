@@ -85,6 +85,7 @@ void HeThong::CreateAccount(Node* p) {
         delete result;
         delete stmt;
         delete con;
+        delete p;
     }
     catch (sql::SQLException& e) {
         cerr << "SQL Error: " << e.what() << std::endl;
@@ -108,5 +109,42 @@ void HeThong::PrintAccount() {
         cout <<++count<<"\t" << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
         cout << endl;
     }
+    delete res;
+    delete stmt;
+    delete con;
+}
+
+void  HeThong::Search(string ten) {
+    MySQL_Driver* driver;
+    Connection* con;
+    driver = mysql::get_mysql_driver_instance();
+    con = driver->connect("tcp://localhost:3306", "root", "21122004");
+    con->setSchema("quantrinhansu");
+    Statement* stmt;
+    stmt = con->createStatement();
+    string SelectData = "Select *from TaiKhoan where TenTaiKhoan = '"+ ten +"'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    cout  << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
+    while (res->next()) {
+        cout<< res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
+        cout << endl;
+    }
+    delete res;
+    delete stmt;
+    delete con;
+}
+
+void HeThong::deleteAccount(string xoa) {
+    MySQL_Driver* driver;
+    Connection* con;
+    driver = mysql::get_mysql_driver_instance();
+    con = driver->connect("tcp://localhost:3306", "root", "21122004");
+    con->setSchema("quantrinhansu");
+    Statement* stmt;
+    stmt = con->createStatement();
+    string SelectData = "Delete from TaiKhoan where TenTaiKhoan = '" + xoa + "'";
+    int rows_affected = stmt->executeUpdate(SelectData);
+    delete stmt;
+    delete con;
 }
    
