@@ -1,31 +1,31 @@
 #pragma once
 #include<iostream>
+#include<string>
+using namespace std;
 class Node
 {
 private:
-	long TenTaiKhoan;
-	int MatKhau;
-	int Admin;
-	int QuanLyNhanSu;
-	int QuanLyTienLuong;
+	string TenTaiKhoan;
+	string MatKhau;
+	string Admin;
+	string QuanLyNhanSu;
+	string QuanLyTienLuong;
 	Node* pointer;
 public:
-	Node();
-	Node(long, int, int, int, int);
+	Node(string,string,string,string,string);
 	virtual ~Node();
 	Node* GetPointer() { return pointer; }
 	void SetPointer(Node* val) { pointer = val; }
-	void SetPointer(Node* val) { pointer = val; }
-	long GetAccountName() { return TenTaiKhoan; }
-	void SetAccountName(long val) { TenTaiKhoan = val; }
-	int GetPassword() { return MatKhau; }
-	void SetPassword(int val) { MatKhau = val; }
-	int GetAdmin() { return Admin; }
-	void SetAdmin(int val) { Admin = val; }
-	int GetHRM() { return QuanLyNhanSu; }
-	void SetHRM(int val) { QuanLyNhanSu = val; }
-	int GetFM() { return QuanLyTienLuong; }//financial management
-	void SetFM(int val) { QuanLyTienLuong = val; }
+	string GetAccountName() { return TenTaiKhoan; }
+	void SetAccountName(string val) { TenTaiKhoan = val; }
+	string GetPassword() { return MatKhau; }
+	void SetPassword(string val) { MatKhau = val; }
+	string GetAdmin() { return Admin; }
+	void SetAdmin(string val) { Admin = val; }
+	string GetHRM() { return QuanLyNhanSu; }
+	void SetHRM(string val) { QuanLyNhanSu = val; }
+	string GetFM() { return QuanLyTienLuong; }//financial management
+	void SetFM(string val) { QuanLyTienLuong = val; }
 
 protected:
 };
