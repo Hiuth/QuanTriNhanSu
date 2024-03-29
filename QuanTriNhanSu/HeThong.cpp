@@ -114,7 +114,7 @@ void HeThong::PrintAccount() {
     delete con;
 }
 
-void  HeThong::Search(string ten) {
+void  HeThong::Search(string ten,string ma) {
     MySQL_Driver* driver;
     Connection* con;
     driver = mysql::get_mysql_driver_instance();
@@ -122,7 +122,7 @@ void  HeThong::Search(string ten) {
     con->setSchema("quantrinhansu");
     Statement* stmt;
     stmt = con->createStatement();
-    string SelectData = "Select *from TaiKhoan where TenTaiKhoan = '"+ ten +"'";
+    string SelectData = "Select *from TaiKhoan where "+ten+" = '"+ ma +"'";
     ResultSet* res = stmt->executeQuery(SelectData);
     cout  << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
     while (res->next()) {
