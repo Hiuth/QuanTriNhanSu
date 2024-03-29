@@ -16,7 +16,7 @@ public:
 	void PrintAccount();
 	void EditAccount(Node*);
 	void CreateAccount(Node* );
-	void Search(string);
+	void Search(string,string);
 
 
 };
