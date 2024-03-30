@@ -105,7 +105,7 @@ void  HeThong::Search(string ten,string ma) {
             
         }
         else {
-            cout << "Tai khoan khog co trong he thong." << endl;
+            cout << "Tai khoan khong co trong he thong." << endl;
             break;
         }
     }
