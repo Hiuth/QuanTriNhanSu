@@ -1,14 +1,8 @@
 ﻿#include "HeThong.h"
-#include <cppconn/driver.h> 
-#include <cppconn/exception.h> 
-#include <cppconn/statement.h> 
-#include <mysql_connection.h> 
-#include <mysql_driver.h> 
-#include <iostream>
-using namespace std;
-using namespace sql;
-using namespace mysql;
+#include "KetNoi.h"
 
+KetNoi* Check = new KetNoi();
+Connection* con= Check->CheckDatabase();
 HeThong::HeThong() {
     this->head = NULL;
     this->tail = NULL;
@@ -18,6 +12,7 @@ HeThong::~HeThong() {
 
 
 }
+
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
@@ -34,17 +29,9 @@ void HoTroCapNhat(Node* p, Statement* stmt) {
     stmt->execute(UpdateTableAccount);
 }
 
-//void KetNoi() {
-//        MySQL_Driver* driver;
-//        Connection* con;
-//        driver = mysql::get_mysql_driver_instance();
-//        con = driver->connect("tcp://localhost:3306", "root", "21122004");
-//        con->setSchema("quantrinhansu");
-//        Statement* stmt;
-//        stmt = con->createStatement();
-//}
 
-void HeThong::CreateAccount(Node* p) {
+
+void HeThong::CreateAccount(Node* p ){
     // insertNode
     if (this->head == NULL) {
         this->head = this->tail = p;
@@ -55,11 +42,6 @@ void HeThong::CreateAccount(Node* p) {
     }
     try {
         p = this->head;
-        MySQL_Driver* driver;
-        Connection* con;
-        driver = mysql::get_mysql_driver_instance();
-        con = driver->connect("tcp://localhost:3306", "root", "21122004");
-        con->setSchema("quantrinhansu");
         Statement* stmt;
         stmt = con->createStatement();
         //kiem tra su ton tai cua bang
@@ -84,7 +66,6 @@ void HeThong::CreateAccount(Node* p) {
         }
         delete result;
         delete stmt;
-        delete con;
         delete p;
     }
     catch (sql::SQLException& e) {
@@ -93,58 +74,68 @@ void HeThong::CreateAccount(Node* p) {
 }
 
 void HeThong::PrintAccount() {
-    MySQL_Driver* driver;
-    Connection* con;
-    driver = mysql::get_mysql_driver_instance();
-    con = driver->connect("tcp://localhost:3306", "root", "21122004");
-    con->setSchema("quantrinhansu");
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Select *from TaiKhoan";
     ResultSet* res = stmt->executeQuery(SelectData);
     int count = 0;
     cout << "Danh Sach cac tai khoan" << endl;
-    cout << "STT"<<"\t" << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
+    cout <<"STT"<<"\t" << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
     while (res->next()) {
-        cout <<++count<<"\t" << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
+        cout<<++count<<"\t" << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
         cout << endl;
     }
     delete res;
     delete stmt;
-    delete con;
+
 }
 
 void  HeThong::Search(string ten,string ma) {
-    MySQL_Driver* driver;
-    Connection* con;
-    driver = mysql::get_mysql_driver_instance();
-    con = driver->connect("tcp://localhost:3306", "root", "21122004");
-    con->setSchema("quantrinhansu");
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Select *from TaiKhoan where "+ten+" = '"+ ma +"'";
     ResultSet* res = stmt->executeQuery(SelectData);
-    cout  << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
-    while (res->next()) {
-        cout<< res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
-        cout << endl;
+    cout << endl;
+    while (true) {
+        if (res->next()) {
+            cout << "Tai khoan co ton tai trong he thong" << endl;
+            cout  << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
+            cout  << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
+            cout << endl;
+            
+        }
+        else {
+            cout << "Tai khoan khog co trong he thong." << endl;
+            break;
+        }
     }
     delete res;
     delete stmt;
-    delete con;
 }
 
 void HeThong::deleteAccount(string xoa) {
-    MySQL_Driver* driver;
-    Connection* con;
-    driver = mysql::get_mysql_driver_instance();
-    con = driver->connect("tcp://localhost:3306", "root", "21122004");
-    con->setSchema("quantrinhansu");
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Delete from TaiKhoan where TenTaiKhoan = '" + xoa + "'";
     int rows_affected = stmt->executeUpdate(SelectData);
     delete stmt;
-    delete con;
 }
-   
+
+void HeThong::EditAccount(string TenTk, string ChoCanSua,string MuonDoiThanh ) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string selectData1 = "Select *from TaiKhoan where TenTaiKhoan = '"+TenTk+"'";
+    ResultSet* res = stmt->executeQuery(selectData1);
+    while (true) {
+        if (res->next()) {
+            cout << "Tai khoan co ton tai trong he thong"<<endl;
+        }
+        else {
+            cout << "Tai khoan khog co trong he thong." << endl;
+            break;
+        }
+    }
+    string SelectData2 = "UPDATE TaiKhoan set "+ChoCanSua+"=+"+MuonDoiThanh+"'where TenTaikhoan = '"+TenTk+"'";
+    int rows_affectd = stmt->executeUpdate(SelectData2);
+    delete stmt;
+}
