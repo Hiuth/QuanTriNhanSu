@@ -14,7 +14,7 @@ public:
 	void SetTail(Node* val) { tail = val; }
 	void deleteAccount(string);//deleteNode;
 	void PrintAccount();
-	void EditAccount(Node*);
+	void EditAccount(string);
 	void CreateAccount(Node* );
 	void Search(string,string);
 
