@@ -121,21 +121,10 @@ void HeThong::deleteAccount(string xoa) {
     delete stmt;
 }
 
-void HeThong::EditAccount(string TenTk, string ChoCanSua,string MuonDoiThanh ) {
+void HeThong::EditAccount(string ChoCanSua, string MuonDoiThanh,string TenTk) {
     Statement* stmt;
     stmt = con->createStatement();
-    string selectData1 = "Select *from TaiKhoan where TenTaiKhoan = '"+TenTk+"'";
-    ResultSet* res = stmt->executeQuery(selectData1);
-    while (true) {
-        if (res->next()) {
-            cout << "Tai khoan co ton tai trong he thong"<<endl;
-        }
-        else {
-            cout << "Tai khoan khog co trong he thong." << endl;
-            break;
-        }
-    }
-    string SelectData2 = "UPDATE TaiKhoan set "+ChoCanSua+"=+"+MuonDoiThanh+"'where TenTaikhoan = '"+TenTk+"'";
-    int rows_affectd = stmt->executeUpdate(SelectData2);
+    string SelectData2 = "UPDATE TaiKhoan SET " + ChoCanSua + " = '"+ MuonDoiThanh + "' WHERE TenTaiKhoan = '" + TenTk + "'";
+    int rows_affected = stmt->executeUpdate(SelectData2);
     delete stmt;
 }
