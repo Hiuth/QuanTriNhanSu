@@ -151,12 +151,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HeThong.cpp" />
     <ClCompile Include="KetNoi.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="QuanTriNhanSu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="HeThong.h" />
     <ClInclude Include="KetNoi.h" />
     <ClInclude Include="Node.h" />
