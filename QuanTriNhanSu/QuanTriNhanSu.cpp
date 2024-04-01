@@ -11,7 +11,7 @@ void check(int chon2, string quyen, string Tentk) {
 		Taikhoan->EditAccount(quyen, "0", Tentk);
 	}
 	else {
-		cout << "Vui long chon lai!" << endl;;
+		cout << "Vui long chon lai!" << endl;
 	}
 }
 
