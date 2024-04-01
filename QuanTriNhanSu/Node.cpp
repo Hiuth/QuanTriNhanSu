@@ -11,6 +11,7 @@ Node::Node(string TenTk, string MatKhau,string admin, string HRM, string FM) {//
 	this->pointer = NULL;
 }
 
+
 Node::~Node() {
 
 }

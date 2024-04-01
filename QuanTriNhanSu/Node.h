@@ -11,10 +11,12 @@ private:
 	string Admin;
 	string QuanLyNhanSu;
 	string QuanLyTienLuong;
+
 	//
 	Node* pointer;
 public:
 	Node(string,string,string,string,string);
+
 	virtual ~Node();
 	Node* GetPointer() { return pointer; }
 	void SetPointer(Node* val) { pointer = val; }

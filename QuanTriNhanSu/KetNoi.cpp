@@ -1,7 +1,7 @@
 #include "KetNoi.h"
 const char* UserName = "root";
 const char* Link = "tcp://localhost:3306";
-const char* Password = "02012004";
+const char* Password = "21122004";
 Connection* KetNoi::CheckDatabase() {
 	MySQL_Driver* driver;
 	Connection* con;
