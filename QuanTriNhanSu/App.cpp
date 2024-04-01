@@ -6,8 +6,12 @@
 wxIMPLEMENT_APP(App);
 
 bool App::OnInit() {
-	Frame* frame = new Frame("WTF");
-	frame->Show();
-	frame->SetClientSize(960,540);
+	//tiengviet
+	wxLocale locale;
+	locale.Init(wxLANGUAGE_VIETNAMESE);
+
+	LoginFrame* login = new LoginFrame("HUMAN RESOURCES MANGERMENT");
+	login->Show();
+
 	return true;
 }
