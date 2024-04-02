@@ -10,9 +10,10 @@ private:
 	string GioiTinh;
 	string ChucVu;
 	string PhongBan;
+	string MaNhanVien;
 	NodeNhanVien* pointer;
 public:
-	NodeNhanVien(string, string, string, string, string, string, string);
+	NodeNhanVien(string, string, string, string, string, string, string,string);
 	virtual ~NodeNhanVien();
 	string GetName() { return TenNhanVien; }
 	void SetName(string val) { TenNhanVien = val; }
@@ -30,5 +31,7 @@ public:
 	void SetPost(string val) { ChucVu = val; }
 	NodeNhanVien* GetPointer() { return pointer; }
 	void SetPointer(NodeNhanVien* val) { pointer = val; }
+	string GetEmployeeID() { return MaNhanVien; }
+	void SetEmployeeID(string val) { MaNhanVien = val; }
 };
 
