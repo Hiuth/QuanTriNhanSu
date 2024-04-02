@@ -7,7 +7,8 @@ NodeNhanVien::NodeNhanVien(string TenNhanVien, string SinhNhat,string GioiTinh, 
 	this->DiaChi = DiaChi;
 	this->ChucVu = ChucVu;
 	this->PhongBan = PhongBan;
-	this->GioiTinh=GioiTinh;
+	this->GioiTinh = GioiTinh;
+	this->pointer = NULL;
 }
 
 NodeNhanVien::~NodeNhanVien() {

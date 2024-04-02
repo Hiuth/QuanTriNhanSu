@@ -12,7 +12,7 @@ public:
 	void SetHead(NodeNhanVien* val) { head = val; }
 	NodeNhanVien* GetTail() { return tail; }
 	void SetTail(NodeNhanVien* val) { tail = val; }
-	void CreateName(Node*);
+	void CreateName(NodeNhanVien*);
 	void PrintEmployeeInfotmation();
 	void SearchEmployee();
 	void DeleteEmployee();

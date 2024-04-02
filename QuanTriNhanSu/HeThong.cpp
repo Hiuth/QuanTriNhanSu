@@ -8,10 +8,7 @@ HeThong::HeThong() {
     this->tail = NULL;
 }
 
-HeThong::~HeThong() {
 
-
-}
 
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
@@ -128,3 +125,9 @@ void HeThong::EditAccount(string ChoCanSua, string MuonDoiThanh,string TenTk) {
     int rows_affected = stmt->executeUpdate(SelectData2);
     delete stmt;
 }
+
+HeThong::~HeThong() {
+    delete con;
+    delete Check;
+}
+
