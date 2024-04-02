@@ -10,6 +10,7 @@ private:
 	string GioiTinh;
 	string ChucVu;
 	string PhongBan;
+	NodeNhanVien* pointer;
 public:
 	NodeNhanVien(string, string, string, string, string, string, string);
 	virtual ~NodeNhanVien();
@@ -27,5 +28,7 @@ public:
 	void SetDepartment(string val) { PhongBan = val; }
 	string GetPost() { return ChucVu; }//post = chức vụ
 	void SetPost(string val) { ChucVu = val; }
+	NodeNhanVien* GetPointer() { return pointer; }
+	void SetPointer(NodeNhanVien* val) { pointer = val; }
 };
 
