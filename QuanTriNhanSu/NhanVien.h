@@ -16,6 +16,6 @@ public:
 	void PrintEmployeeInfotmation();
 	void SearchEmployee(string,string);
 	void DeleteEmployee(string);
-	void EditInformation();
+	void EditInformation(string,string,string);
 };
 

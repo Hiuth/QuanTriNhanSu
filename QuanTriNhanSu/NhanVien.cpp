@@ -112,13 +112,17 @@ void NhanVien::SearchEmployee(string ten, string ma) {
 void NhanVien::DeleteEmployee(string xoa) {
     Statement* stmt;
     stmt = con2->createStatement();
-    string SelectData = "Delete from NhanVien where TenTaiKhoan = '" + xoa + "'";
+    string SelectData = "Delete from NhanVien where TenNhanVien = '" + xoa + "'";
     int rows_affected = stmt->executeUpdate(SelectData);
     delete stmt;
 }
 
-void NhanVien::EditInformation() {
-
+void NhanVien::EditInformation(string ChoCanSua,string MuonDoiThanh,string TenTk) {
+    Statement* stmt;
+    stmt = con2->createStatement();
+    string SelectData2 = "UPDATE NhanVien SET " + ChoCanSua + " = '" + MuonDoiThanh + "' WHERE TenNhanVien = '" + TenTk + "'";
+    int rows_affected = stmt->executeUpdate(SelectData2);
+    delete stmt;
 }
 
 

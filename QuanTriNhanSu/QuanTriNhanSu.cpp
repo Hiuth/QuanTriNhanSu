@@ -104,6 +104,8 @@ int main() {
 
 
 	//Node Nhan Vien
+
+
 	NhanVien* Ktra = new NhanVien();
 	NodeNhanVien* p;
 	//cout << "So luong nhan vien muon nhap vao: "; cin >> n;
@@ -129,39 +131,86 @@ int main() {
 	//	cout << endl;
 	//}
 	Ktra->PrintEmployeeInfotmation();
-	cout << "1.Tim kiem theo ten nhan vien." << endl;
-	cout << "2.Tim kiem theo gioi tinh ." << endl;
-	cout << "3.Tim kiem theo sinh nhat." << endl;
-	cout << "4.Tim kiem theo can cuoc cong dan." << endl;
-	cout << "5.Tim kiem theo phong ban." << endl;
-	cout << "6.Tim kiem theo chuc vu." << endl;
-	cout << "Ban muon chon theo gi ? "; cin >> chon;
+	//cout << "1.Tim kiem theo ten nhan vien." << endl;
+	//cout << "2.Tim kiem theo gioi tinh ." << endl;
+	//cout << "3.Tim kiem theo sinh nhat." << endl;
+	//cout << "4.Tim kiem theo can cuoc cong dan." << endl;
+	//cout << "5.Tim kiem theo phong ban." << endl;
+	//cout << "6.Tim kiem theo chuc vu." << endl;
+	//cout << "Ban muon chon theo gi ? "; cin >> chon;
+	//cin.ignore();
+	//if (chon == 1) {
+	//	cout << "nhap vao ten tai khoan: "; getline(cin, ten);
+	//	Ktra->SearchEmployee("TenNhanVien", ten);
+	//}
+	//else if(chon == 2) {
+	//	cout << "Nhap vao gioi tinh: "; cin >> gioitinh;
+	//	Ktra->SearchEmployee("GioiTinh",gioitinh);
+	//}
+	//else if (chon == 3) {
+	//	cout << "Nhap vao sinh nhat: "; cin >> sinhnhat;
+	//	Ktra->SearchEmployee("SinhNhat",sinhnhat);
+	//}
+	//else if (chon == 4) {
+	//	cout << "Nhap vao can cuoc cong dan: "; cin >> cccd;
+	//	Ktra->SearchEmployee("CCCD",cccd);
+	//}
+	//else if (chon ==5) {
+	//	cout << "Nhao vao phong ban: "; getline(cin, phongban);
+	//	Ktra->SearchEmployee("PhongBan",phongban);
+	//}
+	//else if (chon == 6) {
+	//	cout << "Nhap vao chuc vu: "; getline(cin, chucvu);
+	//	Ktra->SearchEmployee("ChucVu",chucvu);
+	//}
+	//else {
+	//	cout << "khong co so ma ban da chon. vui long nhap lai!"<<endl;
+	//}
+	//cout << "Nhap vao ten nhan vien muon xoa: "; getline(cin, xoa);
+	//Ktra->DeleteEmployee(xoa);
+
+cout << "Nhap vao nhan vien can chinh sua: "; getline(cin,ten);
+	Ktra->SearchEmployee("TenNhanVien", ten);
+	cout << "Chon che do chinh sua! " << endl;
+	cout << "1. Sua ten nhan vien." << endl;
+	cout << "2. Sua gioi tinh." << endl;
+	cout << "3. Sua sinh nhat." << endl;
+	cout << "4. Sua can cuoc cong dan." << endl;
+	cout << "5. Sua dia chi." << endl;
+	cout << "6. Sua phong ban." << endl;
+	cout << "7.Sua chuc vu." << endl;
+	cout << "Ban muon chon gi ? "; cin >> chon;
 	cin.ignore();
 	if (chon == 1) {
-		cout << "nhap vao ten tai khoan: "; getline(cin, ten);
-		Ktra->SearchEmployee("TenNhanVien", ten);
+		cout << "Nhap vao ten muon doi: "; getline(cin, ma);
+		cout << ten<<" "<<ma;
+		Ktra->EditInformation("TenNhanVien", ma, ten);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
 	}
-	else if(chon == 2) {
-		cout << "Nhap vao gioi tinh: "; cin >> gioitinh;
-		Ktra->SearchEmployee("GioiTinh",gioitinh);
+	else if (chon == 2) {
+		cout << "Nhap vao gioi tinh moi: "; getline(cin, mk);
+		Ktra->EditInformation("GioiTinh",mk,ten);
 	}
 	else if (chon == 3) {
-		cout << "Nhap vao sinh nhat: "; cin >> sinhnhat;
-		Ktra->SearchEmployee("SinhNhat",sinhnhat);
+		cout << "Nhap vao sinh nhat moi: "; getline(cin,sinhnhat);
+		Ktra->EditInformation("SinhNhat", sinhnhat,ten);
 	}
 	else if (chon == 4) {
-		cout << "Nhap vao can cuoc cong dan: "; cin >> cccd;
-		Ktra->SearchEmployee("CCCD",cccd);
+		cout << "Nhap vao can cuoc cong dan moi: "; getline(cin, cccd);
+		Ktra->EditInformation("CCCD", cccd, ten);
 	}
-	else if (chon ==5) {
-		cout << "Nhao vao phong ban: "; getline(cin, phongban);
-		Ktra->SearchEmployee("PhongBan",phongban);
+	else if (chon == 5) {
+		cout << "Nhap vao dia chi moi: "; getline(cin, diachi);
+		Ktra->EditInformation("DiaChi", diachi, ten);
 	}
 	else if (chon == 6) {
-		cout << "Nhap vao chuc vu: "; getline(cin, chucvu);
-		Ktra->SearchEmployee("ChucVu",chucvu);
+		cout << "Nhap vao phong ban moi: "; getline(cin, phongban);
+		Ktra->EditInformation("PhongBan", phongban, ten);
+	}
+	else if (chon == 7) {
+		cout << "Nhap vao chuc vu moi: "; getline(cin, chucvu);
+		Ktra->EditInformation("ChucVu",chucvu,ten);
 	}
 	else {
-		cout << "khong co so ma ban da chon. vui long nhap lai!"<<endl;
+		cout << "Khong co so ban vua chon. Vui long nhap lai!"<<endl;
 	}
 }
