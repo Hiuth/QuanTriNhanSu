@@ -11,10 +11,7 @@ bool App::OnInit() {
 	locale.Init(wxLANGUAGE_VIETNAMESE);
 
 	LoginFrame* login = new LoginFrame();
-	//login->Show();
-
-	QLTKFrame* qltk = new QLTKFrame("");
-	qltk->Show();
+	login->Show();
 
 	return true;
 }
