@@ -10,8 +10,11 @@ bool App::OnInit() {
 	wxLocale locale;
 	locale.Init(wxLANGUAGE_VIETNAMESE);
 
-	LoginFrame* login = new LoginFrame("HUMAN RESOURCES MANGERMENT");
+	LoginFrame* login = new LoginFrame();
+	HomeFrame* home = new HomeFrame();
+	
 	login->Show();
+	//home->Show();
 
 	return true;
 }

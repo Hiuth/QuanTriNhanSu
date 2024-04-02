@@ -3,18 +3,27 @@
 #include <iostream>
 using namespace std;
 
-class LoginFrame : public wxFrame
+class BaseFrame : public wxFrame //menu ke thua wxframe
 {
 public:
-	LoginFrame(const string& title);
-private:
-	void OnButtonClicked(wxCommandEvent& evt);
+	BaseFrame(const wxString& title);
+	void OnBackClicked(wxCommandEvent& evt);
+	void OnClose(wxCloseEvent& evt);
 	wxTextCtrl* accCtrl;
 	wxTextCtrl* passCtrl;
 };
 
-class HomeFrame : public wxFrame
+class LoginFrame : public BaseFrame //frame ke thua menu ke thua wxframe
+{
+public:	
+	LoginFrame();
+private:
+	void OnButtonClicked(wxCommandEvent& evt);
+};
+
+class HomeFrame : public BaseFrame
 {
 public:
-	HomeFrame(const string& title);
+	HomeFrame();
+private:
 };
