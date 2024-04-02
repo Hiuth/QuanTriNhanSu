@@ -86,6 +86,37 @@ void NhanVien::PrintEmployeeInfotmation() {
 
 }
 
+void NhanVien::SearchEmployee(string ten, string ma) {
+    Statement* stmt;
+    stmt = con2->createStatement();
+    string SelectData = "Select *from NhanVien where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    cout << endl;
+    while (true) {
+        if (res->next()) {
+            cout << "Tai khoan co ton tai trong he thong" << endl;
+            cout << "Ten Nhan Vien" << "\t" << "\t" << "\t" << "Gioi Tinh" << "\t" << "Sinh Nhat" << "\t" << "Can cuoc cong dan" << "\t" << "Dia chi" << "\t" << "\t" << "\t" << "Phong ban" << " " << "\t" << "\t" << "Chuc vu" << endl;
+            cout << res->getString("TenNhanVien") << "\t" << "\t" << "\t" << res->getString("GioiTinh") << "\t" << "\t" << res->getString("SinhNhat") << "\t" << res->getString("CCCD") << "\t" << "\t" << res->getString("DiaChi") << "\t" << "\t" << "\t" << res->getString("PhongBan") << "\t" << "\t" << "\t" << res->getString("ChucVu") << endl;
+            cout << endl;
+
+        }
+        else {
+            cout << "Nhan vien khong co trong he thong." << endl;
+            break;
+        }
+    }
+    delete res;
+    delete stmt;
+}
+
+void NhanVien::DeleteEmployee(string xoa) {
+    Statement* stmt;
+    stmt = con2->createStatement();
+    string SelectData = "Delete from NhanVien where TenTaiKhoan = '" + xoa + "'";
+    int rows_affected = stmt->executeUpdate(SelectData);
+    delete stmt;
+}
+
 void NhanVien::EditInformation() {
 
 }

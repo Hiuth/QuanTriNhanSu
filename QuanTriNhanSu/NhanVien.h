@@ -14,8 +14,8 @@ public:
 	void SetTail(NodeNhanVien* val) { tail = val; }
 	void CreateName(NodeNhanVien*);
 	void PrintEmployeeInfotmation();
-	void SearchEmployee();
-	void DeleteEmployee();
+	void SearchEmployee(string,string);
+	void DeleteEmployee(string);
 	void EditInformation();
 };
 
