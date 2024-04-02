@@ -9,6 +9,8 @@ stack<wxFrame*> frameStack;
 //font
 wxFont ConsolasB(wxFontInfo(40).FaceName("Eras Bold ITC"));
 wxFont Calibri(wxFontInfo(15).FaceName("Calibri"));
+wxFont CalibriB(wxFontInfo(15).FaceName("Calibri").Bold());
+wxFont SCalibri(wxFontInfo(12).FaceName("Calibri"));
 wxFont CalibriBI(wxFontInfo(40).FaceName("Calibri").Bold().Italic());
 
 //window size
@@ -32,8 +34,42 @@ void BaseFrame::OnClose(wxCloseEvent& evt) {
 	}
 }
 
+void BaseFrame::CreateMenu(wxWindow* parent, wxString userName) {
+	wxPanel* menu = new wxPanel(parent, wxID_ANY, wxPoint(0, 0), wxSize(960, 25));
+	menu->SetBackgroundColour(wxColour(255, 255, 255));
+
+	wxButton* back = new wxButton(menu, wxID_ANY, "Back", wxPoint(5, 5), wxSize(40, 15), wxNO_BORDER);
+	back->SetBackgroundColour(wxColour(255, 255, 255));
+	back->SetFont(SCalibri);
+	back->Bind(wxEVT_BUTTON, &BaseFrame::OnBackClicked, this);
+	wxString welcome = "Welcome, ";
+	welcome = welcome.append(userName);
+	welcome = welcome.append("!");
+	int wlocate = 850 - userName.length() * 8;
+	wxStaticText* welcomeText = new wxStaticText(menu, wxID_ANY, welcome, wxPoint(wlocate, 3), wxSize(-1, 12));
+	welcomeText->SetFont(SCalibri);
+}
+
+void BaseFrame::OnSearch(wxCommandEvent& evt) {
+	wxTextCtrl* textCtrl = dynamic_cast<wxTextCtrl*>(evt.GetEventObject());
+	if (textCtrl && textCtrl->GetValue() == "Search") {
+		textCtrl->SetValue("");
+	}
+}
+
+void BaseFrame::UnSearch(wxFocusEvent& evt) {
+	wxTextCtrl* textCtrl = dynamic_cast<wxTextCtrl*>(evt.GetEventObject());
+	if (textCtrl && textCtrl->GetValue() == "") {
+		textCtrl->SetValue("Search");
+		textCtrl->SetForegroundColour(wxColour(178, 178, 178));
+	}
+	evt.Skip();
+}
+
 LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	wxPanel* panel = new wxPanel(this);
+	
+	//frame1
 	wxStaticText* text1 = new wxStaticText(panel, wxID_ANY, "LOGIN", wxPoint(370, 120));
 	text1->SetFont(ConsolasB);
 
@@ -55,9 +91,11 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	space3->SetFont(font);
 	passCtrl = space3;
 
+	//next button
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "Next", wxPoint(650, 300), wxSize(80, 40));
 	button1->SetFont(Calibri);
 
+	//event
 	button1->Bind(wxEVT_BUTTON, &LoginFrame::OnButtonClicked, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
@@ -65,10 +103,10 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 void LoginFrame::OnButtonClicked(wxCommandEvent& evt) {
 	wxString acc = accCtrl->GetValue();
 	wxString pass = passCtrl->GetValue();
-	if (acc == "h" && pass == "") {
+	if (acc == "" && pass == "") {
 		frameStack.push(this);
 		this->Hide();
-		(new HomeFrame())->Show();
+		(new HomeFrame(accCtrl->GetValue()))->Show();
 	}
 	else {
 		wxLogMessage("Sai tai khoan hoac mat khau");
@@ -76,17 +114,12 @@ void LoginFrame::OnButtonClicked(wxCommandEvent& evt) {
 }
 
 
-HomeFrame::HomeFrame() : BaseFrame("HOME") {
+HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
 	wxPanel* panel = new wxPanel(this);
+	userName = accName;
+	CreateMenu(panel, userName);
 
-	//menu
-	wxPanel* menu = new wxPanel(panel, wxID_ANY , wxPoint(0, 0), wxSize(960, 25));
-	menu->SetBackgroundColour(wxColour(255, 255, 255));
-	wxButton* back = new wxButton(menu, wxID_ANY, "Back", wxPoint(5, 5), wxSize(40, 15), wxNO_BORDER);
-	back->SetBackgroundColour(wxColour(255, 255, 255));
-	back->Bind(wxEVT_BUTTON, &HomeFrame::OnBackClicked, this);
-	wxStaticText* name = new wxStaticText(menu, wxID_ANY, "welcome!", wxPoint(800, 5), wxDefaultSize, wxBU_RIGHT);
-
+	//frame2
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "QUAN LI\nTAI KHOAN", wxPoint(15, 40), wxSize(450, 210));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(89, 102, 200));
@@ -104,5 +137,38 @@ HomeFrame::HomeFrame() : BaseFrame("HOME") {
 	button4->SetBackgroundColour(wxColour(193, 68, 112));
 	button4->SetForegroundColour(wxColour(255, 255, 255));
 
+	//event
+	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
+}
+
+void HomeFrame::OnButton1Clicked(wxCommandEvent& evt) {
+	frameStack.push(this);
+	this->Hide();
+	(new QLTKFrame(userName))->Show();
+}
+
+QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
+	wxPanel* panel = new wxPanel(this);
+	userName = accName;
+	CreateMenu(panel, userName);
+
+	//frame3
+	wxStaticText* text1 = new wxStaticText(panel, wxID_ANY, "Tim kiem", wxPoint(20, 40));
+	text1->SetFont(CalibriB);
+	wxTextCtrl* search = new wxTextCtrl(panel, wxID_ANY, "Search", wxPoint(105, 40), wxSize(200, -1));
+	search->SetFont(SCalibri);
+	search->Bind(wxEVT_TEXT, &BaseFrame::OnSearch, this);
+	search->Bind(wxEVT_SET_FOCUS, &BaseFrame::UnSearch, this);
+
+	wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, "Tags", wxPoint(435, 40));
+	text2->SetFont(CalibriB);
+	wxArrayString tags;
+	tags.Add("Ten tai khoan");
+	tags.Add("Quyen han");
+	wxChoice* tag = new wxChoice(panel, wxID_ANY, wxPoint(480, 40), wxSize(200, -1), tags);
+	tag->Select(0);
+	tag->SetFont(SCalibri);
+
+	//event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }

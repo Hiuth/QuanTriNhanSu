@@ -11,10 +11,10 @@ bool App::OnInit() {
 	locale.Init(wxLANGUAGE_VIETNAMESE);
 
 	LoginFrame* login = new LoginFrame();
-	HomeFrame* home = new HomeFrame();
-	
-	login->Show();
-	//home->Show();
+	//login->Show();
+
+	QLTKFrame* qltk = new QLTKFrame("");
+	qltk->Show();
 
 	return true;
 }
