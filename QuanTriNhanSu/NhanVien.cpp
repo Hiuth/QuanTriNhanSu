@@ -9,6 +9,7 @@ NhanVien::NhanVien() {
 	this->head = NULL;
 }
 
+
 void HoTroCapNhat(NodeNhanVien* p, Statement* stmt) {
     string TenNhanVien;
     string SinhNhat;

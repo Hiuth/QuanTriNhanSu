@@ -8,8 +8,15 @@ HeThong::HeThong() {
     this->tail = NULL;
 }
 
-
-
+bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from NhanVien Where '" + TenTaiKhoan + "' = '" + MatKhau + "'";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    }
+}
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;

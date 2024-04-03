@@ -23,6 +23,15 @@ int main() {
 	string tk, mk, admin, hrm, fm, ten, xoa, ma, chucvu, phongban, gioitinh, sinhnhat, cccd, diachi, manhanvien;
 	HeThong* Taikhoan = new HeThong();
 	Node* e;
+	cout << "Hay dang nhap vao he thong"<<endl;
+	cout << "Nhap ten tai khoan: "; getline(cin, ten);
+	cout << "Nhap vao mat khau: "; getline(cin, mk);
+	if (Taikhoan->CheckAccount(ten, mk)== true) {
+		cout << "Tai khoan co ton tai. Chao mung ban quay lai!"<<endl;
+	}
+	else {
+		cout << "Tai khoan khong ton tai. Lien he nhan vien de " << endl;
+	}
 	//cout << "so luong tai khoan muon nhap vao: "; cin >> n; //ko chấp nhận đc vẫn để là "tai khoang"
 	//for (int i = 0; i < n; i++) {
 	//	cout << "Tai khoan: "; cin >> tk;

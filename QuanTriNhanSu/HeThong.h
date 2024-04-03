@@ -18,7 +18,7 @@ public:
 	void EditAccount(string, string,string);
 	void CreateAccount(Node*);
 	void Search(string,string);
-
+	bool CheckAccount(string,string);
 
 };
 
