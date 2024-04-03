@@ -80,7 +80,7 @@ void ChucVu::PrintPosition() {
     delete res;
 }
 /*vector<NodeChucVu> ChucVu::PrintPosition(){
-    vector<NodeChucVu> = Data;
+    vector<NodeChucVu>  Data;
     Statement* stmt;
     stmt = connection->createStatement();
     string SelectData = "Select *from ChucVu";
@@ -109,3 +109,39 @@ void ChucVu::EditPosition(string ChoCanSua,string MuonDoiThanh,string TenTk) {
     int rows_affected = stmt->executeUpdate(SelectData2);
     delete stmt;
 }
+
+void ChucVu::SearchPosition(string ten,string ma) {
+    Statement* stmt;
+    stmt = connection->createStatement();
+    string SelectData = "Select *from ChucVu where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    cout << endl;
+    while (true) {
+        if (res->next()) {
+            cout << "Chuc vu co ton tai trong he thong" << endl;
+            cout << "Ten chuc vu " << "\t" << "\t" << "Luong co bang " << "\t" << "\t" << "Mo ta" << endl;
+            cout << res->getString("TenChucVu") << "\t" << "\t" << res->getString("LuongChucVu") << " trieu dong" << "\t" << "\t" << res->getString("MoTaChucVu") << endl;
+        }
+        else {
+            cout << "Chuc vu khong co trong he thong." << endl;
+            break;
+        }
+    }
+    delete res;
+    delete stmt;
+}
+/*vector<NodeChucVu> ChucVu::SearchPosition(string ten, string ma){
+    vector<NodeChucVu>  SearchData;
+    Statement* stmt;
+    stmt = connection->createStatement();
+    string SelectData = "Select *from ChucVu where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    while (res->next()) {
+        NodeChucVu info( res->getString("TenChucVu"), res->getString("LuongChucVu"), res->getString("MoTaChucVu"));
+        SearchData.push_back(info);
+    }
+    delete stmt;
+    delete stmt;
+    return SearchData;
+}*/
+
