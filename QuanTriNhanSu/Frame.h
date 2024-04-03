@@ -1,9 +1,10 @@
 #pragma once
+#include "Hethong.h"
 #include <wx/wx.h>
 #include <iostream>
 using namespace std;
 
-class BaseFrame : public wxFrame 
+class BaseFrame : public wxFrame, public HeThong
 {
 public:
 	BaseFrame(const wxString& title);
@@ -11,8 +12,6 @@ public:
 	void OnClose(wxCloseEvent& evt);
 	void UpdateSoon(wxCommandEvent& evt);
 	void CreateMenu(wxWindow* parent, wxString userName);
-	wxTextCtrl* accCtrl;
-	wxTextCtrl* passCtrl;
 };
 
 class LoginFrame : public BaseFrame 
@@ -20,7 +19,12 @@ class LoginFrame : public BaseFrame
 public:	
 	LoginFrame();
 private:
+	void Next();
 	void OnButtonClicked(wxCommandEvent& evt);
+	void EnterDown(wxKeyEvent& evt);
+	void EnterText(wxCommandEvent& evt);
+	wxTextCtrl* accCtrl;
+	wxTextCtrl* passCtrl;
 };
 
 class HomeFrame : public BaseFrame

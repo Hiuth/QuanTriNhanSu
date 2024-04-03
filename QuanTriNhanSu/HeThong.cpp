@@ -11,14 +11,12 @@ HeThong::HeThong() {
 bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     Statement* stmt;
     stmt = con->createStatement();
-    string CheckData = "Select * from TaiKhoan Where " + TenTaiKhoan + " = '" + MatKhau + "'";
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND MatKhau = '" + MatKhau + "'";
     ResultSet* result = stmt->executeQuery(CheckData);
-    int count = 0;
-    while (true) {
-        if (result->next()) {
-            return true;
-        }
+    while (result->next()) {
+        return true;
     }
+    return false;
 }
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
@@ -140,5 +138,16 @@ void HeThong::EditAccount(string ChoCanSua, string MuonDoiThanh,string TenTk) {
 HeThong::~HeThong() {
     delete con;
     delete Check;
+}
+
+bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND " + TenCot + " = 1";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    }
+    return false;
 }
 

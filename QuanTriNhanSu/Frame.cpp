@@ -1,6 +1,8 @@
 ﻿#include <wx/wx.h>
+#include "HeThong.h"
 #include "Frame.h"
 #include <iostream>
+#include <string>
 #include <stack>
 using namespace std;
 
@@ -19,11 +21,11 @@ wxFont SSCalibriBI(wxFontInfo(25).FaceName("Calibri").Bold().Italic()); //Chữ 
 int windowHeight = 540;
 int windowWidth = 960;
 
-BaseFrame::BaseFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title, wxPoint(280,140), wxSize(windowWidth, windowHeight)) {}
+BaseFrame::BaseFrame(const wxString& title) : wxFrame(NULL, wxID_ANY, title, wxPoint(280,140), wxSize(windowWidth, windowHeight), wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX)) {}
 
 void BaseFrame::OnBackClicked(wxCommandEvent& evt) {
 	if (!frameStack.empty()) {
-		this->Destroy();
+		this->Hide();
 		frameStack.top()->Show();
 		frameStack.pop();
 	}
@@ -66,7 +68,7 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	//account
 	wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, "Account", wxPoint(250, 200));
 	text2->SetFont(Calibri);
-	wxTextCtrl* space2 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 190), wxSize(300, 35));
+	wxTextCtrl* space2 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 190), wxSize(300, 35), wxTE_PROCESS_ENTER);
 	wxFont font = space2->GetFont();
 	font.SetPointSize(15);
 	space2->SetFont(font);
@@ -75,7 +77,7 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	//password
 	wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, "Password", wxPoint(250, 250));
 	text3->SetFont(Calibri);
-	wxTextCtrl* space3 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 240), wxSize(300, 35), wxTE_PASSWORD);
+	wxTextCtrl* space3 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 240), wxSize(300, 35), wxTE_PASSWORD | wxTE_PROCESS_ENTER);
 	font = space3->GetFont();
 	font.SetPointSize(15);
 	space3->SetFont(font);
@@ -87,13 +89,16 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 
 	//event
 	button1->Bind(wxEVT_BUTTON, &LoginFrame::OnButtonClicked, this);
+	space2->Bind(wxEVT_TEXT_ENTER, &LoginFrame::EnterText, this);
+	space3->Bind(wxEVT_TEXT_ENTER, &LoginFrame::EnterText, this);
+	Bind(wxEVT_KEY_DOWN, &LoginFrame::EnterDown, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
-void LoginFrame::OnButtonClicked(wxCommandEvent& evt) {
+void LoginFrame::Next() {
 	wxString acc = accCtrl->GetValue();
 	wxString pass = passCtrl->GetValue();
-	if (acc == "admin" && pass == "112233") {
+	if (CheckAccount(acc.ToStdString(), pass.ToStdString())) {
 		frameStack.push(this);
 		this->Hide();
 		(new HomeFrame(accCtrl->GetValue()))->Show();
@@ -101,6 +106,20 @@ void LoginFrame::OnButtonClicked(wxCommandEvent& evt) {
 	else {
 		wxLogMessage("Sai tai khoan hoac mat khau");
 	}
+}
+
+void LoginFrame::OnButtonClicked(wxCommandEvent& evt) {
+	Next();
+}
+
+void LoginFrame::EnterDown(wxKeyEvent& evt) {
+	if (evt.GetKeyCode() == WXK_RETURN) {
+		Next();
+	}
+}
+
+void LoginFrame::EnterText(wxCommandEvent& evt) {
+	Next();
 }
 
 HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
@@ -135,21 +154,45 @@ HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
 }
 
 void HomeFrame::OnButton1Clicked(wxCommandEvent& evt) {
-	frameStack.push(this);
-	this->Hide();
-	(new QLTKFrame(userName))->Show();
+	if (CheckData(userName.ToStdString(), "admin")) {
+		frameStack.push(this);
+		this->Hide();
+		(new QLTKFrame(userName))->Show();
+	}
+	else {
+		wxLogMessage("Khong co quyen truy cap!");
+	}
 }
 
 void HomeFrame::OnButton2Clicked(wxCommandEvent& evt) {
-	frameStack.push(this);
-	this->Hide();
-	(new QLNSFrame(userName))->Show();
+	
+	if (CheckData(userName.ToStdString(), "admin")) {
+		frameStack.push(this);
+		this->Hide();
+		(new QLNSFrame(userName))->Show();
+	} else if (CheckData(userName.ToStdString(), "QuanLyNhanSu")) {
+		frameStack.push(this);
+		this->Hide();
+		(new QLNSFrame(userName))->Show();
+	} else {
+		wxLogMessage("Khong co quyen truy cap!");
+	}
 }
 
 void HomeFrame::OnButton3Clicked(wxCommandEvent& evt) {
-	frameStack.push(this);
-	this->Hide();
-	(new QLTLFrame(userName))->Show();
+	if (CheckData(userName.ToStdString(), "admin")) {
+		frameStack.push(this);
+		this->Hide();
+		(new QLTLFrame(userName))->Show();
+	}
+	else if (CheckData(userName.ToStdString(), "QuanLyTienLuong")) {
+		frameStack.push(this);
+		this->Hide();
+		(new QLTLFrame(userName))->Show();
+	}
+	else {
+		wxLogMessage("Khong co quyen truy cap!");
+	}
 }
 
 void HomeFrame::OnButton4Clicked(wxCommandEvent& evt) {
