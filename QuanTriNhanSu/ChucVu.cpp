@@ -92,7 +92,7 @@ void ChucVu::DeletePosition(string xoa) {
 void ChucVu::EditPosition(string ChoCanSua,string MuonDoiThanh,string TenTk) {
     Statement* stmt;
     stmt = connection->createStatement();
-    string SelectData2 = "UPDATE TaiKhoan SET " + ChoCanSua + " = '" + MuonDoiThanh + "' WHERE TenTaiKhoan = '" + TenTk + "'";
+    string SelectData2 = "UPDATE ChucVu SET " + ChoCanSua + " = '" + MuonDoiThanh + "' WHERE TenChucVu = '" + TenTk + "'";
     int rows_affected = stmt->executeUpdate(SelectData2);
     delete stmt;
 }
