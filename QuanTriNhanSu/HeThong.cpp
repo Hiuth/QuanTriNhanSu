@@ -11,10 +11,13 @@ HeThong::HeThong() {
 bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     Statement* stmt;
     stmt = con->createStatement();
-    string CheckData = "Select * from NhanVien Where '" + TenTaiKhoan + "' = '" + MatKhau + "'";
+    string CheckData = "Select * from TaiKhoan Where " + TenTaiKhoan + " = '" + MatKhau + "'";
     ResultSet* result = stmt->executeQuery(CheckData);
-    while (result->next()) {
-        return true;
+    int count = 0;
+    while (true) {
+        if (result->next()) {
+            return true;
+        }
     }
 }
 
@@ -59,12 +62,13 @@ void HeThong::CreateAccount(Node* p ){
         else {
             string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
             string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists TaiKhoan (""TenTaiKhoan char(10) primary key,""MatKhau char(20) not null,""admin char(1) not null, ""QuanLyNhanSu char(1) not null, ""QuanLyTienLuong char(1) not null)";
-            string insertTableAccount = "insert into TaiKhoan Values (1111111111,1111111111,1,1,1);"; //1 là có quyền truy cập, 0 là không có quyền truy cập vào chức năng
+            string CreateTableAccount = "create table if not exists TaiKhoan (""TenTaiKhoan char(10) primary key,"
+                "MatKhau char(20) not null,""admin bool not null, "
+                "QuanLyNhanSu bool not null, "
+                "QuanLyTienLuong bool not null)"; //1 là có quyền truy cập, 0 là không có quyền truy cập vào chức năng
             stmt->execute(CreateDatabaseSQL);
             stmt->execute(useDatabase);
             stmt->execute(CreateTableAccount);
-            stmt->execute(insertTableAccount);
             HoTroCapNhat(p, stmt);
             cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
         }

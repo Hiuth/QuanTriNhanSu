@@ -29,7 +29,7 @@ void HoTroCapNhat(NodeNhanVien* p, Statement* stmt) {
     ChucVu = p->GetPost();
     MaNhanVien = p->GetEmployeeID();
     
-    string UpdateTableAccount = "insert into NhanVien Values ('"+TenNhanVien+"','"+GioiTinh+"','"+SinhNhat+"','"+CCCD+"','"+DiaChi+"','"+PhongBan+"','"+ChucVu+"','"+MaNhanVien+"');";
+    string UpdateTableAccount = "insert into NhanVien Values ('"+TenNhanVien+"','"+GioiTinh+"','" + MaNhanVien + "''"+SinhNhat+"','"+CCCD+"','"+DiaChi+"','"+PhongBan+"','"+ChucVu+"');";
     stmt->execute(UpdateTableAccount);
 }
 
@@ -56,7 +56,14 @@ void NhanVien::CreateName(NodeNhanVien* p) {
         else {
             string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
             string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists NhanVien (""TenNhanVien char(30) not null,""GioiTinh char(10) not null,""SinhNhat char(10) not null,""CCCD char(12) not null,""DiaChi char(100) not null,""PhongBan char(20) not null,""ChucVu char(20) not null,""MaNhanVien char(12) primary key);";
+            string CreateTableAccount = "create table if not exists NhanVien (""TenNhanVien char(30) not null,"
+                "GioiTinh char(10) not null,"
+                "SinhNhat char(10) not null,"
+                "MaNhanVien char(12) primary key,"
+                "CCCD char(12) not null,"
+                "DiaChi char(100) not null,"
+                "PhongBan char(20) not null,"
+                "ChucVu char(20) not null);";
          //1 là có quyền truy cập, 0 là không có quyền truy cập vào chức năng
             stmt->execute(CreateDatabaseSQL);
             stmt->execute(useDatabase);
