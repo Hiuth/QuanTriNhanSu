@@ -1,5 +1,6 @@
 ﻿#include "HeThong.h"
 #include "KetNoi.h"
+#include <vector>
 
 KetNoi* Check = new KetNoi();
 Connection* con= Check->CheckDatabase();
@@ -8,6 +9,7 @@ HeThong::HeThong() {
     this->tail = NULL;
 }
 
+<<<<<<< HEAD
 bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     Statement* stmt;
     stmt = con->createStatement();
@@ -15,6 +17,35 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     ResultSet* result = stmt->executeQuery(CheckData);
     while (result->next()) {
         return true;
+=======
+bool HeThong::CheckAccount(string ten, string matkhau) {
+    try {
+        Statement* stmt;
+        stmt = con->createStatement();
+        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
+        ResultSet* result = stmt->executeQuery(CheckData);
+        while (result->next()) {
+            return true;
+        }//return false;
+    }
+    catch (sql::SQLException& e) {
+        cerr << "SQL Error: " << e.what() << std::endl;
+    }
+}
+
+bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {
+    try {
+        Statement* stmt;
+        stmt = con->createStatement();
+        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND "+TenCot+" = 1";
+        ResultSet* result = stmt->executeQuery(CheckData);
+        while (result->next()) {
+            return true;
+        }//return false;
+    }
+    catch (sql::SQLException& e) {
+        cerr << "SQL Error: " << e.what() << std::endl;
+>>>>>>> e18c4ff308ce6dddd1a45596c0f3c456356c05f4
     }
     return false;
 }
@@ -78,18 +109,35 @@ void HeThong::CreateAccount(Node* p ){
         cerr << "SQL Error: " << e.what() << std::endl;
     }
 }
-
-void HeThong::PrintAccount() {
+//vector<Node> HeThong::PrintAccount() {
+//    vector<Node> accounts;
+//    Statement* stmt;
+//    stmt = con->createStatement();
+//    string SelectData = "Select *from TaiKhoan";
+//    ResultSet* res = stmt->executeQuery(SelectData);
+//    int count = 0;
+//    while (res->next()) {
+//        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+//        accounts.push_back(account);
+//    }
+//    delete res;
+//    delete stmt;
+//    return accounts;
+//
+//}
+void  HeThong::PrintAccount() {
+    vector<Node> accounts;
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Select *from TaiKhoan";
     ResultSet* res = stmt->executeQuery(SelectData);
     int count = 0;
     cout << "Danh Sach cac tai khoan" << endl;
-    cout <<"STT"<<"\t" << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
+    cout << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai chinh" << endl;
     while (res->next()) {
-        cout<<++count<<"\t" << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
+        cout << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
         cout << endl;
+ 
     }
     delete res;
     delete stmt;
@@ -118,6 +166,20 @@ void  HeThong::Search(string ten,string ma) {
     delete res;
     delete stmt;
 }
+//vector<Node>  HeThong::Search(string ten, string ma) {
+//    vector<Node> accountFromSearch;
+//    Statement* stmt;
+//    stmt = con->createStatement();
+//    string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
+//    ResultSet* res = stmt->executeQuery(SelectData);
+//    while (res->next()) {
+//        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+//        accountFromSearch.push_back(account);
+//    }
+//    delete res;
+//    delete stmt;
+//    return accountFromSearch;
+//}
 
 void HeThong::deleteAccount(string xoa) {
     Statement* stmt;

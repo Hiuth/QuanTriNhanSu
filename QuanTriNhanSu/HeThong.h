@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include<vector>
 
 class HeThong
 {
@@ -9,11 +10,12 @@ private:
 public:
 	HeThong();
 	virtual ~HeThong();
+	bool CheckData(string, string);
 	Node* GetHead() { return head; }
 	void SetHead(Node* val) { head = val; }
 	Node* GetTail() { return tail; }
 	void SetTail(Node* val) { tail = val; }
-	void deleteAccount(string);//deleteNode;
+	void deleteAccount(string);
 	void PrintAccount();
 	void EditAccount(string, string,string);
 	void CreateAccount(Node*);

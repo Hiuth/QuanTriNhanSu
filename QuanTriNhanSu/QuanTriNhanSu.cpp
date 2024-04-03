@@ -3,7 +3,7 @@
 #include"KetNoi.h"
 #include"NhanVien.h"
 #include <string>
-
+using namespace std;
 void check(int chon2, string quyen, string Tentk) {
 	HeThong* Taikhoan = new HeThong();
 	if (chon2 == 1) {
