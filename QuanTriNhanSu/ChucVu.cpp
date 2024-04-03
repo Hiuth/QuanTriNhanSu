@@ -79,7 +79,20 @@ void ChucVu::PrintPosition() {
     delete stmt;
     delete res;
 }
-
+/*vector<NodeChucVu> ChucVu::PrintPosition(){
+    vector<NodeChucVu> = Data;
+    Statement* stmt;
+    stmt = connection->createStatement();
+    string SelectData = "Select *from ChucVu";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    while (res->next()) {
+        NodeChucVu info( res->getString("TenChucVu"), res->getString("LuongChucVu"), res->getString("MoTaChucVu"));
+        Data.push_back(info);
+    }
+    delete stmt;
+    delete stmt;
+    return Data;
+}*/
 
 void ChucVu::DeletePosition(string xoa) {
     Statement* stmt;
