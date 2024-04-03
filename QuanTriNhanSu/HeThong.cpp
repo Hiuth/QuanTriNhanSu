@@ -9,15 +9,20 @@ HeThong::HeThong() {
 }
 
 bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
-    Statement* stmt;
-    stmt = con->createStatement();
-    string CheckData = "Select * from TaiKhoan Where " + TenTaiKhoan + " = '" + MatKhau + "'";
-    ResultSet* result = stmt->executeQuery(CheckData);
-    int count = 0;
-    while (true) {
-        if (result->next()) {
-            return true;
+    try {
+        Statement* stmt;
+        stmt = con->createStatement();
+        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND MatKhau = '" + MatKhau + "'";
+        ResultSet* result = stmt->executeQuery(CheckData);
+        int count = 0;
+        while (true) {
+            if (result->next()) {
+                return true;
+            }
         }
+    }
+    catch (sql::SQLException& e) {
+        cerr << "SQL Error: " << e.what() << std::endl;
     }
 }
 
