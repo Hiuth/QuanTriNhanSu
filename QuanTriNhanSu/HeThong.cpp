@@ -24,20 +24,6 @@ bool HeThong::CheckAccount(string ten, string matkhau) {
     }
 }
 
-bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND "+TenCot+" = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }//return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
@@ -189,5 +175,16 @@ void HeThong::EditAccount(string ChoCanSua, string MuonDoiThanh,string TenTk) {
 HeThong::~HeThong() {
     delete con;
     delete Check;
+}
+
+bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND " + TenCot + " = 1";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    }
+    return false;
 }
 
