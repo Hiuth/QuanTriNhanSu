@@ -160,6 +160,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeChucVu.cpp" />
     <ClCompile Include="NodeNhanVien.cpp" />
+    <ClCompile Include="NodePhongBan.cpp" />
     <ClCompile Include="PhongBan.cpp" />
     <ClCompile Include="QuanTriNhanSu.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeChucVu.h" />
     <ClInclude Include="NodeNhanVien.h" />
+    <ClInclude Include="NodePhongBan.h" />
     <ClInclude Include="PhongBan.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

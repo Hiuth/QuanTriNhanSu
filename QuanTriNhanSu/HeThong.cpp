@@ -101,7 +101,6 @@ void HeThong::CreateAccount(Node* p ){
 //
 //}
 void  HeThong::PrintAccount() {
-    vector<Node> accounts;
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Select *from TaiKhoan";

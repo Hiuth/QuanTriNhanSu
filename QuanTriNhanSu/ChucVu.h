@@ -14,6 +14,6 @@ public:
     //vector<NodeChucVu> PrintPosition();
     void EditPosition(string,string,string);
     void DeletePosition(string xoa);
-    void SearchPosition();
+    void SearchPosition(string,string);
 };
 
