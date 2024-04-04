@@ -363,7 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore specific files
-QuanTriNhanSu/QuanTriNhanSu.vcxproj
 QuanTriNhanSu/mysqlcppconn-9-vs14.dll
 QuanTriNhanSu/mysqlcppconn8-2-vs14.dll
 QuanTriNhanSu/libcrypto-3-x64.dll
