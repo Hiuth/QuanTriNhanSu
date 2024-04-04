@@ -10,7 +10,7 @@ private:
 public:
 	HeThong();
 	virtual ~HeThong();
-	bool CheckData(string, string);
+	bool CheckAccount(string, string);
 	Node* GetHead() { return head; }
 	void SetHead(Node* val) { head = val; }
 	Node* GetTail() { return tail; }
@@ -20,6 +20,11 @@ public:
 	void EditAccount(string, string,string);
 	void CreateAccount(Node*);
 	void Search(string,string);
+<<<<<<< HEAD
 	bool CheckAccount(string,string);
+=======
+	bool CheckData(string, string);
+	// loi ngu vl
+>>>>>>> 5c8eb2ce7c524a02ead7ffb2f2772b9cea89af39
 };
 
