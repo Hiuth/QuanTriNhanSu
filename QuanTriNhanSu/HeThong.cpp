@@ -4,26 +4,21 @@
 
 KetNoi* Check = new KetNoi();
 Connection* con= Check->CheckDatabase();
+
 HeThong::HeThong() {
     this->head = NULL;
     this->tail = NULL;
 }
 
-bool HeThong::CheckAccount(string ten, string matkhau) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }//return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
+bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND MatKhau = '" + MatKhau + "'";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    } return false;
 }
-
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
@@ -39,8 +34,6 @@ void HoTroCapNhat(Node* p, Statement* stmt) {
     string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
     stmt->execute(UpdateTableAccount);
 }
-
-
 
 void HeThong::CreateAccount(Node* p ){
     // insertNode
@@ -100,6 +93,7 @@ void HeThong::CreateAccount(Node* p ){
 //    return accounts;
 //
 //}
+
 void  HeThong::PrintAccount() {
     Statement* stmt;
     stmt = con->createStatement();
