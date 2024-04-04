@@ -152,22 +152,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="ChucVu.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HeThong.cpp" />
     <ClCompile Include="KetNoi.cpp" />
     <ClCompile Include="NhanVien.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeChucVu.cpp" />
     <ClCompile Include="NodeNhanVien.cpp" />
+    <ClCompile Include="PhongBan.cpp" />
     <ClCompile Include="QuanTriNhanSu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="ChucVu.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="HeThong.h" />
     <ClInclude Include="KetNoi.h" />
     <ClInclude Include="NhanVien.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeChucVu.h" />
     <ClInclude Include="NodeNhanVien.h" />
+    <ClInclude Include="PhongBan.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
