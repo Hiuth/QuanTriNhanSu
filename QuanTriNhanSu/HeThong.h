@@ -21,6 +21,6 @@ public:
 	void CreateAccount(Node*);
 	void Search(string,string);
 	bool CheckData(string, string);
-
+	// loi ngu vl
 };
 
