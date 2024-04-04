@@ -4,12 +4,12 @@
 
 KetNoi* Check = new KetNoi();
 Connection* con= Check->CheckDatabase();
+
 HeThong::HeThong() {
     this->head = NULL;
     this->tail = NULL;
 }
 
-<<<<<<< HEAD
 bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     Statement* stmt;
     stmt = con->createStatement();
@@ -17,37 +17,7 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     ResultSet* result = stmt->executeQuery(CheckData);
     while (result->next()) {
         return true;
-=======
-bool HeThong::CheckAccount(string ten, string matkhau) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }//return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
-
-bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND "+TenCot+" = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }//return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
->>>>>>> e18c4ff308ce6dddd1a45596c0f3c456356c05f4
-    }
-    return false;
+    } return false;
 }
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
@@ -64,8 +34,6 @@ void HoTroCapNhat(Node* p, Statement* stmt) {
     string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
     stmt->execute(UpdateTableAccount);
 }
-
-
 
 void HeThong::CreateAccount(Node* p ){
     // insertNode
