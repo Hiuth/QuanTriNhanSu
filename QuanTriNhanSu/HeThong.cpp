@@ -20,21 +20,6 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     } return false;
 }
 
-bool HeThong::CheckAccount(string ten, string matkhau) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }//return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
-
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
     string password;

@@ -20,7 +20,6 @@ public:
 	void EditAccount(string, string,string);
 	void CreateAccount(Node*);
 	void Search(string,string);
-	bool CheckAccount(string,string);
 	bool CheckData(string, string);
 	// loi ngu vl
 };
