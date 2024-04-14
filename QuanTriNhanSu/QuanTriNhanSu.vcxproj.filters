@@ -51,6 +51,36 @@
     <ClCompile Include="NodePhongBan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KTKL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeKTKL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeBaoHiem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaoHiem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeLuong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TienLuong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeDiemDanh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiemDanh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TraVe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTraVe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeThong.h">
@@ -87,6 +117,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NodePhongBan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KTKL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeKTKL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeBaoHiem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaoHiem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeLuong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TienLuong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeDiemDanh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DiemDanh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TraVe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTraVe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
