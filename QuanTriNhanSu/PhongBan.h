@@ -9,6 +9,7 @@ private:
 public:
     PhongBan(); // Constructor
     virtual ~PhongBan(); // Destructor
+    bool checkDepartment(string,string);
     void InputDepartment();
     void InputEditDepartment();
     void InputSearchDepartment();

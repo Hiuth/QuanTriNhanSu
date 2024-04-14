@@ -20,7 +20,7 @@ NodePhongBan* npb;
 string maPB, TenPB,TenPB2;
 int them;
 
-bool checkDepartment(string ten, string ma) {//nó là hàm search như trả về true hoặc false
+bool PhongBan::checkDepartment(string ten, string ma) {//nó là hàm search như trả về true hoặc false
 	Statement* stmt = connection1->createStatement();
 	string SelectData = "SELECT * FROM PhongBan WHERE " + ten + " = '" + ma + "'";
 	ResultSet* res = stmt->executeQuery(SelectData);
@@ -87,6 +87,17 @@ void PhongBan::InputSearchDepartment()
 	}
 }
 
+void PhongBan::InputDeleteDepartment()
+{
+	cout << "Nhap vao ten phong ban muon xoa: "; getline(cin, TenPB);
+	if (checkDepartment("TenPhong",TenPB)) {
+		PB->DeleteDepartment( TenPB);
+	}
+	else {
+		cout << "Khong co ten phong nao nhu vay trong he thong" << endl;
+	}
+}
+
 void PhongBan::CreateDepartment(NodePhongBan* p) {
 	if (this->head == NULL) {
 		this->head = this->tail = p;
@@ -144,6 +155,15 @@ vector<NodePhongBan> PhongBan::TakeAllDepartment() {
 	delete res;
 	delete stmt;
 	return phongban;
+}
+
+void PhongBan::DeleteDepartment(string xoa)
+{
+	Statement* stmt;
+	stmt = connection1->createStatement();
+	string SelectData = "Delete from TaiKhoan where TenPhong = '" + xoa + "'";
+	int rows_affected = stmt->executeUpdate(SelectData);
+	delete stmt;
 }
 
 vector<NodePhongBan> PhongBan::SearchDepartment(string ten, string ma) {
