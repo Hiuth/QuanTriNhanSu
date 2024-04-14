@@ -11,9 +11,11 @@ private:
 	string ChucVu;
 	string PhongBan;
 	string MaNhanVien;
+	string ThoiHanHopDong;
+	string sdt;
 	NodeNhanVien* pointer;
 public:
-	NodeNhanVien(string, string, string, string, string, string, string,string);
+	NodeNhanVien(string, string, string,string, string, string, string, string,string,string);
 	virtual ~NodeNhanVien();
 	string GetName() { return TenNhanVien; }
 	void SetName(string val) { TenNhanVien = val; }
@@ -33,5 +35,9 @@ public:
 	void SetPointer(NodeNhanVien* val) { pointer = val; }
 	string GetEmployeeID() { return MaNhanVien; }
 	void SetEmployeeID(string val) { MaNhanVien = val; }
+	string GetPhoneNumber() { return sdt; }
+	void SetPhoneNumber(string val) { sdt = val; }
+	string GetContractTerm() { return ThoiHanHopDong; }// contract term  =  thời hạn hợp đồng
+	void SetContractTerm(string val) { ThoiHanHopDong = val; }
 };
 

@@ -12,6 +12,42 @@ PhongBan::~PhongBan() {
 	delete connection1;
 	delete KtraData1;
 }
+
+PhongBan* PB = new PhongBan();
+NodePhongBan* npb;
+string maPB, TenPB;
+int them;
+
+void PhongBan::InputDepartment() {
+	cout << "So luong phong ban muon nhap vao: "; cin >> them;
+	cin.ignore();
+	for (int i = 0; i < them; i++) {
+		cout << "Nhap vao ma phong ban: "; getline(cin,maPB );
+		cout << "Nhap vao ten phong ban: "; getline(cin, TenPB);
+		npb = new NodePhongBan(TenPB, maPB);
+		PB->CreateDepartment(npb);
+	}
+}
+
+void PhongBan::InputEditDepartment() {
+	cout << "Tim kiem phong ban!!!" << endl;
+	cout << "1.Tim kiem theo ma phong ban." << endl;
+	cout << "2.Tim kiem theo ten phong ban." << endl;
+	cout << "Moi ban chon: "; cin >> them;
+	cin.ignore();
+	if (them == 1) {
+		cout << "Nhap vao ma phong ban can tim: "; getline(cin, TenPB);
+		PB->SearchDepartment("MaPhong", TenPB);
+	}
+	else if (them == 2) {
+		cout << "Nhap vao ten phong ban can tim: "; getline(cin, TenPB);
+		PB->SearchDepartment("TenPhong", TenPB);
+	}
+	else {
+		cout << "moi ban chon lai!!!";
+	}
+}
+
 void PhongBan::CreateDepartment(NodePhongBan* p) {
 	if (this->head == NULL) {
 		this->head = this->tail = p;

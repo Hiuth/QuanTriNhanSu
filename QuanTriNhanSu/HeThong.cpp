@@ -1,12 +1,134 @@
 ﻿#include "HeThong.h"
 #include "KetNoi.h"
 #include <vector>
+#include<string>
+#include <cctype>
 
 KetNoi* Check = new KetNoi();
 Connection* con= Check->CheckDatabase();
 HeThong::HeThong() {
     this->head = NULL;
     this->tail = NULL;
+}
+
+int n,nhap;
+string tk, mk, admin, hrm, fm, ten, xoa, ma;
+HeThong* TaiKhoan = new HeThong();
+Node* e;
+
+
+
+
+bool HeThong::DangNhap() {
+    cout << "hay dang nhap vao he thong" << endl;
+    cout << "nhap ten tai khoan: "; getline(cin, ten);
+    cout << "nhap vao mat khau: "; getline(cin, mk);
+    if (TaiKhoan->CheckAccount(ten, mk) == true) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void HeThong::InputDeleteAccount() {
+     cout << "Nhap vao ten tai khoan muon xoa: "; getline(cin, xoa);
+    TaiKhoan->deleteAccount(xoa);
+}
+
+void HeThong::Input() {
+    cout << "so luong tai khoan muon nhap vao: "; cin >> n; //ko chấp nhận đc vẫn để là "tai khoang"
+    for (int i = 0; i < n; i++) {
+        cout << "tai khoan: "; cin >> tk;
+        cout << "mat khau: "; cin >> mk;
+        cout << "neu muon cap quyen thi hay bam so 1, neu khong thi bam so 0." << endl;;
+        cout << "quyen admin: "; cin >> admin;
+        cout << "quyen quan ly nhan su: "; cin >> hrm;
+        cout << "quyen quan ly tien luong: "; cin >> fm;
+        e = new Node(tk, mk, admin, hrm, fm);
+        TaiKhoan->CreateAccount(e);
+        cout << endl;
+    }
+
+}
+
+void HeThong::InputSearch() {
+    cout << "1.tim kiem theo quyen admin." << endl;
+    cout << "2.tim kiem theo quyen quan ly nhan su." << endl;
+    cout << "3.tim kiem theo quyen quan ly tien luong." << endl;
+    cout << "4.tim kiem theo ten tai khoan." << endl;
+    cout << "ban muon chon theo gi ? "; cin >> n;
+    if (n == 1) {
+        TaiKhoan->PrintAccount(TaiKhoan->Search("admin", "1"));
+    }
+    else if(n == 2) {
+        TaiKhoan->PrintAccount(TaiKhoan->Search("quanlynhansu", "1"));
+    }
+    else if (n == 3) {
+        TaiKhoan->PrintAccount(TaiKhoan->Search("quanlytienluong", "1"));
+    }
+    else if (n == 4) {
+        cin.ignore();
+    	cout << "nhap vao ten tai khoan: "; getline(cin, ten);
+        TaiKhoan->PrintAccount(TaiKhoan->Search("tentaikhoan", ten));
+    }
+    else {
+    	cout << "khong co so ma ban da chon. vui long nhap lai!"<<endl;
+    }
+}
+
+void check(int chon2, string quyen, string Tentk) {
+    HeThong* Taikhoan = new HeThong();
+    if (chon2 == 1) {
+        Taikhoan->EditAccount(quyen, "1", Tentk);
+    }
+    else if (chon2 == 0) {
+        Taikhoan->EditAccount(quyen, "0", Tentk);
+    }
+    else {
+        cout << "Vui long chon lai!" << endl;
+    }
+}
+
+void HeThong::InputEdit() {
+    cout << "Nhap vao ten tai khoan can chinh sua: "; cin >> ten;
+    TaiKhoan->Search("TenTaiKhoan", ten);
+    cout << "Chon che do chinh sua! " << endl;
+    cout << "1. Sua ten Tai Khoan." << endl;
+    cout << "2. Sua mat khau." << endl;
+    cout << "3. Sua cac quyen." << endl;
+    cout << "Ban muon chon gi ? "; cin >> n;
+    if (n == 1) {
+    	cin.ignore();
+    	cout << "Nhap vao ten muon doi: "; getline(cin, ma);
+    	cout << ten<<" "<<ma;
+    	TaiKhoan->EditAccount("TenTaiKhoan", ma, ten);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
+    }
+    else if (n == 2) {
+    	cin.ignore();
+    	cout << "Nhap vao mat khau moi: "; getline(cin, mk);
+    	TaiKhoan->EditAccount("MatKhau",mk,ten);
+    }
+    else if (n == 3) {
+    	cout << "Ban da chon che do sua cac quyen. " << endl;
+    	cout << "1. Sua quyen admin." << endl;
+    	cout << "2. Sua quyen quan ly nhan su." << endl;
+    	cout << "3. Sua quyen quan ly tien luong." << endl;
+    	cout << "Ban muon chon gi ?"; cin >> n;
+    	cout << "Ban muon Them hay xoa quyen nay ? Neu ban muon them hay bam so 1 neu ban muon xoa thi hay bam so 0: "; cin >> nhap;
+    	if (n == 1) {
+    		check(nhap, "admin", ten);
+    	}
+    	else if (n == 2) {
+    		check(nhap, "QuanLyNhanSu",ten );
+    	}
+    	else if (n == 3) {
+    		check(nhap, "QuanLyTienLuong", ten);
+    	}
+    	else {
+    		cout << "Khong co lua chon nay vui long nhap lai!!!" << endl;
+    	}
+    }
 }
 
 bool HeThong::CheckAccount(string ten, string matkhau) {
@@ -17,7 +139,7 @@ bool HeThong::CheckAccount(string ten, string matkhau) {
         ResultSet* result = stmt->executeQuery(CheckData);
         while (result->next()) {
             return true;
-        }//return false;
+        }return false;
     }
     catch (sql::SQLException& e) {
         cerr << "SQL Error: " << e.what() << std::endl;
@@ -40,7 +162,12 @@ void HoTroCapNhat(Node* p, Statement* stmt) {
     stmt->execute(UpdateTableAccount);
 }
 
-
+void HeThong::PrintAccount(vector<Node> check) {
+    cout << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
+    for (size_t i = 0; i < check.size(); i++) {
+        cout << check[i].GetAccountName() << "\t" << check[i].GetPassword() << "\t" "\t" << check[i].GetAdmin() << "\t" "\t" << check[i].GetFM() <<"\t" "\t" "\t" << check[i].GetHRM() << endl;
+    }
+}
 
 void HeThong::CreateAccount(Node* p ){
     // insertNode
@@ -84,76 +211,39 @@ void HeThong::CreateAccount(Node* p ){
         cerr << "SQL Error: " << e.what() << std::endl;
     }
 }
-//vector<Node> HeThong::PrintAccount() {
-//    vector<Node> accounts;
-//    Statement* stmt;
-//    stmt = con->createStatement();
-//    string SelectData = "Select *from TaiKhoan";
-//    ResultSet* res = stmt->executeQuery(SelectData);
-//    int count = 0;
-//    while (res->next()) {
-//        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
-//        accounts.push_back(account);
-//    }
-//    delete res;
-//    delete stmt;
-//    return accounts;
-//
-//}
-void  HeThong::PrintAccount() {
+
+vector<Node> HeThong::TakeAllAccount() {
+    vector<Node> accounts;
     Statement* stmt;
     stmt = con->createStatement();
     string SelectData = "Select *from TaiKhoan";
     ResultSet* res = stmt->executeQuery(SelectData);
     int count = 0;
-    cout << "Danh Sach cac tai khoan" << endl;
-    cout << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai chinh" << endl;
     while (res->next()) {
-        cout << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
-        cout << endl;
- 
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+        accounts.push_back(account);
     }
     delete res;
     delete stmt;
+    return accounts;
 
 }
 
-void  HeThong::Search(string ten,string ma) {
+
+vector<Node> HeThong::Search(string ten, string ma) {
+    vector<Node> accountFromSearch;
     Statement* stmt;
     stmt = con->createStatement();
-    string SelectData = "Select *from TaiKhoan where "+ten+" = '"+ ma +"'";
+    string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
     ResultSet* res = stmt->executeQuery(SelectData);
-    cout << endl;
-    while (true) {
-        if (res->next()) {
-            cout << "Tai khoan co ton tai trong he thong" << endl;
-            cout  << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
-            cout  << res->getString("TenTaiKhoan") << "\t" << res->getString("MatKhau") << "\t" << res->getString("admin") << "\t" << "\t" << "\t" << res->getString("QuanLyNhanSu") << "\t" << "\t" << "\t" << "\t" << res->getString("QuanLyTienLuong") << endl;
-            cout << endl;
-            
-        }
-        else {
-            cout << "Tai khoan khong co trong he thong." << endl;
-            break;
-        }
+    while (res->next()) {
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+        accountFromSearch.push_back(account);
     }
     delete res;
     delete stmt;
+    return accountFromSearch;
 }
-//vector<Node>  HeThong::Search(string ten, string ma) {
-//    vector<Node> accountFromSearch;
-//    Statement* stmt;
-//    stmt = con->createStatement();
-//    string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
-//    ResultSet* res = stmt->executeQuery(SelectData);
-//    while (res->next()) {
-//        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
-//        accountFromSearch.push_back(account);
-//    }
-//    delete res;
-//    delete stmt;
-//    return accountFromSearch;
-//}
 
 void HeThong::deleteAccount(string xoa) {
     Statement* stmt;
