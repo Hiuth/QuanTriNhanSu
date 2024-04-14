@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore specific files
+QuanTriNhanSu/mysqlcppconn-9-vs14.dll
+QuanTriNhanSu/mysqlcppconn8-2-vs14.dll
+QuanTriNhanSu/libcrypto-3-x64.dll
+QuanTriNhanSu/libssl-3-x64.dll

@@ -8,6 +8,9 @@ using namespace std;
 
 stack<wxFrame*> frameStack;
 
+//khai bao
+HeThong* hethong = new HeThong();
+
 //font
 wxFont ConsolasB(wxFontInfo(40).FaceName("Eras Bold ITC")); //tiêu đề đẹp, lớn
 wxFont Calibri(wxFontInfo(15).FaceName("Calibri")); //Chữ cái bình thường
@@ -32,7 +35,13 @@ void BaseFrame::OnBackClicked(wxCommandEvent& evt) {
 }
 
 void BaseFrame::OnClose(wxCloseEvent& evt) {
-	//tắt tất cả các cửa số còn hoạt động - tắt lâu nhưng ko có chạy ngầm :D
+	this->Destroy();
+	while (!frameStack.empty()) {
+		frameStack.top()->Destroy();
+		frameStack.pop();
+	}
+
+	/*tắt tất cả các cửa số còn hoạt động - tắt lâu nhưng ko có chạy ngầm :D*/
 	while (!wxTopLevelWindows.empty()) {
 		wxTopLevelWindows[0]->Close();
 	}
@@ -98,7 +107,7 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 void LoginFrame::Next() {
 	wxString acc = accCtrl->GetValue();
 	wxString pass = passCtrl->GetValue();
-	if (CheckAccount(acc.ToStdString(), pass.ToStdString())) {
+	if (hethong->CheckAccount(acc.ToStdString(), pass.ToStdString())) {
 		frameStack.push(this);
 		this->Hide();
 		(new HomeFrame(accCtrl->GetValue()))->Show();
@@ -154,7 +163,7 @@ HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
 }
 
 void HomeFrame::OnButton1Clicked(wxCommandEvent& evt) {
-	if (CheckData(userName.ToStdString(), "admin")) {
+	if (hethong->CheckData(userName.ToStdString(), "admin")) {
 		frameStack.push(this);
 		this->Hide();
 		(new QLTKFrame(userName))->Show();
@@ -166,11 +175,11 @@ void HomeFrame::OnButton1Clicked(wxCommandEvent& evt) {
 
 void HomeFrame::OnButton2Clicked(wxCommandEvent& evt) {
 	
-	if (CheckData(userName.ToStdString(), "admin")) {
+	if (hethong->CheckData(userName.ToStdString(), "admin")) {
 		frameStack.push(this);
 		this->Hide();
 		(new QLNSFrame(userName))->Show();
-	} else if (CheckData(userName.ToStdString(), "QuanLyNhanSu")) {
+	} else if (hethong->CheckData(userName.ToStdString(), "QuanLyNhanSu")) {
 		frameStack.push(this);
 		this->Hide();
 		(new QLNSFrame(userName))->Show();
@@ -180,12 +189,12 @@ void HomeFrame::OnButton2Clicked(wxCommandEvent& evt) {
 }
 
 void HomeFrame::OnButton3Clicked(wxCommandEvent& evt) {
-	if (CheckData(userName.ToStdString(), "admin")) {
+	if (hethong->CheckData(userName.ToStdString(), "admin")) {
 		frameStack.push(this);
 		this->Hide();
 		(new QLTLFrame(userName))->Show();
 	}
-	else if (CheckData(userName.ToStdString(), "QuanLyTienLuong")) {
+	else if (hethong->CheckData(userName.ToStdString(), "QuanLyTienLuong")) {
 		frameStack.push(this);
 		this->Hide();
 		(new QLTLFrame(userName))->Show();
@@ -260,13 +269,13 @@ void QLNSFrame::OnButton1Clicked(wxCommandEvent& evt) {
 void QLNSFrame::OnButton2Clicked(wxCommandEvent& evt) {
 	frameStack.push(this);
 	this->Hide();
-	(new QLNSFrame11(userName))->Show();
+	(new QLNSFrame10(userName))->Show();
 }
 
 void QLNSFrame::OnButton3Clicked(wxCommandEvent& evt) {
 	frameStack.push(this);
 	this->Hide();
-	(new QLNSFrame17(userName))->Show();
+	(new QLNSFrame16(userName))->Show();
 }
 
 QLNSFrame2::QLNSFrame2(wxString accName) : BaseFrame("QUAN LI HO SO NHAN VIEN") {
@@ -278,7 +287,7 @@ QLNSFrame2::QLNSFrame2(wxString accName) : BaseFrame("QUAN LI HO SO NHAN VIEN") 
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
-QLNSFrame11::QLNSFrame11(wxString accName) : BaseFrame("QUAN LI CHUC VU") {
+QLNSFrame10::QLNSFrame10(wxString accName) : BaseFrame("QUAN LI CHUC VU") {
 	wxPanel* panel = new wxPanel(this);
 	userName = accName;
 	CreateMenu(panel, userName);
@@ -287,7 +296,7 @@ QLNSFrame11::QLNSFrame11(wxString accName) : BaseFrame("QUAN LI CHUC VU") {
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
-QLNSFrame17::QLNSFrame17(wxString accName) : BaseFrame("QUAN LI PHONG BAN") {
+QLNSFrame16::QLNSFrame16(wxString accName) : BaseFrame("QUAN LI PHONG BAN") {
 	wxPanel* panel = new wxPanel(this);
 	userName = accName;
 	CreateMenu(panel, userName);
@@ -420,7 +429,21 @@ KFrame2::KFrame2(wxString accName) : BaseFrame("QUAN LI CHINH SACH DAI NGO") {
 	button2->SetForegroundColour(wxColour(255, 255, 255));
 
 	//event
+	button1->Bind(wxEVT_BUTTON, &KFrame2::OnButton1Clicked, this);
+	button2->Bind(wxEVT_BUTTON, &KFrame2::OnButton2Clicked, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
+}
+
+void KFrame2::OnButton1Clicked(wxCommandEvent& evt) {
+	frameStack.push(this);
+	this->Hide();
+	(new KFrame3(userName))->Show();
+}
+
+void KFrame2::OnButton2Clicked(wxCommandEvent& evt) {
+	frameStack.push(this);
+	this->Hide();
+	(new KFrame6(userName))->Show();
 }
 
 KFrame3::KFrame3(wxString accName) : BaseFrame("QUAN LI BAO HIEM") {
@@ -432,7 +455,7 @@ KFrame3::KFrame3(wxString accName) : BaseFrame("QUAN LI BAO HIEM") {
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
-KFrame9::KFrame9(wxString accName) : BaseFrame("QUAN LI KHEN THUONG, KI LUAT") {
+KFrame6::KFrame6(wxString accName) : BaseFrame("QUAN LI KHEN THUONG, KI LUAT") {
 	wxPanel* panel = new wxPanel(this);
 	userName = accName;
 	CreateMenu(panel, userName);

@@ -1,4 +1,4 @@
-﻿#include "HeThong.h"
+#include "HeThong.h"
 #include "KetNoi.h"
 #include <vector>
 #include<string>
