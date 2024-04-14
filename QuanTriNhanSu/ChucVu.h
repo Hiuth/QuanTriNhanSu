@@ -1,5 +1,6 @@
 #pragma once
 #include "NodeChucVu.h"
+#include<vector>
 
 class ChucVu {
 private:
@@ -9,11 +10,16 @@ private:
 public:
     ChucVu(); // Constructor
     virtual ~ChucVu(); // Destructor
+    void InputPosition();
+    void InputEditPosiotion();
+    void InputSearchPosition();
+    void InputDetletePosition();
     void CreatePosition(NodeChucVu*);
-    void PrintPosition();
-    //vector<NodeChucVu> PrintPosition();
+    void PrintPosition(vector<NodeChucVu>);
+    vector<NodeChucVu> TakeAllPosition();
     void EditPosition(string,string,string);
     void DeletePosition(string xoa);
-    void SearchPosition(string,string);
+    //void SearchPosition(string,string);
+    vector<NodeChucVu> SearchPosition(string, string);
 };
 

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-class BaseFrame : public wxFrame, public HeThong
+class BaseFrame : public wxFrame
 {
 public:
 	BaseFrame(const wxString& title);
@@ -66,18 +66,18 @@ private:
 	wxString userName;
 };
 
-class QLNSFrame11 : public BaseFrame //quan li chuc vu
+class QLNSFrame10 : public BaseFrame //quan li chuc vu
 {
 public:
-	QLNSFrame11(wxString accName);
+	QLNSFrame10(wxString accName);
 private:
 	wxString userName;
 };
 
-class QLNSFrame17 : public BaseFrame //quan li phong ban
+class QLNSFrame16 : public BaseFrame //quan li phong ban
 {
 public:
-	QLNSFrame17(wxString accName);
+	QLNSFrame16(wxString accName);
 private:
 	wxString userName;
 };
@@ -147,10 +147,10 @@ private:
 	wxString userName;
 };
 
-class KFrame9 : public BaseFrame
+class KFrame6 : public BaseFrame
 {
 public:
-	KFrame9(wxString accName);
+	KFrame6(wxString accName);
 private:
 	wxString userName;
 };

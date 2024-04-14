@@ -23,14 +23,14 @@ public:
 
 
     virtual ~NodeChucVu();
-    NodeChucVu(string machucvu, long int luongchucvu, string mota);
+    NodeChucVu(string machucvu, long luongchucvu, string mota);
 
 
     void SetMaChucVu(string tenchucvu) {
         TenChucVu = tenchucvu;
     }
 
-    void SetLuongChucVu(long int luongchucvu) {
+    void SetLuongChucVu(long luongchucvu) {
         Luongchucvu = luongchucvu;
     }
     long getLuongchucvu() {

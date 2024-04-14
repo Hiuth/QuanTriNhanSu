@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(WXWIN)\include/msvc;$(WXWIN)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\Connector C++ 8.0\include\jdbc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +144,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>mysqlcppconn.LIB;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(WXWIN)\lib\vc_x64_lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\MySQL\Connector C++ 8.0\lib64\vs14</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command> xcopy /y "C:\Program Files\MySQL\Connector C++ 8.0\lib64\*.dll"</Command>
@@ -152,31 +152,51 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="BaoHiem.cpp" />
     <ClCompile Include="ChucVu.cpp" />
+    <ClCompile Include="DiemDanh.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HeThong.cpp" />
     <ClCompile Include="KetNoi.cpp" />
+    <ClCompile Include="KTKL.cpp" />
     <ClCompile Include="NhanVien.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeBaoHiem.cpp" />
     <ClCompile Include="NodeChucVu.cpp" />
+    <ClCompile Include="NodeDiemDanh.cpp" />
+    <ClCompile Include="NodeKTKL.cpp" />
+    <ClCompile Include="NodeLuong.cpp" />
     <ClCompile Include="NodeNhanVien.cpp" />
     <ClCompile Include="NodePhongBan.cpp" />
+    <ClCompile Include="NodeTraVe.cpp" />
     <ClCompile Include="PhongBan.cpp" />
     <ClCompile Include="QuanTriNhanSu.cpp" />
+    <ClCompile Include="TienLuong.cpp" />
+    <ClCompile Include="TraVe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="BaoHiem.h" />
     <ClInclude Include="ChucVu.h" />
+    <ClInclude Include="DiemDanh.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="HeThong.h" />
     <ClInclude Include="KetNoi.h" />
+    <ClInclude Include="KTKL.h" />
     <ClInclude Include="NhanVien.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeBaoHiem.h" />
     <ClInclude Include="NodeChucVu.h" />
+    <ClInclude Include="NodeDiemDanh.h" />
+    <ClInclude Include="NodeKTKL.h" />
+    <ClInclude Include="NodeLuong.h" />
     <ClInclude Include="NodeNhanVien.h" />
     <ClInclude Include="NodePhongBan.h" />
+    <ClInclude Include="NodeTraVe.h" />
     <ClInclude Include="PhongBan.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="TienLuong.h" />
+    <ClInclude Include="TraVe.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="QuanTriNhanSu.rc" />

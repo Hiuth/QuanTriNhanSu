@@ -9,6 +9,9 @@ private:
 public:
     PhongBan(); // Constructor
     virtual ~PhongBan(); // Destructor
+    void InputDepartment();
+    void InputEditDepartment();
+    void InputSearchDepartment();
     void CreateDepartment(NodePhongBan* p); // Tạo mới phòng ban
     void PrintDepartmentInfotmation(); // In thông tin phòng ban
     void SearchDepartment(string ten, string ma); // Tìm kiếm phòng ban
