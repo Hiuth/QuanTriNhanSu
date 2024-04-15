@@ -1,4 +1,4 @@
-#include "PhongBan.h"
+﻿#include "PhongBan.h"
 #include "KetNoi.h"
 
 KetNoi * KtraData1 = new KetNoi();
@@ -13,10 +13,24 @@ PhongBan::~PhongBan() {
 	delete KtraData1;
 }
 
+
+
 PhongBan* PB = new PhongBan();
 NodePhongBan* npb;
-string maPB, TenPB;
+string maPB, TenPB,TenPB2;
 int them;
+
+bool PhongBan::checkDepartment(string ten, string ma) {//nó là hàm search như trả về true hoặc false
+	Statement* stmt = connection1->createStatement();
+	string SelectData = "SELECT * FROM PhongBan WHERE " + ten + " = '" + ma + "'";
+	ResultSet* res = stmt->executeQuery(SelectData);
+
+	while (res->next()) {
+		return true;
+	}return false;
+	delete res;
+	delete stmt;
+}
 
 void PhongBan::InputDepartment() {
 	cout << "So luong phong ban muon nhap vao: "; cin >> them;
@@ -30,6 +44,31 @@ void PhongBan::InputDepartment() {
 }
 
 void PhongBan::InputEditDepartment() {
+	cout << "Nhap vao ten phong ban can sua: "; getline(cin, TenPB);
+	if (checkDepartment("TenPhong",TenPB)) {
+		cout << "1. Sua ten phong ban." << endl;
+		cout << "2. Sua ma phong ban." << endl;
+		cout << "Moi ban chon che do sua."; cin >> them;
+		if (them == 1) {
+			cin.ignore();
+			cout << "Nhap vao ten phong ban moi: "; getline(cin, TenPB2);
+			PB->EditDepartment("TenPhong",TenPB2, TenPB);
+		}
+		else if (them == 2) {
+			cout << "Nhap vao ma phong ban moi: "; getline(cin, maPB);
+			PB->EditDepartment("MaPhong",maPB,TenPB);
+		}
+		else {
+			cout << "Loi! moi ban chon lai!!!" << endl;
+		}
+	}
+	else {
+		cout << "Khong co ten phong ban nao nhu vay!!!" << endl;
+	}
+}
+
+void PhongBan::InputSearchDepartment()
+{
 	cout << "Tim kiem phong ban!!!" << endl;
 	cout << "1.Tim kiem theo ma phong ban." << endl;
 	cout << "2.Tim kiem theo ten phong ban." << endl;
@@ -45,6 +84,17 @@ void PhongBan::InputEditDepartment() {
 	}
 	else {
 		cout << "moi ban chon lai!!!";
+	}
+}
+
+void PhongBan::InputDeleteDepartment()
+{
+	cout << "Nhap vao ten phong ban muon xoa: "; getline(cin, TenPB);
+	if (checkDepartment("TenPhong",TenPB)) {
+		PB->DeleteDepartment( TenPB);
+	}
+	else {
+		cout << "Khong co ten phong nao nhu vay trong he thong" << endl;
 	}
 }
 
@@ -86,52 +136,55 @@ void PhongBan::CreateDepartment(NodePhongBan* p) {
 		cerr << "SQL Error: " << e.what() << endl;
 	}
 }
-void PhongBan::PrintDepartmentInfotmation() {
-	try {
-		Statement* stmt = connection1->createStatement();
-		string SelectData = "SELECT * FROM PhongBan";
-		ResultSet* res = stmt->executeQuery(SelectData);
-		cout << "Danh sach cac phong ban" << endl;
-		cout << "STT\tTen phong ban\t\t\tMa phong" << endl;
-		int count = 0;
-		while (res->next()) {
-			cout << ++count << "\t" << res->getString("TenPhong") << "\t\t" << res->getString("MaPhong") << endl;
-		}
-
-		delete res;
-		delete stmt;
-	}
-	catch (sql::SQLException& e) {
-		cerr << "SQL Error: " << e.what() << endl;
+void PhongBan::PrintDepartmentInfotmation(vector<NodePhongBan> phongban) {
+	for (size_t i = 0; i < phongban.size(); i++) {
+		cout << phongban[i].GetName() << "\t" << phongban[i].GetID() << endl;
 	}
 }
-void PhongBan::SearchDepartment(string ten, string ma) {
-	try {
-		Statement* stmt = connection1->createStatement();
-		string SelectData = "SELECT * FROM PhongBan WHERE " + ten + " = '" + ma + "'";
-		ResultSet* res = stmt->executeQuery(SelectData);
 
-		if (res->next()) {
-			cout << "Ph�ng ban ton tai trong he thong!" << endl;
-			cout << "Ten phong ban\t\t\tMa phong" << endl;
-			cout << res->getString("TenPhong") << "\t\t" << res->getString("MaPhong") << endl;
-		}
-		else {
-			cout << "Kh!" << endl;
-		}
 
+vector<NodePhongBan> PhongBan::TakeAllDepartment() {
+	vector<NodePhongBan> phongban;
+	Statement* stmt = connection1->createStatement();
+	string SelectData = "SELECT * FROM PhongBan";
+	ResultSet* res = stmt->executeQuery(SelectData);
+	while (res->next()) {
+		NodePhongBan pb( res->getString("TenPhong"),res->getString("MaPhong"));
+		phongban.push_back(pb);
+	}
+	delete res;
+	delete stmt;
+	return phongban;
+}
+
+void PhongBan::DeleteDepartment(string xoa)
+{
+	Statement* stmt;
+	stmt = connection1->createStatement();
+	string SelectData = "Delete from TaiKhoan where TenPhong = '" + xoa + "'";
+	int rows_affected = stmt->executeUpdate(SelectData);
+	delete stmt;
+}
+
+vector<NodePhongBan> PhongBan::SearchDepartment(string ten, string ma) {
+	vector<NodePhongBan> phongban;
+	Statement* stmt = connection1->createStatement();
+	string SelectData = "SELECT * FROM PhongBan WHERE " + ten + " = '" + ma + "'";
+	ResultSet* res = stmt->executeQuery(SelectData);
+
+	while (res->next()) {
+		NodePhongBan pb(res->getString("TenPhong"), res->getString("MaPhong"));
+		phongban.push_back(pb);
+	}
 		delete res;
 		delete stmt;
-	}
-	catch (sql::SQLException& e) {
-		cerr << "SQL Error: " << e.what() << endl;
-	}
+		return phongban;
 }
 
 void PhongBan::EditDepartment(string ChoCanSua, string MuonDoiThanh, string TenPB) {
 	Statement* stmt;
 	stmt = connection1->createStatement();
-	string SelectData2 = "UPDATE PhongBan SET " + ChoCanSua + " = '" + MuonDoiThanh + "' WHERE TenPhongBan = '" + TenPB + "'";
+	string SelectData2 = "UPDATE PhongBan SET " + ChoCanSua + " = '" + MuonDoiThanh + "' WHERE TenPhong = '" + TenPB + "'";
 	int rows_affected = stmt->executeUpdate(SelectData2);
 	delete stmt;
 }
