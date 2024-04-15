@@ -11,6 +11,7 @@ public:
 	virtual ~NhanVien();
 	bool CheckNumber(string);
 	bool CheckSyntax(string);
+	bool checkNameEmployee(string, string);
 	void InputEmployee();
 	void InputSearchEmployee();
 	void InputEditEmployee();

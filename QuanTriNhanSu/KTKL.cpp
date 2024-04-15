@@ -50,38 +50,38 @@ void KTKL::DataofLine()
     }
 }
 
-void KTKL::CreateTable() {
-    try {
-        Statement* stmt;
-        stmt = k->createStatement();
-        //kiem tra su ton tai cua bang
-        string TenBang = "KhenThuongKyLuat";
-        string KiemTra = "show tables like'" + TenBang + "'";
-        ResultSet* result = stmt->executeQuery(KiemTra);
-        if (result->next() == false) {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "CREATE TABLE IF NOT EXISTS KhenThuongKyLuat ("
-                "MaNhanVien CHAR(30) NOT NULL, "
-                "TenNhanVien CHAR(30) NOT NULL, "
-                "Thuong CHAR(10) NOT NULL, "
-                "Phat CHAR(10) NOT NULL, "
-                "NoiDungThuong CHAR(30) NOT NULL, "
-                "NoiDungPhat CHAR(30) NOT NULL"
-                ")";
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            cout << "Bang da duoc tao!" << endl;
-        }
-        delete result;
-        delete stmt;
-        //this->Print();
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
+//void KTKL::CreateTable() {
+//    try {
+//        Statement* stmt;
+//        stmt = k->createStatement();
+//        //kiem tra su ton tai cua bang
+//        string TenBang = "KhenThuongKyLuat";
+//        string KiemTra = "show tables like'" + TenBang + "'";
+//        ResultSet* result = stmt->executeQuery(KiemTra);
+//        if (result->next() == false) {
+//            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
+//            string useDatabase = "Use QuanTriNhanSu";
+//            string CreateTableAccount = "CREATE TABLE IF NOT EXISTS KhenThuongKyLuat ("
+//                "MaNhanVien CHAR(30) NOT NULL, "
+//                "TenNhanVien CHAR(30) NOT NULL, "
+//                "Thuong CHAR(10) NOT NULL, "
+//                "Phat CHAR(10) NOT NULL, "
+//                "NoiDungThuong CHAR(30) NOT NULL, "
+//                "NoiDungPhat CHAR(30) NOT NULL"
+//                ")";
+//            stmt->execute(CreateDatabaseSQL);
+//            stmt->execute(useDatabase);
+//            stmt->execute(CreateTableAccount);
+//            cout << "Bang da duoc tao!" << endl;
+//        }
+//        delete result;
+//        delete stmt;
+//        //this->Print();
+//    }
+//    catch (sql::SQLException& e) {
+//        cerr << "SQL Error: " << e.what() << std::endl;
+//    }
+//}
 
 void KTKL::Print() {
     try {

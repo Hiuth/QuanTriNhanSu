@@ -78,100 +78,117 @@ void NhanVien::InputSearchEmployee() {
     cin.ignore();
     if (chon == 1) {
         cout << "nhap vao ten tai khoan: "; getline(cin, name);
-        Ktra->SearchEmployee("TenNhanVien", name);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("TenNhanVien", name));
     }
     else if (chon == 2) {
         cout << "Nhap vao gioi tinh: "; cin >> gioitinh;
-        Ktra->SearchEmployee("GioiTinh", gioitinh);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("GioiTinh", gioitinh));
     }
     else if (chon == 3) {
         cout << "Nhap vao sinh nhat: "; cin >> sinhnhat;
-        Ktra->SearchEmployee("SinhNhat", sinhnhat);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("SinhNhat", sinhnhat));
     }
     else if (chon == 4) {
         cout << "Nhap vao can cuoc cong dan: "; cin >> cccd;
-        Ktra->SearchEmployee("CCCD", cccd);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("CCCD", cccd));
     }
     else if (chon == 5) {
         cout << "Nhao vao phong ban: "; getline(cin, phongban);
-        Ktra->SearchEmployee("PhongBan", phongban);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("PhongBan", phongban));
     }
     else if (chon == 6) {
         cout << "Nhap vao chuc vu: "; getline(cin, chucvu);
-        Ktra->SearchEmployee("ChucVu", chucvu);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("ChucVu", chucvu));
     }
     else if (chon == 7) {
         cout << "Nhap vao ma nhan vien: "; getline(cin, manhanvien);
-        Ktra->SearchEmployee("MaNhanVien", manhanvien);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("MaNhanVien", manhanvien));
     }
     else if (chon == 8) {
         cout << "Nhap vao so dien thoai: "; cin >> sdt;
-        Ktra->SearchEmployee("SoDienThoai", sdt);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("SoDienThoai", sdt));
     }
     else if (chon == 9) {
         cout << "Nhap vao thoi han hop dong: "; getline(cin, thoihanhopdong);
-        Ktra->SearchEmployee("ThoiHanHopDong", thoihanhopdong);
+        Ktra->PrintEmployeeInfotmation(Ktra->SearchEmployee("ThoiHanHopDong", thoihanhopdong));
     }
     else {
     	cout << "khong co so ma ban da chon. vui long nhap lai!" << endl;
     }
 }
 
+bool NhanVien::checkNameEmployee(string ten, string ma) {
+    Statement* stmt;
+    stmt = con2->createStatement();
+    string SelectData = "Select *from NhanVien where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    while (res->next()) {
+        return true;
+    }return false;
+    delete res;
+    delete stmt;
+}
+
 void NhanVien::InputEditEmployee() {
     cout << "Nhap vao nhan vien can chinh sua: "; getline(cin, name);
-	Ktra->SearchEmployee("TenNhanVien", name);
-	cout << "Chon che do chinh sua! " << endl;
-	cout << "1. Sua ten nhan vien." << endl;
-	cout << "2. Sua gioi tinh." << endl;
-	cout << "3. Sua sinh nhat." << endl;
-	cout << "4. Sua can cuoc cong dan." << endl;
-	cout << "5. Sua dia chi." << endl;
-	cout << "6. Sua phong ban." << endl;
-	cout << "7. Sua chuc vu." << endl;
-	cout << "8. Sua ma nhan vien." << endl;
-    cout << "9. Sua thoi han hop dong." << endl;
-	cout << "Ban muon chon gi ? "; cin >> chon;
-	cin.ignore();
-	if (chon == 1) {
-		cout << "Nhap vao ten muon doi: "; getline(cin, id);
-		cout << name << " " << id;
-		Ktra->EditInformation("TenNhanVien", id, name);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
-	}
-	else if (chon == 2) {
-		cout << "Nhap vao gioi tinh moi: "; getline(cin, matkhau);
-		Ktra->EditInformation("GioiTinh", matkhau, name);
-	}
-	else if (chon == 3) {
-		cout << "Nhap vao sinh nhat moi: "; getline(cin, sinhnhat);
-		Ktra->EditInformation("SinhNhat", sinhnhat, name);
-	}
-	else if (chon == 4) {
-		cout << "Nhap vao can cuoc cong dan moi: "; getline(cin, cccd);
-		Ktra->EditInformation("CCCD", cccd, name);
-	}
-	else if (chon == 5) {
-		cout << "Nhap vao dia chi moi: "; getline(cin, diachi);
-		Ktra->EditInformation("DiaChi", diachi, name);
-	}
-	else if (chon == 6) {
-		cout << "Nhap vao phong ban moi: "; getline(cin, phongban);
-		Ktra->EditInformation("PhongBan", phongban, name);
-	}
-	else if (chon == 7) {
-		cout << "Nhap vao chuc vu moi: "; getline(cin, chucvu);
-		Ktra->EditInformation("ChucVu", chucvu, name);
-	}
-	else if (chon == 8) {
-		cout << "Nhap vao ma nhan vien moi: "; getline(cin, manhanvien);
-		Ktra->EditInformation("MaNhanVien", manhanvien, name);
+    if (Ktra->checkNameEmployee("TenNhanVien", name)) {
+        cout << "Chon che do chinh sua! " << endl;
+        cout << "1. Sua ten nhan vien." << endl;
+        cout << "2. Sua gioi tinh." << endl;
+        cout << "3. Sua sinh nhat." << endl;
+        cout << "4. Sua can cuoc cong dan." << endl;
+        cout << "5. Sua dia chi." << endl;
+        cout << "6. Sua phong ban." << endl;
+        cout << "7. Sua chuc vu." << endl;
+        cout << "8. Sua ma nhan vien." << endl;
+        cout << "9. Sua thoi han hop dong." << endl;
+        cout << "Ban muon chon gi ? "; cin >> chon;
+        cin.ignore();
+        if (chon == 1) {
+            cout << "Nhap vao ten muon doi: "; getline(cin, id);
+            cout << name << " " << id;
+            Ktra->EditInformation("TenNhanVien", id, name);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
+        }
+        else if (chon == 2) {
+            cout << "Nhap vao gioi tinh moi: "; getline(cin, matkhau);
+            Ktra->EditInformation("GioiTinh", matkhau, name);
+        }
+        else if (chon == 3) {
+            cout << "Nhap vao sinh nhat moi: "; getline(cin, sinhnhat);
+            Ktra->EditInformation("SinhNhat", sinhnhat, name);
+        }
+        else if (chon == 4) {
+            cout << "Nhap vao can cuoc cong dan moi: "; getline(cin, cccd);
+            Ktra->EditInformation("CCCD", cccd, name);
+        }
+        else if (chon == 5) {
+            cout << "Nhap vao dia chi moi: "; getline(cin, diachi);
+            Ktra->EditInformation("DiaChi", diachi, name);
+        }
+        else if (chon == 6) {
+            cout << "Nhap vao phong ban moi: "; getline(cin, phongban);
+            Ktra->EditInformation("PhongBan", phongban, name);
+        }
+        else if (chon == 7) {
+            cout << "Nhap vao chuc vu moi: "; getline(cin, chucvu);
+            Ktra->EditInformation("ChucVu", chucvu, name);
+        }
+        else if (chon == 8) {
+            cout << "Nhap vao ma nhan vien moi: "; getline(cin, manhanvien);
+            Ktra->EditInformation("MaNhanVien", manhanvien, name);
+        }
+        else if (chon == 9) {
+            cout << "Nhao vao thoi han hop dong moi: "; getline(cin, thoihanhopdong);
+            Ktra->EditInformation("ThoiHanHopDong", thoihanhopdong, name);
+        }
+        else {
+            cout << "Khong co so ban vua chon. Vui long nhap lai!" << endl;
+        }
     }
-    else if (chon ==9) {
-        cout << "Nhao vao thoi han hop dong moi: "; getline(cin, thoihanhopdong);
-        Ktra->EditInformation("ThoiHanHopDong", thoihanhopdong,name);
+    else {
+        cout << "Khong co ten nhan vien nay trong he thong." << endl;
     }
-	else {
-		cout << "Khong co so ban vua chon. Vui long nhap lai!" << endl;
-	}
+	
 }
 
 
@@ -180,30 +197,6 @@ void NhanVien::InputDeleteEmployee() {
   	Ktra->DeleteEmployee(name);
 }
 
-void HoTroCapNhat(NodeNhanVien* p, Statement* stmt) {
-    string TenNhanVien;
-    string SinhNhat;
-    string CCCD;
-    string DiaChi;
-    string PhongBan;
-    string GioiTinh;
-    string ChucVu;
-    string MaNhanVien;
-    string SoDienThoai;
-    string ThoiHanHopDong;
-    TenNhanVien = p->GetName();
-    SinhNhat = p->GetBirthday();
-    CCCD = p->GetIDCard();
-    DiaChi = p->GetAddress();
-    PhongBan = p->GetDepartment();
-    GioiTinh = p->GetSex();
-    ChucVu = p->GetPost();
-    MaNhanVien = p->GetEmployeeID();
-    SoDienThoai = p->GetPhoneNumber();
-    ThoiHanHopDong = p->GetContractTerm();
-    string UpdateTableAccount = "insert into NhanVien Values ('"+TenNhanVien+"','"+GioiTinh+"','" + SinhNhat + "','" + MaNhanVien + "','"+SoDienThoai+"','"+CCCD+"', '"+DiaChi+"', '"+PhongBan+"', '"+ChucVu+"','"+ThoiHanHopDong+"'); ";
-    stmt->execute(UpdateTableAccount);
-}
 
 void NhanVien::CreateName(NodeNhanVien* p) {
     if (this->head == NULL) {
@@ -222,30 +215,32 @@ void NhanVien::CreateName(NodeNhanVien* p) {
         string KiemTra = "show tables like'" + TenBang + "'";
         ResultSet* result = stmt->executeQuery(KiemTra);
         if (result->next() == true) { //nếu có bảng thì result sẽ trả về true, không có thì ngược lại
-            HoTroCapNhat(p, stmt);
+            string TenNhanVien;
+            string SinhNhat;
+            string CCCD;
+            string DiaChi;
+            string PhongBan;
+            string GioiTinh;
+            string ChucVu;
+            string MaNhanVien;
+            string SoDienThoai;
+            string ThoiHanHopDong;
+            TenNhanVien = p->GetName();
+            SinhNhat = p->GetBirthday();
+            CCCD = p->GetIDCard();
+            DiaChi = p->GetAddress();
+            PhongBan = p->GetDepartment();
+            GioiTinh = p->GetSex();
+            ChucVu = p->GetPost();
+            MaNhanVien = p->GetEmployeeID();
+            SoDienThoai = p->GetPhoneNumber();
+            ThoiHanHopDong = p->GetContractTerm();
+            string UpdateTableAccount = "insert into NhanVien Values ('" + TenNhanVien + "','" + GioiTinh + "','" + SinhNhat + "','" + MaNhanVien + "','" + SoDienThoai + "','" + CCCD + "', '" + DiaChi + "', '" + PhongBan + "', '" + ChucVu + "','" + ThoiHanHopDong + "'); ";
+            stmt->execute(UpdateTableAccount);
             cout << "Du lieu da duoc cap nhat!" << endl;
         }
         else {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists NhanVien ("
-                "TenNhanVien char(30) not null,"
-                "GioiTinh char(10) not null,"
-                "SinhNhat char(10) not null,"
-                "MaNhanVien char(12) primary key not null,"
-                "SoDienThoai LONGTEXT not null,"
-                "CCCD char(12) not null,"
-                "DiaChi char(100) not null,"
-                "PhongBan char(20) not null,"
-                "ChucVu char(100) not null,"
-                "ThoiHanHopDong char(30) not null);";
-
-         //1 là có quyền truy cập, 0 là không có quyền truy cập vào chức năng
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            HoTroCapNhat(p, stmt);
-            cout << "Bang da duoc tao"<< endl;
+            cout << "Ban chua duoc tao." << endl;
         }
         delete result;
         delete stmt;
