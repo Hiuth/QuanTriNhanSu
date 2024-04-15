@@ -10,6 +10,7 @@ using namespace sql;
 using namespace mysql;
 class KetNoi
 {
+
 public:
 	Connection* CheckDatabase();
 };

@@ -1,6 +1,7 @@
-﻿#include <wx/wx.h>
+#include <wx/wx.h>
 #include <wx/grid.h>
 #include "HeThong.h"
+#include "TraVe.h"
 #include "Frame.h"
 #include <iostream>
 #include <string>
@@ -434,6 +435,7 @@ void QLTKFrame2::Next(wxCommandEvent& evt) {
 
 QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap thong tin chi tiet")
 {
+	Node* tk;
 	wxPanel* panel = new wxPanel(this);
 	userName = accName;
 	fnumb = fnum;
@@ -492,6 +494,9 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	wxButton* skip = new wxButton(panel, wxID_ANY, "SKIP", wxPoint(startx, y), wxSize(120, 40));
 	skip->SetFont(CalibriB);
 	skip->SetBackgroundColour(wxColour(200, 190, 255));
+
+	wxString tenTK = space1->GetValue();
+	wxString passTK = space2->GetValue();
 
 	//event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);

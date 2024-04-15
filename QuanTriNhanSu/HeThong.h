@@ -12,6 +12,7 @@ public:
 	virtual ~HeThong();
 	bool CheckSpacebar(string);
 	bool CheckAccount(string, string);
+	bool checkName(string, string);
 	void Input();
 	void InputSearch();
 	void InputEdit();

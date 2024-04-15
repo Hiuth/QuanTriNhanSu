@@ -1,9 +1,8 @@
-﻿#pragma once
+#pragma once
 #include "Hethong.h"
-#include "TraVe.h"
+#include <wx/grid.h>
 #include <wx/wx.h>
 #include <iostream>
-#include <wx/grid.h>
 using namespace std;
 
 class BaseFrame : public wxFrame
@@ -12,17 +11,17 @@ public:
 	BaseFrame(const wxString& title);
 	void OnBackClicked(wxCommandEvent& evt);
 	void OnClose(wxCloseEvent& evt);
-	void CreateMenu(wxWindow* parent, wxString userName);
 	void UpdateSoon(wxCommandEvent& evt);
+	void CreateMenu(wxWindow* parent, wxString userName);
 };
 
-class CenteredTextEditor : public wxGridCellTextEditor //class hỗ trợ canh chỉnh grid
+class CenteredTextEditor : public wxGridCellTextEditor
 {
 public:
 	void Show(bool show, wxGridCellAttr* attr) override;
 };
 
-class LoginFrame : public BaseFrame
+class LoginFrame : public BaseFrame 
 {
 public:	
 	LoginFrame();
@@ -64,10 +63,10 @@ public:
 private:
 	void Next(wxCommandEvent& evt);
 	void OnChange(wxGridEvent& evt);
+	int num;
 	wxGrid* textCtrl;
 	wxString userName;
 	wxString value;
-	int num;
 };
 
 class QLTKFrame3 : public BaseFrame {

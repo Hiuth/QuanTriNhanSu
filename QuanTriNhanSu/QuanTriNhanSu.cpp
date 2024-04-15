@@ -18,12 +18,14 @@ int main() {
 	Taikhoan->PrintAccount(Taikhoan->TakeAllAccount());
 	cout << endl;
 	Ktra->PrintEmployeeInfotmation(Ktra->TakeAllEmployee());
+	cout << endl;
+	kt->PrintPosition(kt->TakeAllPosition());
 //	Taikhoan->Input();
 	//if (Taikhoan->DangNhap()) {
 	//	cout << "Chao mung ban tro lai!!!"<<endl;
 	//	//Chuc vu
 	//	kt->InputPosition();
-	////	kt->InputDetletePosition();
+	//kt->InputDetletePosition();
 	//	kt->PrintPosition();
 	//	cout << endl;
 	//	//Phong ban
@@ -40,7 +42,13 @@ int main() {
 	//	Ktra->InputEmployee();
 	//	Ktra->InputSearchEmployee();
 	//	Ktra->InputEditEmployee();
-	//	cout << endl;
+		cout << endl;
+		//PB->InputDepartment();
+		cout << endl;
+		PB->PrintDepartmentInfotmation(PB->TakeAllDepartment());
+		cout << endl;
+		//PB->InputEditDepartment();
+		
 
 	//}
 	//else {
