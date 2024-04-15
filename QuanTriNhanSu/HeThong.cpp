@@ -89,61 +89,72 @@ void check(int chon2, string quyen, string Tentk) {
         cout << "Vui long chon lai!" << endl;
     }
 }
+bool HeThong::checkName(string ten, string ma) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    while (res->next()) {
+        return true;
+    }return false;
+    delete res;
+    delete stmt;
+}
 
 void HeThong::InputEdit() {
     cout << "Nhap vao ten tai khoan can chinh sua: "; cin >> ten;
-    TaiKhoan->Search("TenTaiKhoan", ten);
-    cout << "Chon che do chinh sua! " << endl;
-    cout << "1. Sua ten Tai Khoan." << endl;
-    cout << "2. Sua mat khau." << endl;
-    cout << "3. Sua cac quyen." << endl;
-    cout << "Ban muon chon gi ? "; cin >> n;
-    if (n == 1) {
-    	cin.ignore();
-    	cout << "Nhap vao ten muon doi: "; getline(cin, ma);
-    	cout << ten<<" "<<ma;
-    	TaiKhoan->EditAccount("TenTaiKhoan", ma, ten);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
+    if (TaiKhoan->checkName("TenTaiKhoan", ten)) {
+        cout << "Chon che do chinh sua! " << endl;
+        cout << "1. Sua ten Tai Khoan." << endl;
+        cout << "2. Sua mat khau." << endl;
+        cout << "3. Sua cac quyen." << endl;
+        cout << "Ban muon chon gi ? "; cin >> n;
+        if (n == 1) {
+            cin.ignore();
+            cout << "Nhap vao ten muon doi: "; getline(cin, ma);
+            cout << ten << " " << ma;
+            TaiKhoan->EditAccount("TenTaiKhoan", ma, ten);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
+        }
+        else if (n == 2) {
+            cin.ignore();
+            cout << "Nhap vao mat khau moi: "; getline(cin, mk);
+            TaiKhoan->EditAccount("MatKhau", mk, ten);
+        }
+        else if (n == 3) {
+            cout << "Ban da chon che do sua cac quyen. " << endl;
+            cout << "1. Sua quyen admin." << endl;
+            cout << "2. Sua quyen quan ly nhan su." << endl;
+            cout << "3. Sua quyen quan ly tien luong." << endl;
+            cout << "Ban muon chon gi ?"; cin >> n;
+            cout << "Ban muon Them hay xoa quyen nay ? Neu ban muon them hay bam so 1 neu ban muon xoa thi hay bam so 0: "; cin >> nhap;
+            if (n == 1) {
+                check(nhap, "admin", ten);
+            }
+            else if (n == 2) {
+                check(nhap, "QuanLyNhanSu", ten);
+            }
+            else if (n == 3) {
+                check(nhap, "QuanLyTienLuong", ten);
+            }
+            else {
+                cout << "Khong co lua chon nay vui long nhap lai!!!" << endl;
+            }
+        }
     }
-    else if (n == 2) {
-    	cin.ignore();
-    	cout << "Nhap vao mat khau moi: "; getline(cin, mk);
-    	TaiKhoan->EditAccount("MatKhau",mk,ten);
+    else {
+        cout << "Khong co tai khoan co ten nhu vay trong he thong." << endl;;
     }
-    else if (n == 3) {
-    	cout << "Ban da chon che do sua cac quyen. " << endl;
-    	cout << "1. Sua quyen admin." << endl;
-    	cout << "2. Sua quyen quan ly nhan su." << endl;
-    	cout << "3. Sua quyen quan ly tien luong." << endl;
-    	cout << "Ban muon chon gi ?"; cin >> n;
-    	cout << "Ban muon Them hay xoa quyen nay ? Neu ban muon them hay bam so 1 neu ban muon xoa thi hay bam so 0: "; cin >> nhap;
-    	if (n == 1) {
-    		check(nhap, "admin", ten);
-    	}
-    	else if (n == 2) {
-    		check(nhap, "QuanLyNhanSu",ten );
-    	}
-    	else if (n == 3) {
-    		check(nhap, "QuanLyTienLuong", ten);
-    	}
-    	else {
-    		cout << "Khong co lua chon nay vui long nhap lai!!!" << endl;
-    	}
-    }
+  
 }
 
-bool HeThong::CheckAccount(string ten, string matkhau) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
+bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND MatKhau = '" + MatKhau + "'";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    } return false;
 }
 
 

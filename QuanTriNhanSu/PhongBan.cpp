@@ -124,9 +124,7 @@ void PhongBan::CreateDepartment(NodePhongBan* p) {
 			string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
 			string useDatabase = "Use QuanTriNhanSu";
 			string CreateTableAccount = "create table if not exists  PhongBan (TenPhong char(100) not null, MaPhong char(10) primary key not null);";
-			string InsertTable = "insert into PhongBan values ('" + TenPhong + "', '" + MaPhong + "');";
 			stmt->executeUpdate(CreateTableAccount);
-			stmt->execute(InsertTable);
 			cout << "Bang da duoc tao phong ban da duoc them moi" << endl;
 		}
 		delete result;

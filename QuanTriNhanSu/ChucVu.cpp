@@ -33,6 +33,11 @@ void ChucVu::InputPosition() {
 
 }
 
+void ChucVu::InputEditPosiotion()
+{
+
+}
+
 void ChucVu::InputDetletePosition() {
     cout << "Nhap vao chuc vu can xoa: "; getline(cin, TenCv);
     kt->DeletePosition(TenCv);
@@ -91,23 +96,12 @@ void ChucVu::CreatePosition(NodeChucVu* p) {
 
 
 }
-//void ChucVu::PrintPosition() {
-//    Statement* stmt;
-//    stmt = connection->createStatement();
-//    string SelectData = "Select *from ChucVu";
-//    ResultSet* res = stmt->executeQuery(SelectData);
-//    cout << "Danh sach cac chuc vu: " << endl;
-//    int count = 0;
-//    cout << "STT" << "\t" << "Ten chuc vu " << "\t" << "\t" << "Luong co bang " << "\t" << "\t" << "Mo ta" << endl;
-//    while (res->next()) {
-//        cout << ++count << "\t" << res->getString("TenChucVu") << "\t" << "\t" << res->getString("LuongChucVu") << "\t" << "\t" << res->getString("MoTaChucVu") << endl;
-//    }
-//    delete stmt;
-//    delete res;
-//}
+
 
 void ChucVu::PrintPosition(vector<NodeChucVu> Inchucvu) {
-
+    for (size_t i = 0; i < Inchucvu.size(); i++) {
+        cout << Inchucvu[i].getTenChucVu() << "\t" << Inchucvu[i].getLuongchucvu() << "\t" << Inchucvu[i].getMota() << endl;
+    }
 }
 
 vector<NodeChucVu> ChucVu::TakeAllPosition(){
@@ -117,7 +111,8 @@ vector<NodeChucVu> ChucVu::TakeAllPosition(){
     string SelectData = "Select *from ChucVu";
     ResultSet* res = stmt->executeQuery(SelectData);
     while (res->next()) {
-        long num = stol(res->getString("LuongCoBan"));
+        string number = res->getString("LuongChucVu");
+        long num = stoi(number);
         NodeChucVu info(res->getString("TenChucVu"), num, res->getString("MoTaChucVu"));
         Data.push_back(info);
     }
@@ -141,26 +136,6 @@ void ChucVu::EditPosition(string ChoCanSua,string MuonDoiThanh,string TenTk) {
     delete stmt;
 }
 
-//void ChucVu::SearchPosition(string ten,string ma) {
-//    Statement* stmt;
-//    stmt = connection->createStatement();
-//    string SelectData = "Select *from ChucVu where " + ten + " = '" + ma + "'";
-//    ResultSet* res = stmt->executeQuery(SelectData);
-//    cout << endl;
-//    while (true) {
-//        if (res->next()) {
-//            cout << "Chuc vu co ton tai trong he thong" << endl;
-//            cout << "Ten chuc vu " << "\t" << "\t" << "Luong co bang " << "\t" << "\t" << "Mo ta" << endl;
-//            cout << res->getString("TenChucVu") << "\t" << "\t" << res->getString("LuongChucVu") << " trieu dong" << "\t" << "\t" << res->getString("MoTaChucVu") << endl;
-//        }
-//        else {
-//            cout << "Chuc vu khong co trong he thong." << endl;
-//            break;
-//        }
-//    }
-//    delete res;
-//    delete stmt;
-//}
 
 vector<NodeChucVu> ChucVu::SearchPosition(string ten, string ma){
     vector<NodeChucVu>  SearchData;
@@ -169,7 +144,8 @@ vector<NodeChucVu> ChucVu::SearchPosition(string ten, string ma){
     string SelectData = "Select *from ChucVu where " + ten + " = '" + ma + "'";
     ResultSet* res = stmt->executeQuery(SelectData);
     while (res->next()) {
-        long num = stol(res->getString("LuongCoBan"));
+        string number = res->getString("LuongChucVu");
+        long num = stoi(number);
         NodeChucVu info( res->getString("TenChucVu"), num, res->getString("MoTaChucVu"));
         SearchData.push_back(info);
     }
