@@ -8,14 +8,14 @@ private:
 	//Tai khoan
 	string TenTaiKhoan;
 	string MatKhau;
-	string Admin;
-	string QuanLyNhanSu;
-	string QuanLyTienLuong;
+	bool Admin;
+	bool QuanLyNhanSu;
+	bool QuanLyTienLuong;
 
 	//
 	Node* pointer;
 public:
-	Node(string,string,string,string,string);
+	Node(string,string,bool,bool,bool);
 
 	virtual ~Node();
 	Node* GetPointer() { return pointer; }
@@ -25,12 +25,12 @@ public:
 	void SetAccountName(string val) { TenTaiKhoan = val; }
 	string GetPassword() { return MatKhau; }
 	void SetPassword(string val) { MatKhau = val; }
-	string GetAdmin() { return Admin; }
-	void SetAdmin(string val) { Admin = val; }
-	string GetHRM() { return QuanLyNhanSu; }
-	void SetHRM(string val) { QuanLyNhanSu = val; }
-	string GetFM() { return QuanLyTienLuong; }//financial management
-	void SetFM(string val) { QuanLyTienLuong = val; }
+	bool GetAdmin() { return Admin; }
+	void SetAdmin(bool val) { Admin = val; }
+	bool GetHRM() { return QuanLyNhanSu; }
+	void SetHRM(bool val) { QuanLyNhanSu = val; }
+	bool GetFM() { return QuanLyTienLuong; }//financial management
+	void SetFM(bool val) { QuanLyTienLuong = val; }
 	//
 protected:
 };

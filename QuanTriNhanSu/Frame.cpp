@@ -267,15 +267,15 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	//button
 	wxButton* del = new wxButton(buttonPanel, wxID_ANY, "XOA TAI KHOAN", wxPoint(25, 0), wxSize(180, 50));
 	del->SetForegroundColour(wxColour(255, 255, 255));
-	del->SetBackgroundColour(wxColour(190, 55, 55));
+	del->SetBackgroundColour(wxColour(190, 80, 80));
 	del->SetFont(CalibriB);
 	wxButton* adj = new wxButton(buttonPanel, wxID_ANY, "SUA TAI KHOAN", wxPoint(25, 70), wxSize(180, 50));
 	adj->SetForegroundColour(wxColour(255, 255, 255));
-	adj->SetBackgroundColour(wxColour(170, 125, 40));
+	adj->SetBackgroundColour(wxColour(80, 85, 155));
 	adj->SetFont(CalibriB);
 	wxButton* add = new wxButton(buttonPanel, wxID_ANY, "THEM TAI KHOAN", wxPoint(25, 320), wxSize(180, 50));
 	add->SetForegroundColour(wxColour(255, 255, 255));
-	add->SetBackgroundColour(wxColour(30, 155, 70));
+	add->SetBackgroundColour(wxColour(80, 155, 85));
 	add->SetFont(CalibriB);
 
 	int gridWidth = 700;
@@ -291,7 +291,7 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	grid->SetColLabelValue(3, "Quyen quan li\nnhan su");
 	grid->SetColLabelValue(4, "Quyen quan li\ntien luong");
 	grid->SetGridLineColour(wxColour(0, 0, 0));
-	grid->SetLabelBackgroundColour(wxColour(205, 80, 130));
+	grid->SetLabelBackgroundColour(wxColour(25,120,255));
 	grid->SetLabelFont(CalibriB);
 
 	grid->EnableEditing(false);
@@ -334,6 +334,39 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 		grid->SetColLabelSize(curColHeight + th5 * 2);
 		grid->AutoSizeRows();
 	}
+
+	vector<Node> taikhoan = hethong->TakeAllAccount();
+	for (int s = 0; s < nRow; s++) {
+		grid->SetCellValue(s, 0, taikhoan[s].GetAccountName());
+		grid->SetCellValue(s, 1, taikhoan[s].GetPassword());
+		if (taikhoan[s].GetAdmin()) {
+			grid->SetCellValue(s, 2, "Co");
+			grid->SetCellTextColour(s, 2, wxColour(0, 155, 0));
+		}
+		else {
+			grid->SetCellValue(s, 2, "Khong");
+			grid->SetCellTextColour(s, 2, wxColour(155, 0, 0));
+		}
+		if (taikhoan[s].GetHRM()) {
+			grid->SetCellValue(s, 3, "Co");
+			grid->SetCellTextColour(s, 3, wxColour(0, 155, 0));
+		}
+		else {
+			grid->SetCellValue(s, 3, "Khong");
+			grid->SetCellTextColour(s, 3, wxColour(155, 0, 0));
+		}
+		if (taikhoan[s].GetFM()) {
+			grid->SetCellValue(s, 4, "Co");
+			grid->SetCellTextColour(s, 4, wxColour(0, 155, 0));
+		}
+		else {
+			grid->SetCellValue(s, 4, "Khong");
+			grid->SetCellTextColour(s, 4, wxColour(155, 0, 0));
+		}
+	}
+
+	grid->SetDefaultCellFont(Calibri);
+	grid->SetDefaultCellAlignment(wxALIGN_CENTER, wxALIGN_CENTER);
 	
 	//event
 	add->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
