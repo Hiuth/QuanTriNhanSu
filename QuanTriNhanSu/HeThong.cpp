@@ -12,7 +12,8 @@ HeThong::HeThong() {
 }
 
 int n,nhap;
-string tk, mk, admin, hrm, fm, ten, xoa, ma;
+bool admin, hrm, fm;
+string tk, mk, ten, xoa, ma;
 HeThong* TaiKhoan = new HeThong();
 Node* e;
 
@@ -131,21 +132,15 @@ void HeThong::InputEdit() {
     }
 }
 
-bool HeThong::CheckAccount(string ten, string matkhau) {
-    try {
-        Statement* stmt;
-        stmt = con->createStatement();
-        string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + ten + "' AND " + matkhau + " = 1";
-        ResultSet* result = stmt->executeQuery(CheckData);
-        while (result->next()) {
-            return true;
-        }return false;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
+bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
+    Statement* stmt;
+    stmt = con->createStatement();
+    string CheckData = "Select * from TaiKhoan Where TenTaiKhoan = '" + TenTaiKhoan + "' AND MatKhau = '" + MatKhau + "'";
+    ResultSet* result = stmt->executeQuery(CheckData);
+    while (result->next()) {
+        return true;
+    } return false;
 }
-
 
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
@@ -220,7 +215,13 @@ vector<Node> HeThong::TakeAllAccount() {
     ResultSet* res = stmt->executeQuery(SelectData);
     int count = 0;
     while (res->next()) {
-        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+        string str1 = res->getString("admin");
+        bool a = static_cast<bool>(stoi(str1));
+        string str2 = res->getString("QuanLyNhanSu");
+        bool b = static_cast<bool>(stoi(str2));
+        string str3 = res->getString("QuanLyTienLuong");
+        bool c = static_cast<bool>(stoi(str3));
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), a,b,c );
         accounts.push_back(account);
     }
     delete res;
@@ -237,8 +238,14 @@ vector<Node> HeThong::Search(string ten, string ma) {
     string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
     ResultSet* res = stmt->executeQuery(SelectData);
     while (res->next()) {
-        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
-        accountFromSearch.push_back(account);
+        string str1 = res->getString("admin");
+        bool a = static_cast<bool>(stoi(str1));
+        string str2 = res->getString("QuanLyNhanSu");
+        bool b = static_cast<bool>(stoi(str2));
+        string str3 = res->getString("QuanLyTienLuong");
+        bool c = static_cast<bool>(stoi(str3));
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), a, b, c);
+         accountFromSearch.push_back(account);
     }
     delete res;
     delete stmt;
