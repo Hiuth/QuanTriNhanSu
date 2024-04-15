@@ -76,11 +76,11 @@ void PhongBan::InputSearchDepartment()
 	cin.ignore();
 	if (them == 1) {
 		cout << "Nhap vao ma phong ban can tim: "; getline(cin, TenPB);
-		PB->SearchDepartment("MaPhong", TenPB);
+		PB->PrintDepartmentInfotmation(PB->SearchDepartment("MaPhong", TenPB));
 	}
 	else if (them == 2) {
 		cout << "Nhap vao ten phong ban can tim: "; getline(cin, TenPB);
-		PB->SearchDepartment("TenPhong", TenPB);
+		PB->PrintDepartmentInfotmation(PB->SearchDepartment("TenPhong", TenPB));
 	}
 	else {
 		cout << "moi ban chon lai!!!";
@@ -119,13 +119,7 @@ void PhongBan::CreateDepartment(NodePhongBan* p) {
 			stmt->execute(InsertTable);
 		}
 		else {
-			string TenPhong = p->GetName();
-			string MaPhong = p->GetID();
-			string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-			string useDatabase = "Use QuanTriNhanSu";
-			string CreateTableAccount = "create table if not exists  PhongBan (TenPhong char(100) not null, MaPhong char(10) primary key not null);";
-			stmt->executeUpdate(CreateTableAccount);
-			cout << "Bang da duoc tao phong ban da duoc them moi" << endl;
+			cout << "Bang khong ton tai. Vui long kiem tra lai!!!" << endl;
 		}
 		delete result;
 		delete stmt;
