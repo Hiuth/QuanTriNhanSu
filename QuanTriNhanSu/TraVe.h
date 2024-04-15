@@ -12,7 +12,7 @@ public:
 	virtual ~TraVe();
 
 	int ReturnColumn(string);
-	int ReturnLine(string);
+	int ReturnLine(string, string);
 	vector<string> ReturnName_of_Column(string);
 };
 

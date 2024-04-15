@@ -30,22 +30,27 @@ int TraVe::ReturnColumn(string tenbang)
     }
     //cout << "\nS = " << s1 << endl;
     return s1;
-    return 0;
+    //return 0;
 }
 
-int TraVe::ReturnLine(string tenbang)
+int TraVe::ReturnLine(string tenbang, string cotdau)
 {
-    Statement* stmt;
-    stmt = tv->createStatement();
-    int s1 = 0;
-    string CheckData = "SELECT COUNT(*) AS count FROM BaoHiem WHERE '"+ tenbang+ "' IS NOT NULL";
-    ResultSet* result = stmt->executeQuery(CheckData);
-    if (result->next()) {
-        int count = result->getInt("count");
-        s1 += count;
+    try {
+        Statement* stmt;
+        stmt = tv->createStatement();
+        int s1 = 0;
+        string CheckData = "SELECT COUNT(*) AS count FROM " + tenbang + " WHERE "+ cotdau +" IS NOT NULL";
+        ResultSet* result = stmt->executeQuery(CheckData);
+        if (result->next()) {
+            int count = result->getInt("count");
+            s1 += count;
+        }
+        //cout << "\nS = " << s1 << endl;
+        return s1;
     }
-    //cout << "\nS = " << s1 << endl;
-    return s1;
+    catch (sql::SQLException& e) {
+        cerr << "SQL Error: " << e.what() << std::endl;
+    }
 }
 
 vector<string> TraVe::ReturnName_of_Column(string tenbang)

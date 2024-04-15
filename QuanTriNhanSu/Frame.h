@@ -1,7 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "Hethong.h"
+#include "TraVe.h"
 #include <wx/wx.h>
 #include <iostream>
+#include <wx/grid.h>
 using namespace std;
 
 class BaseFrame : public wxFrame
@@ -10,11 +12,17 @@ public:
 	BaseFrame(const wxString& title);
 	void OnBackClicked(wxCommandEvent& evt);
 	void OnClose(wxCloseEvent& evt);
-	void UpdateSoon(wxCommandEvent& evt);
 	void CreateMenu(wxWindow* parent, wxString userName);
+	void UpdateSoon(wxCommandEvent& evt);
 };
 
-class LoginFrame : public BaseFrame 
+class CenteredTextEditor : public wxGridCellTextEditor //class hỗ trợ canh chỉnh grid
+{
+public:
+	void Show(bool show, wxGridCellAttr* attr) override;
+};
+
+class LoginFrame : public BaseFrame
 {
 public:	
 	LoginFrame();
@@ -44,7 +52,31 @@ class QLTKFrame : public BaseFrame
 public:
 	QLTKFrame(wxString accName);
 private:
+	void OnAddButton(wxCommandEvent& evt);
+	void OnAdjButton(wxCommandEvent& evt);
+	void OnDelButton(wxCommandEvent& evt);
 	wxString userName;
+};
+
+class QLTKFrame2 : public BaseFrame {
+public:
+	QLTKFrame2(wxString accName);
+private:
+	void Next(wxCommandEvent& evt);
+	void OnChange(wxGridEvent& evt);
+	wxGrid* textCtrl;
+	wxString userName;
+	wxString value;
+	int num;
+};
+
+class QLTKFrame3 : public BaseFrame {
+public:
+	QLTKFrame3(wxString accName, int num, int fnum);
+private:
+	wxString userName;
+	int numb;
+	int fnumb;
 };
 
 class QLNSFrame : public BaseFrame
