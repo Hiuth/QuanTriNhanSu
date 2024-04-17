@@ -2,8 +2,8 @@
 #include<iostream>
 using namespace std;
 const char* Link = "tcp://localhost:3306";
+const char* Password = "02012004";
 const char* UserName = "root";
-const char* Password = "21122004";
 
 void createTableHeThonng(Connection* con) {
 	Statement* stmt;

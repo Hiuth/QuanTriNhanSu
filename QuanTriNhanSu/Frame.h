@@ -1,5 +1,6 @@
 #pragma once
 #include "Hethong.h"
+#include <wx/grid.h>
 #include <wx/wx.h>
 #include <iostream>
 using namespace std;
@@ -14,9 +15,15 @@ public:
 	void CreateMenu(wxWindow* parent, wxString userName);
 };
 
-class LoginFrame : public BaseFrame 
+class CenteredTextEditor : public wxGridCellTextEditor
 {
-public:	
+public:
+	void Show(bool show, wxGridCellAttr* attr) override;
+};
+
+class LoginFrame : public BaseFrame
+{
+public:
 	LoginFrame();
 private:
 	void Next();
@@ -39,12 +46,42 @@ private:
 	wxString userName;
 };
 
-class QLTKFrame : public BaseFrame 
+class QLTKFrame : public BaseFrame
 {
 public:
 	QLTKFrame(wxString accName);
 private:
+	void OnAddButton(wxCommandEvent& evt);
+	void OnAdjButton(wxCommandEvent& evt);
+	void OnDelButton(wxCommandEvent& evt);
 	wxString userName;
+};
+
+class QLTKFrame2 : public BaseFrame {
+public:
+	QLTKFrame2(wxString accName);
+private:
+	void Next(wxCommandEvent& evt);
+	void OnChange(wxGridEvent& evt);
+	int num;
+	wxGrid* textCtrl;
+	wxString userName;
+	wxString value;
+};
+
+class QLTKFrame3 : public BaseFrame {
+public:
+	QLTKFrame3(wxString accName, int num, int fnum);
+private:
+	void Check(wxCommandEvent& evt);
+	void Next();
+	wxPanel* panel;
+	wxChoice* choice;
+	wxTextCtrl* space1;
+	wxTextCtrl* space2;
+	wxString userName;
+	int numb;
+	int fnumb;
 };
 
 class QLNSFrame : public BaseFrame

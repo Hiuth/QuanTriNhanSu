@@ -12,11 +12,10 @@ HeThong::HeThong() {
 }
 
 int n,nhap;
-string tk, mk, admin, hrm, fm, ten, xoa, ma;
+bool admin, hrm, fm;
+string tk, mk, ten, xoa, ma;
 HeThong* TaiKhoan = new HeThong();
 Node* e;
-
-
 
 
 bool HeThong::DangNhap() {
@@ -160,6 +159,21 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
 }
 
 
+void HoTroCapNhat(Node* p, Statement* stmt) {
+    string accountName;
+    string password;
+    string admin;
+    string HRM;
+    string FM;
+    accountName = p->GetAccountName();
+    password = p->GetPassword();
+    admin = p->GetAdmin();
+    HRM = p->GetHRM();
+    FM = p->GetFM();
+    string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
+    stmt->execute(UpdateTableAccount);
+}
+
 void HeThong::PrintAccount(vector<Node> check) {
     cout << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
     for (size_t i = 0; i < check.size(); i++) {
@@ -219,7 +233,13 @@ vector<Node> HeThong::TakeAllAccount() {
     ResultSet* res = stmt->executeQuery(SelectData);
     int count = 0;
     while (res->next()) {
-        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
+        string str1 = res->getString("admin");
+        bool a = static_cast<bool>(stoi(str1));
+        string str2 = res->getString("QuanLyNhanSu");
+        bool b = static_cast<bool>(stoi(str2));
+        string str3 = res->getString("QuanLyTienLuong");
+        bool c = static_cast<bool>(stoi(str3));
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), a,b,c );
         accounts.push_back(account);
     }
     delete res;
@@ -236,8 +256,14 @@ vector<Node> HeThong::Search(string ten, string ma) {
     string SelectData = "Select *from TaiKhoan where " + ten + " = '" + ma + "'";
     ResultSet* res = stmt->executeQuery(SelectData);
     while (res->next()) {
-        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), res->getString("admin"), res->getString("QuanLyNhanSu"), res->getString("QuanLyTienLuong"));
-        accountFromSearch.push_back(account);
+        string str1 = res->getString("admin");
+        bool a = static_cast<bool>(stoi(str1));
+        string str2 = res->getString("QuanLyNhanSu");
+        bool b = static_cast<bool>(stoi(str2));
+        string str3 = res->getString("QuanLyTienLuong");
+        bool c = static_cast<bool>(stoi(str3));
+        Node account(res->getString("TenTaiKhoan"), res->getString("MatKhau"), a, b, c);
+         accountFromSearch.push_back(account);
     }
     delete res;
     delete stmt;
