@@ -21,9 +21,9 @@ public:
 	void Show(bool show, wxGridCellAttr* attr) override;
 };
 
-class LoginFrame : public BaseFrame 
+class LoginFrame : public BaseFrame
 {
-public:	
+public:
 	LoginFrame();
 private:
 	void Next();
@@ -46,7 +46,7 @@ private:
 	wxString userName;
 };
 
-class QLTKFrame : public BaseFrame 
+class QLTKFrame : public BaseFrame
 {
 public:
 	QLTKFrame(wxString accName);
@@ -73,6 +73,12 @@ class QLTKFrame3 : public BaseFrame {
 public:
 	QLTKFrame3(wxString accName, int num, int fnum);
 private:
+	void Check(wxCommandEvent& evt);
+	void Next();
+	wxPanel* panel;
+	wxChoice* choice;
+	wxTextCtrl* space1;
+	wxTextCtrl* space2;
 	wxString userName;
 	int numb;
 	int fnumb;

@@ -56,30 +56,30 @@ vector<NodeDiemDanh> DiemDanh::Data_of_Line()
     }
 }
 
-void DiemDanh::CreateTable() {
-    try {
-        Statement* stmt;
-        stmt = dd->createStatement();
-        //kiem tra su ton tai cua bang
-        string TenBang = "BangDiemDanh";
-        string KiemTra = "show tables like'" + TenBang + "'";
-        ResultSet* result = stmt->executeQuery(KiemTra);
-        if (result->next() == false) {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists BangDiemDanh (""MaNhanVien char(10) not null ,""TenNhanVien char(10) not null ,""DiemDanh char(3) not null)";
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
-        }
-        delete result;
-        delete stmt;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
+//void DiemDanh::CreateTable() {
+//    try {
+//        Statement* stmt;
+//        stmt = dd->createStatement();
+//        //kiem tra su ton tai cua bang
+//        string TenBang = "BangDiemDanh";
+//        string KiemTra = "show tables like'" + TenBang + "'";
+//        ResultSet* result = stmt->executeQuery(KiemTra);
+//        if (result->next() == false) {
+//            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
+//            string useDatabase = "Use QuanTriNhanSu";
+//            string CreateTableAccount = "create table if not exists BangDiemDanh (""MaNhanVien char(10) not null ,""TenNhanVien char(10) not null ,""DiemDanh char(3) not null)";
+//            stmt->execute(CreateDatabaseSQL);
+//            stmt->execute(useDatabase);
+//            stmt->execute(CreateTableAccount);
+//            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
+//        }
+//        delete result;
+//        delete stmt;
+//    }
+//    catch (sql::SQLException& e) {
+//        cerr << "SQL Error: " << e.what() << std::endl;
+//    }
+//}
 
 void DiemDanh::Copy() {
     Statement* stmt;

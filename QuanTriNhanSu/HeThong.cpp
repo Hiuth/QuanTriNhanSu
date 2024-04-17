@@ -18,8 +18,6 @@ HeThong* TaiKhoan = new HeThong();
 Node* e;
 
 
-
-
 bool HeThong::DangNhap() {
     cout << "hay dang nhap vao he thong" << endl;
     cout << "nhap ten tai khoan: "; getline(cin, ten);
@@ -158,6 +156,7 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
     } return false;
 }
 
+
 void HoTroCapNhat(Node* p, Statement* stmt) {
     string accountName;
     string password;
@@ -198,21 +197,22 @@ void HeThong::CreateAccount(Node* p ){
         string KiemTra = "show tables like'"+TenBang +"'";
         ResultSet* result = stmt->executeQuery(KiemTra);
         if (result->next()==true) { //nếu có bảng thì result sẽ trả về true, không có thì ngược lại
-            HoTroCapNhat(p, stmt);
+            string accountName;
+            string password;
+            string admin;
+            string HRM;
+            string FM;
+            accountName = p->GetAccountName();
+            password = p->GetPassword();
+            admin = p->GetAdmin();
+            HRM = p->GetHRM();
+            FM = p->GetFM();
+            string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
+            stmt->execute(UpdateTableAccount);
             cout << "Du lieu da duoc cap nhat!" << endl;
         }
         else {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists TaiKhoan (""TenTaiKhoan char(10) primary key,"
-                "MatKhau char(20) not null,""admin bool not null, "
-                "QuanLyNhanSu bool not null, "
-                "QuanLyTienLuong bool not null)"; //1 là có quyền truy cập, 0 là không có quyền truy cập vào chức năng
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            HoTroCapNhat(p, stmt);
-            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
+            cout << "Vui long kiem tra lai du lieu. " << endl;
         }
         delete result;
         delete stmt;

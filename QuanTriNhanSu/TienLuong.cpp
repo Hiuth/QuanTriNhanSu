@@ -59,38 +59,38 @@ void TienLuong::DataofLine()
     }
 }
 
-void TienLuong::CreateTable() {
-    try {
-        Statement* stmt;
-        stmt = ma->createStatement();
-        string TenBang = "BangLuong";
-        string KiemTra = "show tables like'" + TenBang + "'";
-        ResultSet* result = stmt->executeQuery(KiemTra);
-        if (result->next() == false) {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "CREATE TABLE IF NOT EXISTS BangLuong ("
-                "MaNhanVien CHAR(12) NOT NULL, "
-                "TenNhanVien CHAR(30) NOT NULL, "
-                "SoNgayDiLam INT(3) NOT NULL, "
-                "TienCongNgay INT(10) NOT NULL, "
-                "KhoanKhenThuong INT(10) NOT NULL, "
-                "KhoanKyLuat INT(10) NOT NULL, "
-                "BaoHiem INT(10) NOT NULL, "
-                "TongCong TEXT NOT NULL"
-                ");";
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
-        }
-        delete result;
-        delete stmt;
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
+//void TienLuong::CreateTable() {
+//    try {
+//        Statement* stmt;
+//        stmt = ma->createStatement();
+//        string TenBang = "BangLuong";
+//        string KiemTra = "show tables like'" + TenBang + "'";
+//        ResultSet* result = stmt->executeQuery(KiemTra);
+//        if (result->next() == false) {
+//            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
+//            string useDatabase = "Use QuanTriNhanSu";
+//            string CreateTableAccount = "CREATE TABLE IF NOT EXISTS BangLuong ("
+//                "MaNhanVien CHAR(12) NOT NULL, "
+//                "TenNhanVien CHAR(30) NOT NULL, "
+//                "SoNgayDiLam INT(3) NOT NULL, "
+//                "TienCongNgay INT(10) NOT NULL, "
+//                "KhoanKhenThuong INT(10) NOT NULL, "
+//                "KhoanKyLuat INT(10) NOT NULL, "
+//                "BaoHiem INT(10) NOT NULL, "
+//                "TongCong TEXT NOT NULL"
+//                ");";
+//            stmt->execute(CreateDatabaseSQL);
+//            stmt->execute(useDatabase);
+//            stmt->execute(CreateTableAccount);
+//            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
+//        }
+//        delete result;
+//        delete stmt;
+//    }
+//    catch (sql::SQLException& e) {
+//        cerr << "SQL Error: " << e.what() << std::endl;
+//    }
+//}
 
 void TienLuong::Print() {
     try {

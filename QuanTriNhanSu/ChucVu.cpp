@@ -20,7 +20,7 @@ NodeChucVu* cv;
 
 void ChucVu::InputPosition() {
 
-       cout << "So luong chuc vu muon them vao: "; cin >> choose;
+      cout << "So luong chuc vu muon them vao: "; cin >> choose;
     cin.ignore();
     for (int i = 0; i < choose; i++) {
 	    cout << "Nhap vao ten chuc vu: "; getline(cin, TenCv);
@@ -33,26 +33,74 @@ void ChucVu::InputPosition() {
 
 }
 
+bool ChucVu::checkNamePosition(string ten, string ma)
+{
+    Statement* stmt;
+    stmt = connection->createStatement();
+    string SelectData = "Select *from ChucVu where " + ten + " = '" + ma + "'";
+    ResultSet* res = stmt->executeQuery(SelectData);
+    while (res->next()) {
+        return true;
+    }return false;
+    delete res;
+    delete stmt;
+ 
+}
+
+
+
 void ChucVu::InputEditPosiotion()
 {
-
+    cout << "Nhap vao ten chuc vu can sua: "; getline(cin, TenCv);
+    if (checkNamePosition("TenChucVu", TenCv)) {
+        cout << "1. Sua ten chuc vu." << endl;
+        cout << "2. Sua luong chuc vu." << endl;
+        cout << "3.Sua mo ta chuc vu." << endl;
+        cout << "Chon chuc nang ban can sua "; cin >> choose;
+        if (choose ==1) {
+            cin.ignore();
+            cout << "Nhap vao ten chuc vu moi: "; getline(cin, mota);
+            kt->EditPosition("TenChucVu", mota, TenCv);
+        }
+        else if (choose ==2 ) {
+            cin.ignore();
+            cout << "Nhap vao muc luong moi: "; cin >> luong;
+            kt->EditPosition("LuongChucVu", to_string(luong), TenCv);
+        }
+        else if (choose == 3) {
+            cin.ignore();
+            cout << "Nhap vao mo ta moi: "; getline(cin, mota);
+            kt->EditPosition("MoTaChucVu",mota, TenCv);
+        }
+    }
 }
+
+void ChucVu::InputSearchPosition()
+{
+    cout << "1.Tim theo ten chuc vu." << endl;
+    cout << "2.Tim theo muc luong." << endl;
+    cout << "Ban chon che do nao? "; cin >> choose;
+    if (choose == 1) {
+        cout << "Nhap vao ten chuc vu can tim: "; getline(cin, TenCv);
+       kt->PrintPosition(kt->SearchPosition("TenChucVu", TenCv));
+    }
+    else if (choose == 2) {
+        cout << "Nhap vao muc luong can tim: "; cin >> luong;
+        kt->PrintPosition(kt->SearchPosition("LuongChucVu", to_string(luong)));
+    }
+    else {
+        cout << "Moi ban chon lai!" << endl;
+    }
+   
+    
+}
+
 
 void ChucVu::InputDetletePosition() {
     cout << "Nhap vao chuc vu can xoa: "; getline(cin, TenCv);
     kt->DeletePosition(TenCv);
 }
 
-void HoTroCapNhat(NodeChucVu* p, Statement* stmt) {
-    string tenchucvu;
-    long  luongchucvu;
-    string mota;
-    tenchucvu = p->getTenChucVu();
-    luongchucvu = p->getLuongchucvu();
-    mota = p->getMota();
-    string UpdateTableAccount = "insert into ChucVu Values ('" + tenchucvu + "','" + to_string(luongchucvu) + "','" + mota + "');";
-    stmt->execute(UpdateTableAccount);
-}
 
 void ChucVu::CreatePosition(NodeChucVu* p) {
     if (this->head == NULL) {
@@ -71,20 +119,18 @@ void ChucVu::CreatePosition(NodeChucVu* p) {
         string KiemTra = "show tables like'" + TenBang + "'";
         ResultSet* result = stmt->executeQuery(KiemTra);
         if (result->next() == true) { //nếu có bảng thì result sẽ trả về true, không có thì ngược lại
-            HoTroCapNhat(p, stmt);
+            string tenchucvu;
+            long  luongchucvu;
+            string mota;
+            tenchucvu = p->getTenChucVu();
+            luongchucvu = p->getLuongchucvu();
+            mota = p->getMota();
+            string UpdateTableAccount = "insert into ChucVu Values ('" + tenchucvu + "','" + to_string(luongchucvu) + "','" + mota + "');";
+            stmt->execute(UpdateTableAccount);
             cout << "Du lieu da duoc cap nhat!" << endl;
         }
         else {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "CREATE TABLE IF NOT EXISTS ChucVu (""TenChucVu CHAR(100) not null PRIMARY KEY,"
-                "LuongChucVu LONGTEXT not null, "
-                "MoTaChucVu CHAR(100) not null)";
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            HoTroCapNhat(p, stmt);
-            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
+            cout << "Bang khong ton tai. Vui long kiem tra lai!!!"<<endl;
         }
         delete result;
         delete stmt;

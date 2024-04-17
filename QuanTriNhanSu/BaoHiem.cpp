@@ -51,31 +51,31 @@ void BaoHiem::DataofLine()
     }
 }
 
-void BaoHiem::CreateTable() {
-    try {
-        Statement* stmt;
-        stmt = cd->createStatement();
-        //kiem tra su ton tai cua bang
-        string TenBang = "BaoHiem";
-        string KiemTra = "show tables like'" + TenBang + "'";
-        ResultSet* result = stmt->executeQuery(KiemTra);
-        if (result->next() == false) {
-            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
-            string useDatabase = "Use QuanTriNhanSu";
-            string CreateTableAccount = "create table if not exists BaoHiem (""MaBaoHiem char(10) not null ,""SoTien char(7) not null,""Han char(10) not null)";
-            stmt->execute(CreateDatabaseSQL);
-            stmt->execute(useDatabase);
-            stmt->execute(CreateTableAccount);
-            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
-        }
-        delete result;
-        delete stmt;
-        //this->Print();
-    }
-    catch (sql::SQLException& e) {
-        cerr << "SQL Error: " << e.what() << std::endl;
-    }
-}
+//void BaoHiem::CreateTable() {
+//    try {
+//        Statement* stmt;
+//        stmt = cd->createStatement();
+//        //kiem tra su ton tai cua bang
+//        string TenBang = "BaoHiem";
+//        string KiemTra = "show tables like'" + TenBang + "'";
+//        ResultSet* result = stmt->executeQuery(KiemTra);
+//        if (result->next() == false) {
+//            string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
+//            string useDatabase = "Use QuanTriNhanSu";
+//            string CreateTableAccount = "create table if not exists BaoHiem (""MaBaoHiem char(10) not null ,""SoTien char(7) not null,""Han char(10) not null)";
+//            stmt->execute(CreateDatabaseSQL);
+//            stmt->execute(useDatabase);
+//            stmt->execute(CreateTableAccount);
+//            cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
+//        }
+//        delete result;
+//        delete stmt;
+//        //this->Print();
+//    }
+//    catch (sql::SQLException& e) {
+//        cerr << "SQL Error: " << e.what() << std::endl;
+//    }
+//}
 
 void BaoHiem::Input() {
     cout << "----------NHAP BAO HIEM--------------------------\n";

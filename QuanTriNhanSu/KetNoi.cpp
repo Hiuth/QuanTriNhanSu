@@ -1,7 +1,10 @@
 ﻿#include "KetNoi.h"
-const char* UserName = "root";
+#include<iostream>
+using namespace std;
 const char* Link = "tcp://localhost:3306";
 const char* Password = "02012004";
+const char* UserName = "root";
+
 void createTableHeThonng(Connection* con) {
 	Statement* stmt;
 	stmt = con->createStatement();
@@ -14,7 +17,6 @@ void createTableHeThonng(Connection* con) {
 	stmt->execute(CreateDatabaseSQL);
 	stmt->execute(useDatabase);
 	stmt->execute(CreateTableAccount);
-	cout << "Bang da duoc tao" << endl;
 }
 
 void createTableNhanVien(Connection* con) {
@@ -38,7 +40,6 @@ void createTableNhanVien(Connection* con) {
 	stmt->execute(CreateDatabaseSQL);
 	stmt->execute(useDatabase);
 	stmt->execute(CreateTableAccount);
-	cout << "Bang da duoc tao" << endl;
 }
 
 void createTableChucVu(Connection* con) {
@@ -83,7 +84,6 @@ void createTableTienLuong(Connection* con) {
 		stmt->execute(CreateDatabaseSQL);
 		stmt->execute(useDatabase);
 		stmt->execute(CreateTableAccount);
-		cout << "Bang da duoc tao, du lieu da duoc them vao!" << endl;
 }
 
 void createTableBaoHiem(Connection* con) {
@@ -115,11 +115,22 @@ void createTableKTKL(Connection* con) {
 	stmt->execute(CreateTableAccount);
 }
 
+void createTableDiemDanh(Connection* con) {
+	Statement* stmt;
+	stmt = con->createStatement();
+	string CreateDatabaseSQL = "CREATE DATABASE IF NOT EXISTS QuanTriNhanSu;";
+	string useDatabase = "Use QuanTriNhanSu";
+	string CreateTableAccount = "create table if not exists BangDiemDanh (""MaNhanVien char(10) not null ,""TenNhanVien char(10) not null ,""DiemDanh char(3) not null)";
+	stmt->execute(CreateDatabaseSQL);
+	stmt->execute(useDatabase);
+	stmt->execute(CreateTableAccount);
+}
+
 Connection* KetNoi::CheckDatabase() {
 	MySQL_Driver* driver;
 	Connection* con;
 	driver = mysql::get_mysql_driver_instance();
-	con = driver->connect(Link, UserName, Password);
+	con = driver->connect(Link,UserName ,Password);
 	Statement* stmt = con->createStatement();
 	stmt->execute("CREATE SCHEMA IF NOT EXISTS quantrinhansu");
 
@@ -131,6 +142,8 @@ Connection* KetNoi::CheckDatabase() {
 		createTablePhongBan(con);
 		createTableTienLuong(con);
 		createTableBaoHiem(con);
+		createTableKTKL(con);
+		createTableDiemDanh(con);
 		return con;
 	}
 	else {

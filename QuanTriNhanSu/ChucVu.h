@@ -11,6 +11,7 @@ public:
     ChucVu(); // Constructor
     virtual ~ChucVu(); // Destructor
     void InputPosition();
+    bool checkNamePosition(string,string);
     void InputEditPosiotion();
     void InputSearchPosition();
     void InputDetletePosition();
