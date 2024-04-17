@@ -44,6 +44,8 @@ void HeThong::Input() {
         cout << "neu muon cap quyen thi hay bam so 1, neu khong thi bam so 0." << endl;;
         cout << "quyen admin: "; cin >> admin;
         cout << "quyen quan ly nhan su: "; cin >> hrm;
+
+
         cout << "quyen quan ly tien luong: "; cin >> fm;
         e = new Node(tk, mk, admin, hrm, fm);
         TaiKhoan->CreateAccount(e);

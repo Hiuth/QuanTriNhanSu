@@ -13,11 +13,16 @@ int main() {
 	NhanVien* Ktra = new NhanVien();
 	ChucVu* kt = new ChucVu();
 	PhongBan* PB = new PhongBan();
+	KetNoi* kn = new KetNoi();
 	//Taikhoan->InputSearch();
 	//Taikhoan->InputEdit();
 	Taikhoan->PrintAccount(Taikhoan->TakeAllAccount());
 	cout << endl;
 	Ktra->PrintEmployeeInfotmation(Ktra->TakeAllEmployee());
+	cout << endl;
+	kt->PrintPosition(kt->TakeAllPosition());
+	cout << endl;
+	kt->InputEditPosiotion();
 	cout << endl;
 	kt->PrintPosition(kt->TakeAllPosition());
 //	Taikhoan->Input();
