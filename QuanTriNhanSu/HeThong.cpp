@@ -113,7 +113,6 @@ void HeThong::InputEdit() {
         if (n == 1) {
             cin.ignore();
             cout << "Nhap vao ten muon doi: "; getline(cin, ma);
-            cout << ten << " " << ma;
             TaiKhoan->EditAccount("TenTaiKhoan", ma, ten);//Thứ tự tên tài khoản, tên muốn đổi, vị trí cần đổi
         }
         else if (n == 2) {
@@ -159,20 +158,7 @@ bool HeThong::CheckAccount(string TenTaiKhoan, string MatKhau) {
 }
 
 
-void HoTroCapNhat(Node* p, Statement* stmt) {
-    string accountName;
-    string password;
-    string admin;
-    string HRM;
-    string FM;
-    accountName = p->GetAccountName();
-    password = p->GetPassword();
-    admin = p->GetAdmin();
-    HRM = p->GetHRM();
-    FM = p->GetFM();
-    string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
-    stmt->execute(UpdateTableAccount);
-}
+
 
 void HeThong::PrintAccount(vector<Node> check) {
     cout << "Ten Tai Khoan " << "\t" << "Mat khau" << "\t" << "Quyen Admin" << "\t" << "Quyen quan ly nhan su" << "\t" << "Quyen quan ly tai khoan" << endl;
@@ -206,9 +192,10 @@ void HeThong::CreateAccount(Node* p ){
             string FM;
             accountName = p->GetAccountName();
             password = p->GetPassword();
-            admin = p->GetAdmin();
-            HRM = p->GetHRM();
-            FM = p->GetFM();
+            admin = to_string(p->GetAdmin());
+            HRM = to_string(p->GetHRM());// ép kiểu là hết lỗi ảo chưa =))) bên trong bảng có là kiểu gì đi chăng nữa thì nhập từ c++ vào cx phải là string
+            //vô bảng nó tự trả kiểu lại. siuuuuuuuuuuuuuuuuuuuu
+            FM = to_string(p->GetFM());
             string UpdateTableAccount = "insert into TaiKhoan Values ('" + accountName + "','" + password + "','" + admin + "', '" + HRM + "','" + FM + "');";
             stmt->execute(UpdateTableAccount);
             cout << "Du lieu da duoc cap nhat!" << endl;
