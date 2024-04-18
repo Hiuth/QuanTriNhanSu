@@ -241,7 +241,7 @@ void HomeFrame::OnButton4Clicked(wxCommandEvent& evt) {
 QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	wxPanel* panel = new wxPanel(this); //panel chính
 	wxPanel* tagPanel = new wxPanel(panel, wxID_ANY, wxPoint(0, 25), wxSize(960, 100));
-	wxPanel* table = new wxPanel(panel, wxID_ANY, wxPoint(0, 100), wxSize(720, 401));
+	table = new wxPanel(panel, wxID_ANY, wxPoint(0, 100), wxSize(720, 401));
 	wxPanel* buttonPanel = new wxPanel(panel, wxID_ANY, wxPoint(720, 100), wxSize(240, 401));
 	userName = accName;
 	CreateMenu(panel, userName);
@@ -281,11 +281,20 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	add->SetBackgroundColour(wxColour(80, 155, 85));
 	add->SetFont(CalibriB);
 
-	int gridWidth = 700;
-	int gridHeight = 380;
+	//event
+	this->Bind(wxEVT_SHOW, &QLTKFrame::OnShow, this);
+	add->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
+	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
+}
+
+void QLTKFrame::OnDClick(wxGridEvent& evt) {
+	int row = evt.GetRow();
+	grid->SelectRow(row);
+}
+
+void QLTKFrame::UpdateData(int gridWidth, int gridHeight) {
 	int nRow = trave->ReturnLine("TaiKhoan", "TenTaiKhoan");
 	int nCol = trave->ReturnColumn("TaiKhoan");
-	wxGrid* grid = new wxGrid(table, wxID_ANY, wxPoint(20, 0), wxSize(gridWidth, gridHeight));
 	grid->CreateGrid(nRow, nCol);
 
 	grid->SetColLabelValue(0, "Ten tai khoan");
@@ -327,15 +336,16 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	grid->SetColSize(3, (gridWidth - sum) / 6 + tw4 * 0.8);
 	grid->SetColSize(4, (gridWidth - sum) / 6 + tw5 * 0.8);
 
-	int sum1 = th * nRow + th5 * 2;
+	int sum1 = th * 2 * nRow + th5 * 2;
 	int curColHeight = grid->GetColLabelSize();
+	int curRowHeight = grid->GetRowLabelSize();
 	if (sum1 < gridHeight) {
 		grid->SetDefaultRowSize((gridHeight - sum1 - th5 * 2) / nRow + th);
 		grid->SetColLabelSize(curColHeight + th5 * 2);
 	}
 	else {
 		grid->SetColLabelSize(curColHeight + th5 * 2);
-		grid->AutoSizeRows();
+		grid->AutoSizeRows(false);
 	}
 
 	vector<Node> taikhoan = hethong->TakeAllAccount();
@@ -344,36 +354,47 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 		grid->SetCellValue(s, 1, taikhoan[s].GetPassword());
 		if (taikhoan[s].GetAdmin()) {
 			grid->SetCellValue(s, 2, "Co");
-			grid->SetCellTextColour(s, 2, wxColour(0, 155, 0));
+			grid->SetCellTextColour(s, 2, wxColour(0, 125, 0));
 		}
 		else {
 			grid->SetCellValue(s, 2, "Khong");
-			grid->SetCellTextColour(s, 2, wxColour(155, 0, 0));
+			grid->SetCellTextColour(s, 2, wxColour(125, 0, 0));
 		}
 		if (taikhoan[s].GetHRM()) {
 			grid->SetCellValue(s, 3, "Co");
-			grid->SetCellTextColour(s, 3, wxColour(0, 155, 0));
+			grid->SetCellTextColour(s, 3, wxColour(0, 125, 0));
 		}
 		else {
 			grid->SetCellValue(s, 3, "Khong");
-			grid->SetCellTextColour(s, 3, wxColour(155, 0, 0));
+			grid->SetCellTextColour(s, 3, wxColour(125, 0, 0));
 		}
 		if (taikhoan[s].GetFM()) {
 			grid->SetCellValue(s, 4, "Co");
-			grid->SetCellTextColour(s, 4, wxColour(0, 155, 0));
+			grid->SetCellTextColour(s, 4, wxColour(0, 125, 0));
 		}
 		else {
 			grid->SetCellValue(s, 4, "Khong");
-			grid->SetCellTextColour(s, 4, wxColour(155, 0, 0));
+			grid->SetCellTextColour(s, 4, wxColour(125, 0, 0));
 		}
 	}
-
 	grid->SetDefaultCellFont(Calibri);
 	grid->SetDefaultCellAlignment(wxALIGN_CENTER, wxALIGN_CENTER);
 
-	//event
-	add->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
-	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
+	grid->Bind(wxEVT_GRID_CELL_LEFT_DCLICK, &QLTKFrame::OnDClick, this);
+}
+
+void QLTKFrame::OnShow(wxShowEvent& evt) {
+	if (evt.IsShown()) {
+		if (grid != nullptr) {
+			grid->Destroy();
+		}
+		int gridWidth = 700;
+		int gridHeight = 380;
+		grid = new wxGrid(table, wxID_ANY, wxPoint(20, 0), wxSize(gridWidth, gridHeight));
+
+		this->UpdateData(gridWidth, gridHeight);
+	}
+	evt.Skip();
 }
 
 void QLTKFrame::OnAddButton(wxCommandEvent& evt) {
@@ -437,7 +458,6 @@ void QLTKFrame2::Next(wxCommandEvent& evt) {
 
 QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap thong tin chi tiet")
 {
-	Node* tk;
 	panel = new wxPanel(this);
 	userName = accName;
 	fnumb = fnum;
@@ -458,7 +478,7 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	int starty = 140;
 	int stx = 150;
 	int spacex = 10;
-	int spacey = 30;
+	int spacey = 40;
 	int wid = 450;
 	int hei = 40;
 	int x = startx;
@@ -488,7 +508,7 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	choice = new wxChoice(panel, wxID_ANY, wxPoint(x, y - t), wxSize(wid / 3 * 2, -1), choices);
 	choice->Select(0);
 	choice->SetFont(MCalibri);
-	y += spacey + hei*3;
+	y += spacey + hei;
 
 	wxButton* next = new wxButton(panel, wxID_ANY, "NEXT", wxPoint(700, y), wxSize(120, 40));
 	next->SetFont(CalibriB);
@@ -503,18 +523,51 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 }
 
 void QLTKFrame3::Check(wxCommandEvent& evt) {
-	if (space1->GetValue() == "" || space2->GetValue() == "") {
-		wxStaticText* warning = new wxStaticText(panel, wxID_ANY, "Xin nhap mat khau va password", wxPoint(210,330));
-		warning->SetFont(CalibriB);
-		warning->SetForegroundColour(wxColour(155, 20, 20));
+	int tkx = space1->GetPosition().x;
+	int tky = space1->GetPosition().y;
+	int mkx = space2->GetPosition().x;
+	int mky = space2->GetPosition().y;
+	int cx = choice->GetPosition().x;
+	int cy = choice->GetPosition().y;
+	if (warning1 != nullptr) {
+		warning1->Destroy();
+		warning1 = new wxStaticText(panel, wxID_ANY, "", wxPoint(tkx, tky + 45), wxSize(400, 30));
+	}
+	if (warning2 != nullptr) {
+		warning2->Destroy();
+		warning2 = new wxStaticText(panel, wxID_ANY, "", wxPoint(mkx, mky + 45), wxSize(400, 30));
+	}
+	if (warning3 != nullptr) {
+		warning3->Destroy();
+		warning3 = new wxStaticText(panel, wxID_ANY, "", wxPoint(cx, cy + 45), wxSize(400, 30));
+	}
+	if (warning4 != nullptr) {
+		warning4->Destroy();
+		warning4 = new wxStaticText(panel, wxID_ANY, "", wxPoint(tkx, tky + 45), wxSize(400, 30));
+	}
+
+	if (space1->GetValue() == "") {
+		warning1 = new wxStaticText(panel, wxID_ANY, "Xin nhap vao tai khoan", wxPoint(tkx,tky + 45), wxSize(400,-1));
+		warning1->SetFont(CalibriB);
+		warning1->SetForegroundColour(wxColour(155, 20, 20));
+	}
+	if (space2->GetValue() == "") {
+		warning2 = new wxStaticText(panel, wxID_ANY, "Xin nhap vao mat khau", wxPoint(mkx, mky + 45));
+		warning2->SetFont(CalibriB);
+		warning2->SetForegroundColour(wxColour(155, 20, 20));
 	}
 	int selectedIndex = choice->GetSelection();
 	if (selectedIndex == 0) {
-		wxStaticText* warning = new wxStaticText(panel, wxID_ANY, "Xin chon quyen truy cap cho tai khoan", wxPoint(210, 360));
-		warning->SetFont(CalibriB);
-		warning->SetForegroundColour(wxColour(155, 20, 20));
+		warning3 = new wxStaticText(panel, wxID_ANY, "Xin chon quyen truy cap cho tai khoan", wxPoint(cx, cy + 45));
+		warning3->SetFont(CalibriB);
+		warning3->SetForegroundColour(wxColour(155, 20, 20));
 	}
-	if (space1->GetValue() != "" && space2->GetValue() != "" && selectedIndex != 0) {
+	if (hethong->checkName("TenTaiKhoan", space1->GetValue().ToStdString())) {
+		warning4 = new wxStaticText(panel, wxID_ANY, "Ten tai khoan da co, vui long nhap ten khac", wxPoint(tkx, tky + 45));
+		warning4->SetFont(CalibriB);
+		warning4->SetForegroundColour(wxColour(155, 20, 20));
+	}
+	if (space1->GetValue() != "" && space2->GetValue() != "" && selectedIndex != 0 && !hethong->checkName("TenTaiKhoan", space1->GetValue().ToStdString())) {
 		Next();
 	}
 }

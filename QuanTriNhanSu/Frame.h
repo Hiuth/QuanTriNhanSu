@@ -55,6 +55,11 @@ private:
 	void OnAdjButton(wxCommandEvent& evt);
 	void OnDelButton(wxCommandEvent& evt);
 	wxString userName;
+	wxGrid* grid;
+	wxPanel* table;
+	void UpdateData(int, int);
+	void OnShow(wxShowEvent& evt);
+	void OnDClick(wxGridEvent& evt);
 };
 
 class QLTKFrame2 : public BaseFrame {
@@ -76,12 +81,16 @@ private:
 	void Check(wxCommandEvent& evt);
 	void Next();
 	wxPanel* panel;
-	wxChoice* choice;
 	wxTextCtrl* space1;
 	wxTextCtrl* space2;
+	wxChoice* choice;
 	wxString userName;
 	int numb;
 	int fnumb;
+	wxStaticText* warning1;
+	wxStaticText* warning2;
+	wxStaticText* warning3;
+	wxStaticText* warning4;
 };
 
 class QLNSFrame : public BaseFrame
