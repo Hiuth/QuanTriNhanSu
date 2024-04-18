@@ -12,6 +12,9 @@ class KetNoi
 {
 
 public:
+	const char* Password;
+	const char*  UserName;
+	void input();
 	Connection* CheckDatabase();
 };
 
