@@ -11,6 +11,7 @@ public:
 	HeThong();
 	virtual ~HeThong();
 	bool CheckSpacebar(string);
+	bool check6Number(string);
 	bool CheckAccount(string, string);
 	bool checkName(string, string);
 	void Input();
