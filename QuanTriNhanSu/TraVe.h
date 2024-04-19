@@ -12,7 +12,8 @@ public:
 	virtual ~TraVe();
 
 	int ReturnColumn(string);
-	int ReturnLine(string, string);
+	int ReturnLine(string tenbang, string cotdau);
+	int ReturnLineSearch(string table, string colname, string search);
 	vector<string> ReturnName_of_Column(string);
 };
 
