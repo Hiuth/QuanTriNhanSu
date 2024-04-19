@@ -38,14 +38,22 @@ void HeThong::InputDeleteAccount() {
 void HeThong::Input() {
     cout << "so luong tai khoan muon nhap vao: "; cin >> n; //ko chấp nhận đc vẫn để là "tai khoang"
     for (int i = 0; i < n; i++) {
-        cout << "tai khoan: "; cin >> tk;
-        cout << "mat khau: "; cin >> mk;
-        cout << "neu muon cap quyen thi hay bam so 1, neu khong thi bam so 0." << endl;;
-        cout << "quyen admin: "; cin >> admin;
-        cout << "quyen quan ly nhan su: "; cin >> hrm;
-
-
-        cout << "quyen quan ly tien luong: "; cin >> fm;
+        bool Ktra = false;
+        while (!Ktra) {
+            cin.ignore();
+            cout << "tai khoan: "; getline(cin,tk);
+            cout << "mat khau: "; getline(cin,mk);
+            cout << "neu muon cap quyen thi hay bam so 1, neu khong thi bam so 0." << endl;;
+            cout << "quyen admin: "; cin >> admin;
+            cout << "quyen quan ly nhan su: "; cin >> hrm;
+            cout << "quyen quan ly tien luong: "; cin >> fm;
+            if (!tk.empty()&&CheckSpacebar(tk) && !mk.empty()&&check6Number(mk)) {
+                Ktra = true;
+            }
+            else {
+                cout << "Cu phap ban nhap khong hop le! Tai khoan va mat khau khong duoc co khoang cach trang va mat khau khong duoc nho hon 6!" << endl;
+            }
+        }
         e = new Node(tk, mk, admin, hrm, fm);
         TaiKhoan->CreateAccount(e);
         cout << endl;
@@ -277,6 +285,24 @@ void HeThong::EditAccount(string ChoCanSua, string MuonDoiThanh,string TenTk) {
 HeThong::~HeThong() {
     delete con;
     delete Check;
+}
+
+bool HeThong::CheckSpacebar(string NameAcc)
+{
+    for (char c : NameAcc) {
+        if (isspace(c)) {// nếu có khoảng cách trắng thì trả về false
+            return false;
+        }
+    }
+    return true;
+}
+
+bool HeThong::check6Number(string Pass)
+{
+    if (Pass.size() < 6) {
+        return false;
+    }
+    return true;
 }
 
 bool HeThong::CheckData(string TenTaiKhoan, string TenCot) {

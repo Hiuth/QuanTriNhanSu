@@ -9,6 +9,7 @@
 using namespace std;
 
 int main() {
+	string tenSql, mkSql;
 	HeThong* Taikhoan = new HeThong();
 	NhanVien* Ktra = new NhanVien();
 	ChucVu* kt = new ChucVu();
@@ -22,10 +23,11 @@ int main() {
 	cout << endl;
 	kt->PrintPosition(kt->TakeAllPosition());
 	cout << endl;
-	kt->InputEditPosiotion();
-	cout << endl;
 	kt->PrintPosition(kt->TakeAllPosition());
-//	Taikhoan->Input();
+	cout << endl;
+	//Taikhoan->Input();
+	Taikhoan->InputEdit();
+	Taikhoan->PrintAccount(Taikhoan->TakeAllAccount());
 	//if (Taikhoan->DangNhap()) {
 	//	cout << "Chao mung ban tro lai!!!"<<endl;
 	//	//Chuc vu
