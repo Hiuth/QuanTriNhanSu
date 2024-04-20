@@ -13,6 +13,16 @@ PhongBan::~PhongBan() {
 	delete KtraData1;
 }
 
+bool PhongBan::checkSyntax(string syntax)
+{
+	for (char c : syntax) {
+		if (!isalpha(c) && c != ' ') {
+			return false;
+		}
+	}
+	return true;
+}
+
 
 
 PhongBan* PB = new PhongBan();

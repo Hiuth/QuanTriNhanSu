@@ -39,5 +39,7 @@ public:
 
 	vector<NodeBaoHiem> Data_of_Line();
 	void DataofLine();
+
+	bool checkSyntax(string);
 };
 

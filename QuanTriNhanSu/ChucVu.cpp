@@ -33,6 +33,16 @@ void ChucVu::InputPosition() {
 
 }
 
+bool ChucVu::checkSyntax(string syntax)
+{
+    for (char c : syntax) {
+        if (!isalpha(c) && c != ' ') {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool ChucVu::checkNamePosition(string ten, string ma)
 {
     Statement* stmt;
