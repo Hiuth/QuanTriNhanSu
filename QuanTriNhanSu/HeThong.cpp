@@ -105,7 +105,8 @@ bool HeThong::checkName(string ten, string ma) {
     ResultSet* res = stmt->executeQuery(SelectData);
     while (res->next()) {
         return true;
-    }return false;
+    }
+    return false;
     delete res;
     delete stmt;
 }

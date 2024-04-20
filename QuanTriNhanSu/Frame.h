@@ -54,12 +54,22 @@ private:
 	void OnAddButton(wxCommandEvent& evt);
 	void OnAdjButton(wxCommandEvent& evt);
 	void OnDelButton(wxCommandEvent& evt);
-	wxString userName;
-	wxGrid* grid;
-	wxPanel* table;
-	void UpdateData(int, int);
+	void UpdateData();
 	void OnShow(wxShowEvent& evt);
 	void OnDClick(wxGridEvent& evt);
+	void OnSearchButton(wxCommandEvent& evt);
+	void CreateTable();
+	int gridWidth = 700;
+	int gridHeight = 380;
+	wxString userName;
+	wxTextCtrl* search;
+	wxArrayString tags;
+	wxChoice* tag;
+	wxGrid* grid;
+	wxPanel* tagPanel;
+	wxPanel* table;
+	wxStaticText* message;
+	int nRow, nCol;
 };
 
 class QLTKFrame2 : public BaseFrame {
@@ -80,6 +90,8 @@ public:
 private:
 	void Check(wxCommandEvent& evt);
 	void Next();
+	void Skip(wxCommandEvent& evt);
+	void BackToData();
 	wxPanel* panel;
 	wxTextCtrl* space1;
 	wxTextCtrl* space2;

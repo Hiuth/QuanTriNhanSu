@@ -53,6 +53,26 @@ int TraVe::ReturnLine(string tenbang, string cotdau)
     }
 }
 
+int TraVe::ReturnLineSearch(string table, string colname, string search)
+{
+    try {
+        Statement* stmt;
+        stmt = tv->createStatement();
+        int s1 = 0;
+        string CheckData = "SELECT COUNT(*) AS count FROM " + table + " WHERE " + colname + " = '" + search + "'";
+        ResultSet* result = stmt->executeQuery(CheckData);
+        if (result->next()) {
+            int count = result->getInt("count");
+            s1 += count;
+        }
+        //cout << "\nS = " << s1 << endl;
+        return s1;
+    }
+    catch (sql::SQLException& e) {
+        cerr << "SQL Error: " << e.what() << std::endl;
+    }
+}
+
 vector<string> TraVe::ReturnName_of_Column(string tenbang)
 {
     try {
