@@ -51,6 +51,16 @@ void BaoHiem::DataofLine()
     }
 }
 
+bool BaoHiem::checkSyntax(string syntax)
+{
+    for (char c : syntax) {
+        if (!isalpha(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 //void BaoHiem::CreateTable() {
 //    try {
 //        Statement* stmt;

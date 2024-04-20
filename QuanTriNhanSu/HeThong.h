@@ -14,6 +14,7 @@ public:
 	bool check6Number(string);
 	bool CheckAccount(string, string);
 	bool checkName(string, string);
+	bool checkSytax(string);
 	void Input();
 	void InputSearch();
 	void InputEdit();

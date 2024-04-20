@@ -47,7 +47,7 @@ void HeThong::Input() {
             cout << "quyen admin: "; cin >> admin;
             cout << "quyen quan ly nhan su: "; cin >> hrm;
             cout << "quyen quan ly tien luong: "; cin >> fm;
-            if (!tk.empty()&&CheckSpacebar(tk) && !mk.empty()&&check6Number(mk)) {
+            if (!tk.empty()&&CheckSpacebar(tk) && !mk.empty()&&check6Number(mk) && checkSytax(mk)) {
                 Ktra = true;
             }
             else {
@@ -108,6 +108,16 @@ bool HeThong::checkName(string ten, string ma) {
     }return false;
     delete res;
     delete stmt;
+}
+
+bool HeThong::checkSytax(string Pass)
+{
+    for (char c : Pass) {
+        if (!isalpha(c)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void HeThong::InputEdit() {
