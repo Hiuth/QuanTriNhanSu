@@ -51,6 +51,7 @@ class QLTKFrame : public BaseFrame
 {
 public:
 	QLTKFrame(wxString accName);
+	void UpdateData();
 private:
 	void OnAddButton(wxCommandEvent& evt);
 	void OnAdjButton(wxCommandEvent& evt);
@@ -58,7 +59,6 @@ private:
 	void OnSearchButton(wxCommandEvent& evt);
 	void OnRefreshButton(wxCommandEvent& evt);
 	void OnTagChoice(wxCommandEvent& evt);
-	void UpdateData();
 	void OnShow(wxShowEvent& evt);
 	void OnDClick(wxGridEvent& evt);
 	void CreateTable();
@@ -73,6 +73,21 @@ private:
 	wxStaticText* message;
 	wxStaticText* fake;
 	int nRow, nCol;
+};
+
+class QLTKFrameMini : public BaseFrame
+{
+public:
+	QLTKFrameMini(wxArrayInt selectedRows, wxGrid* grid);
+	void OnSave(wxCommandEvent& evt);
+	void OnCancel(wxCommandEvent& evt);
+	void OnCloseMini(wxCloseEvent& evt);
+	wxPanel* panel;
+	wxArrayInt numRows;
+	wxGrid* gr;
+	wxStaticText* warning = nullptr;
+	wxChoice* attribute;
+	wxTextCtrl* AdjValue;
 };
 
 class QLTKFrame2 : public BaseFrame {
