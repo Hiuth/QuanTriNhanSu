@@ -25,9 +25,9 @@ int main() {
 	cout << endl;
 	kt->PrintPosition(kt->TakeAllPosition());
 	cout << endl;
-	//Taikhoan->Input();
+	Taikhoan->Input();
 	Taikhoan->InputEdit();
-	Taikhoan->PrintAccount(Taikhoan->TakeAllAccount());
+	//Taikhoan->PrintAccount(Taikhoan->TakeAllAccount());
 	//if (Taikhoan->DangNhap()) {
 	//	cout << "Chao mung ban tro lai!!!"<<endl;
 	//	//Chuc vu

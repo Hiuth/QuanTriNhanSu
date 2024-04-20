@@ -10,11 +10,11 @@ using namespace std;
 
 stack<wxFrame*> frameStack;
 
-//khai bao
+khai bao
 HeThong* hethong = new HeThong();
 TraVe* trave = new TraVe();
 
-//font
+font
 wxFont ConsolasB(wxFontInfo(40).FaceName("Eras Bold ITC")); //tiêu đề đẹp, lớn
 wxFont Calibri(wxFontInfo(15).FaceName("Calibri")); //Chữ cái bình thường
 wxFont CalibriB(wxFontInfo(15).FaceName("Calibri").Bold()); //Chữ bình thường in hoa
@@ -34,7 +34,7 @@ wxFont CalibriBI(wxFontInfo(40).FaceName("Calibri").Bold().Italic()); //Chữ to
 wxFont SCalibriBI(wxFontInfo(30).FaceName("Calibri").Bold().Italic()); //Chữ to tiêu đề vừa
 wxFont SSCalibriBI(wxFontInfo(25).FaceName("Calibri").Bold().Italic()); //Chữ to tiêu đề nhỏ
 
-//window size
+window size
 int windowHeight = 540;
 int windowWidth = 960;
 
@@ -97,11 +97,11 @@ void CenteredTextEditor::Show(bool show, wxGridCellAttr* attr)
 LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	wxPanel* panel = new wxPanel(this);
 
-	//frame1
+	frame1
 	wxStaticText* text1 = new wxStaticText(panel, wxID_ANY, "LOGIN", wxPoint(370, 120));
 	text1->SetFont(ConsolasB);
 
-	//account
+	account
 	wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, "Account", wxPoint(250, 200));
 	text2->SetFont(Calibri);
 	wxTextCtrl* space2 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 190), wxSize(300, 35), wxTE_PROCESS_ENTER);
@@ -110,7 +110,7 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	space2->SetFont(font);
 	accCtrl = space2;
 
-	//password
+	password
 	wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, "Password", wxPoint(250, 250));
 	text3->SetFont(Calibri);
 	wxTextCtrl* space3 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(370, 240), wxSize(300, 35), wxTE_PASSWORD | wxTE_PROCESS_ENTER);
@@ -119,11 +119,11 @@ LoginFrame::LoginFrame() : BaseFrame("HUMAN RESOURCES MANAGERMENT") {
 	space3->SetFont(font);
 	passCtrl = space3;
 
-	//next button
+	next button
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "Next", wxPoint(650, 300), wxSize(80, 40));
 	button1->SetFont(Calibri);
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &LoginFrame::OnButtonClicked, this);
 	space2->Bind(wxEVT_TEXT_ENTER, &LoginFrame::EnterText, this);
 	space3->Bind(wxEVT_TEXT_ENTER, &LoginFrame::EnterText, this);
@@ -163,7 +163,7 @@ HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//frame2
+	frame2
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "QUAN LI\nTAI KHOAN", wxPoint(15, 40), wxSize(450, 210));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(89, 102, 200));
@@ -181,7 +181,7 @@ HomeFrame::HomeFrame(wxString accName) : BaseFrame("HOME") {
 	button4->SetBackgroundColour(wxColour(193, 68, 112));
 	button4->SetForegroundColour(wxColour(255, 255, 255));
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &HomeFrame::OnButton1Clicked, this);
 	button2->Bind(wxEVT_BUTTON, &HomeFrame::OnButton2Clicked, this);
 	button3->Bind(wxEVT_BUTTON, &HomeFrame::OnButton3Clicked, this);
@@ -246,13 +246,13 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//SearchBar
+	SearchBar
 	wxStaticText* text1 = new wxStaticText(tagPanel, wxID_ANY, "Tim kiem", wxPoint(20, 15));
 	text1->SetFont(CalibriB);
 	wxTextCtrl* search = new wxTextCtrl(tagPanel, wxID_ANY, "Nhap noi dung tim kiem...", wxPoint(105, 15), wxSize(200, -1));
 	search->SetFont(SCalibri);
-	//search->SetForegroundColour(wxColour(125, 125, 125));
-	//Tags bar
+	search->SetForegroundColour(wxColour(125, 125, 125));
+	Tags bar
 	wxStaticText* text2 = new wxStaticText(tagPanel, wxID_ANY, "Tags", wxPoint(435, 15));
 	text2->SetFont(CalibriB);
 	wxArrayString tags;
@@ -267,7 +267,7 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	searchButton->SetFont(SCalibriB);
 	searchButton->SetBackgroundColour(wxColour(180, 180, 180));
 
-	//button
+	button
 	wxButton* del = new wxButton(buttonPanel, wxID_ANY, "XOA TAI KHOAN", wxPoint(25, 0), wxSize(180, 50));
 	del->SetForegroundColour(wxColour(255, 255, 255));
 	del->SetBackgroundColour(wxColour(190, 80, 80));
@@ -281,7 +281,7 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	add->SetBackgroundColour(wxColour(80, 155, 85));
 	add->SetFont(CalibriB);
 
-	//event
+	event
 	this->Bind(wxEVT_SHOW, &QLTKFrame::OnShow, this);
 	add->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
@@ -435,7 +435,7 @@ QLTKFrame2::QLTKFrame2(wxString accName) : BaseFrame("NUMBER OF ACCOUNT") {
 	textCtrl->SetDefaultEditor(new CenteredTextEditor);
 	textCtrl->ForceRefresh();
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 	textCtrl->Bind(wxEVT_GRID_CELL_CHANGED, &QLTKFrame2::OnChange, this);
 	next->Bind(wxEVT_BUTTON, &QLTKFrame2::Next, this);
@@ -517,7 +517,7 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	skip->SetFont(CalibriB);
 	skip->SetBackgroundColour(wxColour(200, 190, 255));
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 	next->Bind(wxEVT_BUTTON, &QLTKFrame3::Check, this);
 }
@@ -617,7 +617,7 @@ QLNSFrame::QLNSFrame(wxString accName) : BaseFrame("QUAN LI NHAN SU") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//frame
+	frame
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "QUAN LI HO SO NHAN VIEN", wxPoint(22, 40), wxSize(900, 140));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(64, 22, 204));
@@ -631,7 +631,7 @@ QLNSFrame::QLNSFrame(wxString accName) : BaseFrame("QUAN LI NHAN SU") {
 	button3->SetBackgroundColour(wxColour(13, 190, 92));
 	button3->SetForegroundColour(wxColour(255, 255, 255));
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &QLNSFrame::OnButton1Clicked, this);
 	button2->Bind(wxEVT_BUTTON, &QLNSFrame::OnButton2Clicked, this);
 	button3->Bind(wxEVT_BUTTON, &QLNSFrame::OnButton3Clicked, this);
@@ -661,7 +661,7 @@ QLNSFrame2::QLNSFrame2(wxString accName) : BaseFrame("QUAN LI HO SO NHAN VIEN") 
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -670,7 +670,7 @@ QLNSFrame10::QLNSFrame10(wxString accName) : BaseFrame("QUAN LI CHUC VU") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -679,7 +679,7 @@ QLNSFrame16::QLNSFrame16(wxString accName) : BaseFrame("QUAN LI PHONG BAN") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -688,7 +688,7 @@ QLTLFrame::QLTLFrame(wxString accName) : BaseFrame("QUAN LI TIEN LUONG") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//frame
+	frame
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "XEM TAT CA\nTHONG TIN", wxPoint(22, 45), wxSize(400, 440));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(192, 18, 67));
@@ -702,7 +702,7 @@ QLTLFrame::QLTLFrame(wxString accName) : BaseFrame("QUAN LI TIEN LUONG") {
 	button3->SetBackgroundColour(wxColour(14, 166, 29));
 	button3->SetForegroundColour(wxColour(255, 255, 255));
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &QLTLFrame::OnButton1Clicked, this);
 	button2->Bind(wxEVT_BUTTON, &QLTLFrame::OnButton2Clicked, this);
 	button3->Bind(wxEVT_BUTTON, &QLTLFrame::OnButton3Clicked, this);
@@ -732,7 +732,7 @@ QLTLFrame2::QLTLFrame2(wxString accName) : BaseFrame("XEM TIEN LUONG") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -741,7 +741,7 @@ QLTLFrame3::QLTLFrame3(wxString accName) : BaseFrame("CHAM CONG VA LUONG CO BAN"
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -750,7 +750,7 @@ QLTLFrame5::QLTLFrame5(wxString accName) : BaseFrame("LAM THEM") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -759,7 +759,7 @@ KFrame::KFrame(wxString accName) : BaseFrame("KHAC") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//frame
+	frame
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "QUAN LI\nCHINH SACH\nDAI NGO", wxPoint(22, 43), wxSize(400, 440));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(83, 13, 170));
@@ -777,7 +777,7 @@ KFrame::KFrame(wxString accName) : BaseFrame("KHAC") {
 	button4->SetBackgroundColour(wxColour(184, 11, 109));
 	button4->SetForegroundColour(wxColour(255, 255, 255));
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &KFrame::OnButton1Clicked, this);
 	button2->Bind(wxEVT_BUTTON, &BaseFrame::UpdateSoon, this);
 	button3->Bind(wxEVT_BUTTON, &BaseFrame::UpdateSoon, this);
@@ -801,7 +801,7 @@ KFrame2::KFrame2(wxString accName) : BaseFrame("QUAN LI CHINH SACH DAI NGO") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//frame
+	frame
 	wxButton* button1 = new wxButton(panel, wxID_ANY, "QUAN LI\nBAO HIEM", wxPoint(25, 43), wxSize(445, 440));
 	button1->SetFont(CalibriBI);
 	button1->SetBackgroundColour(wxColour(20, 70, 152));
@@ -811,7 +811,7 @@ KFrame2::KFrame2(wxString accName) : BaseFrame("QUAN LI CHINH SACH DAI NGO") {
 	button2->SetBackgroundColour(wxColour(22, 124, 80));
 	button2->SetForegroundColour(wxColour(255, 255, 255));
 
-	//event
+	event
 	button1->Bind(wxEVT_BUTTON, &KFrame2::OnButton1Clicked, this);
 	button2->Bind(wxEVT_BUTTON, &KFrame2::OnButton2Clicked, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
@@ -834,7 +834,7 @@ KFrame3::KFrame3(wxString accName) : BaseFrame("QUAN LI BAO HIEM") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -843,6 +843,6 @@ KFrame6::KFrame6(wxString accName) : BaseFrame("QUAN LI KHEN THUONG, KI LUAT") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//event
+	event
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
