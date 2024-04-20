@@ -67,10 +67,10 @@ void BaseFrame::CreateMenu(wxWindow* parent, wxString userName) {
 	wxPanel* menu = new wxPanel(parent, wxID_ANY, wxPoint(0, 0), wxSize(960, 25));
 	menu->SetBackgroundColour(wxColour(255, 255, 255));
 
-	wxButton* back = new wxButton(menu, wxID_ANY, "Back", wxPoint(10, 5), wxSize(40, 15), wxNO_BORDER);
-	back->SetBackgroundColour(wxColour(255, 255, 255));
-	back->SetFont(SCalibri);
-	back->Bind(wxEVT_BUTTON, &BaseFrame::OnBackClicked, this);
+	backbutton = new wxButton(menu, wxID_ANY, "Back", wxPoint(10, 5), wxSize(40, 15), wxNO_BORDER);
+	backbutton->SetBackgroundColour(wxColour(255, 255, 255));
+	backbutton->SetFont(SCalibri);
+	backbutton->Bind(wxEVT_BUTTON, &BaseFrame::OnBackClicked, this);
 	wxString welcome = "Welcome, ";
 	welcome = welcome.append(userName);
 	welcome = welcome.append("!");
@@ -248,45 +248,53 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	userName = accName;
 	CreateMenu(panel, userName);
 
-	//SearchBar
-	wxStaticText* text1 = new wxStaticText(tagPanel, wxID_ANY, "Tim kiem", wxPoint(20, 15));
-	text1->SetFont(CalibriB);
-	search = new wxTextCtrl(tagPanel, wxID_ANY, "Nhap noi dung tim kiem...", wxPoint(105, 15), wxSize(200, -1));
-	search->SetFont(SCalibri);
-	//search->SetForegroundColour(wxColour(125, 125, 125));
-
 	//Tags bar
 	wxStaticText* text2 = new wxStaticText(tagPanel, wxID_ANY, "Tags", wxPoint(435, 15));
 	text2->SetFont(CalibriB);
+	wxArrayString tags;
 	tags.Add("Ten tai khoan");
-	tags.Add("Quyen han");
+	tags.Add("Quyen Admin");
+	tags.Add("Quyen quan li nhan su");
+	tags.Add("Quyen quan li tien luong");
 	tag = new wxChoice(tagPanel, wxID_ANY, wxPoint(480, 15), wxSize(200, -1), tags);
 	tag->Select(0);
 	tag->SetFont(SCalibri);
-	tag->SetForegroundColour(wxColour(125, 125, 125));
+	tag->Connect(wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler(QLTKFrame::OnTagChoice));
+
+	//SearchBar
+	wxStaticText* text1 = new wxStaticText(tagPanel, wxID_ANY, "Tim kiem", wxPoint(20, 15));
+	text1->SetFont(CalibriB);
+
+	search = new wxTextCtrl(tagPanel, wxID_ANY, "Nhap noi dung tim kiem...", wxPoint(105, 15), wxSize(200, -1));
+	search->SetFont(SCalibri);
 
 	wxButton* searchButton = new wxButton(tagPanel, wxID_ANY, "SEARCH", wxPoint(690, 12), wxSize(90, 32));
 	searchButton->SetFont(SCalibriB);
 	searchButton->SetBackgroundColour(wxColour(180, 180, 180));
+	wxButton* refreshButton = new wxButton(tagPanel, wxID_ANY, "REFRESH", wxPoint(790, 12), wxSize(90, 32));
+	refreshButton->SetFont(SCalibriB);
+	refreshButton->SetBackgroundColour(wxColour(100, 180, 120));
 
 	//button
-	wxButton* del = new wxButton(buttonPanel, wxID_ANY, "XOA TAI KHOAN", wxPoint(25, 0), wxSize(180, 50));
-	del->SetForegroundColour(wxColour(255, 255, 255));
-	del->SetBackgroundColour(wxColour(190, 80, 80));
-	del->SetFont(CalibriB);
-	wxButton* adj = new wxButton(buttonPanel, wxID_ANY, "SUA TAI KHOAN", wxPoint(25, 70), wxSize(180, 50));
-	adj->SetForegroundColour(wxColour(255, 255, 255));
-	adj->SetBackgroundColour(wxColour(80, 85, 155));
-	adj->SetFont(CalibriB);
-	wxButton* add = new wxButton(buttonPanel, wxID_ANY, "THEM TAI KHOAN", wxPoint(25, 320), wxSize(180, 50));
-	add->SetForegroundColour(wxColour(255, 255, 255));
-	add->SetBackgroundColour(wxColour(80, 155, 85));
-	add->SetFont(CalibriB);
+	wxButton* delButton = new wxButton(buttonPanel, wxID_ANY, "XOA TAI KHOAN", wxPoint(25, 0), wxSize(180, 50));
+	delButton->SetForegroundColour(wxColour(255, 255, 255));
+	delButton->SetBackgroundColour(wxColour(190, 80, 80));
+	delButton->SetFont(CalibriB);
+	wxButton* adjButton = new wxButton(buttonPanel, wxID_ANY, "SUA TAI KHOAN", wxPoint(25, 70), wxSize(180, 50));
+	adjButton->SetForegroundColour(wxColour(255, 255, 255));
+	adjButton->SetBackgroundColour(wxColour(80, 85, 155));
+	adjButton->SetFont(CalibriB);
+	wxButton* addButton = new wxButton(buttonPanel, wxID_ANY, "THEM TAI KHOAN", wxPoint(25, 320), wxSize(180, 50));
+	addButton->SetForegroundColour(wxColour(255, 255, 255));
+	addButton->SetBackgroundColour(wxColour(80, 155, 85));
+	addButton->SetFont(CalibriB);
 
 	//event
 	this->Bind(wxEVT_SHOW, &QLTKFrame::OnShow, this);
-	add->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
-	del->Bind(wxEVT_BUTTON, &QLTKFrame::OnDelButton, this);
+	addButton->Bind(wxEVT_BUTTON, &QLTKFrame::OnAddButton, this);
+	delButton->Bind(wxEVT_BUTTON, &QLTKFrame::OnDelButton, this);
+	searchButton->Bind(wxEVT_BUTTON, &QLTKFrame::OnSearchButton, this);
+	refreshButton->Bind(wxEVT_BUTTON, &QLTKFrame::OnRefreshButton, this);
 	Bind(wxEVT_CLOSE_WINDOW, &BaseFrame::OnClose, this);
 }
 
@@ -295,61 +303,94 @@ void QLTKFrame::OnSearchButton(wxCommandEvent& evt) {
 		grid->Destroy();
 	}
 	grid = new wxGrid(table, wxID_ANY, wxPoint(20, 0), wxSize(gridWidth, gridHeight));
-	wxString content = search->GetValue();
+	wxString searchContent = search->GetValue();
 	int tagContent = tag->GetSelection();
-	nRow = trave->ReturnLineSearch("TaiKhoan", tags[tagContent].ToStdString(), content.ToStdString());
-	nCol = trave->ReturnColumn("TaiKhoan");
-	grid->CreateGrid(nRow, nCol);
-
-	grid->SetColLabelValue(0, "Ten tai khoan");
-	grid->SetColLabelValue(1, "Mat khau");
-	grid->SetColLabelValue(2, "Quyen quan li\ntai khoan");
-	grid->SetColLabelValue(3, "Quyen quan li\nnhan su");
-	grid->SetColLabelValue(4, "Quyen quan li\ntien luong");
-
-	if (message != nullptr) {
-		message->Destroy();
-		message = new wxStaticText(tagPanel, wxID_ANY, "", wxPoint(105, 45));
+	if (tag->GetSelection() > 0) {
+		tagContent++;
 	}
-	if (nRow == 0) {
-		nRow = 1;
-		grid->AppendRows(1);
-		message = new wxStaticText(tagPanel, wxID_ANY, "Khong co du lieu de in", wxPoint(105, 45));
-		message->SetFont(SCalibriB);
-		message->SetForegroundColour(wxColour(155, 20, 20));
+	vector<string> attributes = trave->ReturnName_of_Column("TaiKhoan");
+
+	if (searchContent == "" || searchContent == "Nhap noi dung tim kiem..." || searchContent == "Nhap vao 0 hoac 1") {
+		this->UpdateData();
 	}
 	else {
-		vector<Node> taikhoan = hethong->Search(tags[tagContent].ToStdString(), content.ToStdString());
-		for (int s = 0; s < nRow; s++) {
-			grid->SetCellValue(s, 0, taikhoan[s].GetAccountName());
-			grid->SetCellValue(s, 1, taikhoan[s].GetPassword());
-			if (taikhoan[s].GetAdmin()) {
-				grid->SetCellValue(s, 2, "Co");
-				grid->SetCellTextColour(s, 2, wxColour(0, 125, 0));
-			}
-			else {
-				grid->SetCellValue(s, 2, "Khong");
-				grid->SetCellTextColour(s, 2, wxColour(125, 0, 0));
-			}
-			if (taikhoan[s].GetHRM()) {
-				grid->SetCellValue(s, 3, "Co");
-				grid->SetCellTextColour(s, 3, wxColour(0, 125, 0));
-			}
-			else {
-				grid->SetCellValue(s, 3, "Khong");
-				grid->SetCellTextColour(s, 3, wxColour(125, 0, 0));
-			}
-			if (taikhoan[s].GetFM()) {
-				grid->SetCellValue(s, 4, "Co");
-				grid->SetCellTextColour(s, 4, wxColour(0, 125, 0));
-			}
-			else {
-				grid->SetCellValue(s, 4, "Khong");
-				grid->SetCellTextColour(s, 4, wxColour(125, 0, 0));
+		nRow = trave->ReturnLineSearch("TaiKhoan", attributes[tagContent], searchContent.ToStdString());
+		nCol = trave->ReturnColumn("TaiKhoan");
+		grid->CreateGrid(nRow, nCol);
+
+		grid->SetColLabelValue(0, "Ten tai khoan");
+		grid->SetColLabelValue(1, "Mat khau");
+		grid->SetColLabelValue(2, "Quyen quan li\ntai khoan");
+		grid->SetColLabelValue(3, "Quyen quan li\nnhan su");
+		grid->SetColLabelValue(4, "Quyen quan li\ntien luong");
+
+		if (message != nullptr) {
+			message->Destroy();
+			message = nullptr;
+		}
+		if (nRow == 0) {
+			nRow = 1;
+			grid->AppendRows(1);
+			message = new wxStaticText(tagPanel, wxID_ANY, "Khong co du lieu de in", wxPoint(105, 45));
+			message->SetFont(SCalibriB);
+			message->SetForegroundColour(wxColour(155, 20, 20));
+		}
+		else {
+			std::string nRowStr = std::to_string(nRow);
+			std::string messageStr = "Tim thay " + nRowStr + " ket qua";
+			message = new wxStaticText(tagPanel, wxID_ANY, messageStr, wxPoint(105, 45));
+			message->SetFont(SCalibriB);
+			message->SetForegroundColour(wxColour(155, 20, 20));
+			vector<Node> taikhoan = hethong->Search(attributes[tagContent], searchContent.ToStdString());
+			for (int s = 0; s < nRow; s++) {
+				grid->SetCellValue(s, 0, taikhoan[s].GetAccountName());
+				grid->SetCellValue(s, 1, taikhoan[s].GetPassword());
+				if (taikhoan[s].GetAdmin()) {
+					grid->SetCellValue(s, 2, "Co");
+					grid->SetCellTextColour(s, 2, wxColour(0, 125, 0));
+				}
+				else {
+					grid->SetCellValue(s, 2, "Khong");
+					grid->SetCellTextColour(s, 2, wxColour(125, 0, 0));
+				}
+				if (taikhoan[s].GetHRM()) {
+					grid->SetCellValue(s, 3, "Co");
+					grid->SetCellTextColour(s, 3, wxColour(0, 125, 0));
+				}
+				else {
+					grid->SetCellValue(s, 3, "Khong");
+					grid->SetCellTextColour(s, 3, wxColour(125, 0, 0));
+				}
+				if (taikhoan[s].GetFM()) {
+					grid->SetCellValue(s, 4, "Co");
+					grid->SetCellTextColour(s, 4, wxColour(0, 125, 0));
+				}
+				else {
+					grid->SetCellValue(s, 4, "Khong");
+					grid->SetCellTextColour(s, 4, wxColour(125, 0, 0));
+				}
 			}
 		}
+		this->CreateTable();
 	}
-	this->CreateTable();
+	evt.Skip();
+}
+
+void QLTKFrame::OnTagChoice(wxCommandEvent& evt) {
+	wxChoice* choice = (wxChoice*)evt.GetEventObject();
+	int selection = choice->GetSelection();
+	if (selection > 0) {
+		wxLogMessage("Neu tim kiem, hay nhap vao o tim kiem gia tri 0 (khong co quyen) hoac 1 (co quyen)");
+	}
+}
+
+void QLTKFrame::OnRefreshButton(wxCommandEvent& evt) {
+	if (grid != nullptr) {
+		grid->Destroy();
+	}
+	grid = new wxGrid(table, wxID_ANY, wxPoint(20, 0), wxSize(gridWidth, gridHeight));
+	this->UpdateData();
+	evt.Skip();
 }
 
 void QLTKFrame::UpdateData() {
@@ -365,7 +406,7 @@ void QLTKFrame::UpdateData() {
 
 	if (message != nullptr) {
 		message->Destroy();
-		message = new wxStaticText(tagPanel, wxID_ANY, "", wxPoint(105, 45));
+		message = nullptr;
 	}
 	if (nRow == 0) {
 		nRow = 1;
@@ -463,6 +504,7 @@ void QLTKFrame::OnDClick(wxGridEvent& evt)
 {
 	int row = evt.GetRow();
 	grid->SelectRow(row);
+	evt.Skip();
 }
 
 void QLTKFrame::OnShow(wxShowEvent& evt) {
@@ -482,6 +524,7 @@ void QLTKFrame::OnAdjButton(wxCommandEvent& evt) {
 		int row = selectedRows[0];
 		wxString value = grid->GetCellValue(row, 0);
 	}
+	evt.Skip();
 }
 
 void QLTKFrame::OnDelButton(wxCommandEvent& evt) {
@@ -499,12 +542,14 @@ void QLTKFrame::OnDelButton(wxCommandEvent& evt) {
 	}
 	grid = new wxGrid(table, wxID_ANY, wxPoint(20, 0), wxSize(gridWidth, gridHeight));
 	this->UpdateData();
+	evt.Skip();
 }
 
 void QLTKFrame::OnAddButton(wxCommandEvent& evt) {
 	frameStack.push(this);
 	this->Hide();
 	(new QLTKFrame2(userName))->Show();
+	evt.Skip();
 }
 
 QLTKFrame2::QLTKFrame2(wxString accName) : BaseFrame("NUMBER OF ACCOUNT") {
@@ -567,6 +612,8 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	fnumb = fnum;
 	numb = num;
 	CreateMenu(panel, userName);
+	backbutton->Unbind(wxEVT_BUTTON, &BaseFrame::OnBackClicked, this);
+	backbutton->Hide();
 
 	wxString loop = "LOOP ";
 	loop = loop.append(wxString::Format(wxT("%d"), fnumb - numb + 1));
@@ -606,10 +653,10 @@ QLTKFrame3::QLTKFrame3(wxString accName, int num, int fnum) : BaseFrame("Nhap th
 	quyenhan->SetFont(MCalibriB);
 	wxArrayString choices;
 	choices.Add("Choose one");
-	choices.Add("Quyen Admin");
+	choices.Add("Quyen quan li tai khoan (Admin)");
 	choices.Add("Quyen quan li nhan su");
 	choices.Add("Quyen quan li tien luong");
-	choice = new wxChoice(panel, wxID_ANY, wxPoint(x, y - t), wxSize(wid / 3 * 2, -1), choices);
+	choice = new wxChoice(panel, wxID_ANY, wxPoint(x, y - t), wxSize(wid / 4 * 5, -1), choices);
 	choice->Select(0);
 	choice->SetFont(MCalibri);
 	y += spacey + hei;
@@ -636,28 +683,23 @@ void QLTKFrame3::Check(wxCommandEvent& evt) {
 	int cy = choice->GetPosition().y;
 	if (warning1 != nullptr) {
 		warning1->Destroy();
-		warning1 = new wxStaticText(panel, wxID_ANY, "", wxPoint(tkx, tky + 45), wxSize(400, 30));
+		warning1 = nullptr;
 	}
 	if (warning2 != nullptr) {
 		warning2->Destroy();
-		warning2 = new wxStaticText(panel, wxID_ANY, "", wxPoint(mkx, mky + 45), wxSize(400, 30));
+		warning2 = nullptr;
 	}
 	if (warning3 != nullptr) {
 		warning3->Destroy();
-		warning3 = new wxStaticText(panel, wxID_ANY, "", wxPoint(cx, cy + 45), wxSize(400, 30));
+		warning3 = nullptr;
 	}
-	if (warning4 != nullptr) {
-		warning4->Destroy();
-		warning4 = new wxStaticText(panel, wxID_ANY, "", wxPoint(tkx, tky + 45), wxSize(400, 30));
-	}
-
-	if (space1->GetValue() == "") {
-		warning1 = new wxStaticText(panel, wxID_ANY, "Xin nhap vao tai khoan", wxPoint(tkx,tky + 45), wxSize(400,-1));
+	if (!hethong->check6Number(space1->GetValue().ToStdString())) {
+		warning1 = new wxStaticText(panel, wxID_ANY, "Ten tai khoan phai co do dai nhieu hon 6 ki tu", wxPoint(tkx, tky + 45), wxSize(400, -1));
 		warning1->SetFont(CalibriB);
 		warning1->SetForegroundColour(wxColour(155, 20, 20));
 	}
-	if (space2->GetValue() == "") {
-		warning2 = new wxStaticText(panel, wxID_ANY, "Xin nhap vao mat khau", wxPoint(mkx, mky + 45));
+	if (!hethong->check6Number(space2->GetValue().ToStdString())) {
+		warning2 = new wxStaticText(panel, wxID_ANY, "Mat khau phai co do dai nhieu hon 6 ki tu", wxPoint(mkx, mky + 45));
 		warning2->SetFont(CalibriB);
 		warning2->SetForegroundColour(wxColour(155, 20, 20));
 	}
@@ -668,9 +710,9 @@ void QLTKFrame3::Check(wxCommandEvent& evt) {
 		warning3->SetForegroundColour(wxColour(155, 20, 20));
 	}
 	if (hethong->checkName("TenTaiKhoan", space1->GetValue().ToStdString())) {
-		warning4 = new wxStaticText(panel, wxID_ANY, "Ten tai khoan da co, vui long nhap ten khac", wxPoint(tkx, tky + 45));
-		warning4->SetFont(CalibriB);
-		warning4->SetForegroundColour(wxColour(155, 20, 20));
+		warning1 = new wxStaticText(panel, wxID_ANY, "Ten tai khoan da co, vui long nhap ten khac", wxPoint(tkx, tky + 45));
+		warning1->SetFont(CalibriB);
+		warning1->SetForegroundColour(wxColour(155, 20, 20));
 	}
 	if (space1->GetValue() != "" && space2->GetValue() != "" && selectedIndex != 0 && !hethong->checkName("TenTaiKhoan", space1->GetValue().ToStdString())) {
 		Next();
