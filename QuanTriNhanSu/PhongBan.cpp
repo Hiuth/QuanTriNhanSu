@@ -163,7 +163,7 @@ void PhongBan::DeleteDepartment(string xoa)
 {
 	Statement* stmt;
 	stmt = connection1->createStatement();
-	string SelectData = "Delete from TaiKhoan where TenPhong = '" + xoa + "'";
+	string SelectData = "Delete from PhongBan where TenPhong = '" + xoa + "'";
 	int rows_affected = stmt->executeUpdate(SelectData);
 	delete stmt;
 }
