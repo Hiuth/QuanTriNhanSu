@@ -1,7 +1,7 @@
 #include "NodePhongBan.h"
-NodePhongBan::NodePhongBan(string Ten, string id) {
-	this->name = Ten;
+NodePhongBan::NodePhongBan(string id, string Ten) {
 	this->id = id;
+	this->name = Ten;
 	this->next = NULL;
 }
 

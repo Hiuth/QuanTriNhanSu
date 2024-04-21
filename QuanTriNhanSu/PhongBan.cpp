@@ -48,7 +48,7 @@ void PhongBan::InputDepartment() {
 	for (int i = 0; i < them; i++) {
 		cout << "Nhap vao ma phong ban: "; getline(cin,maPB );
 		cout << "Nhap vao ten phong ban: "; getline(cin, TenPB);
-		npb = new NodePhongBan(TenPB, maPB);
+		npb = new NodePhongBan( maPB,TenPB);
 		PB->CreateDepartment(npb);
 	}
 }
@@ -125,7 +125,7 @@ void PhongBan::CreateDepartment(NodePhongBan* p) {
 		if (result->next()) {
 			string TenPhong = p->GetName();
 			string MaPhong = p->GetID();
-			string InsertTable = "insert into PhongBan values ('" + TenPhong + "', '" + MaPhong + "');";
+			string InsertTable = "insert into PhongBan values ( '" + MaPhong + "','" + TenPhong + "');";
 			stmt->execute(InsertTable);
 		}
 		else {
