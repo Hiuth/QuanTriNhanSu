@@ -257,9 +257,9 @@ QLTKFrame::QLTKFrame(wxString accName) : BaseFrame("QUAN LI TAI KHOAN") {
 	search->SetForegroundColour(wxColour(125, 125, 125));
 	Tags bar
 =======
-	//search->SetForegroundColour(wxColour(125, 125, 125));
+	search->SetForegroundColour(wxColour(125, 125, 125));
 
-	//Tags bar
+	Tags bar
 >>>>>>> a38727b7b5e322803b4a36883de601f0c0af3f25
 	wxStaticText* text2 = new wxStaticText(tagPanel, wxID_ANY, "Tags", wxPoint(435, 15));
 	text2->SetFont(CalibriB);

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <wx/wx.h>
-class App : public wxApp
+class app : public wxapp
 {
 public:
-	bool OnInit();
+	bool oninit();
 };
