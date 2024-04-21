@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Hethong.h"
 #include <wx/grid.h>
 #include <wx/wx.h>
@@ -13,6 +13,7 @@ public:
 	void OnClose(wxCloseEvent& evt);
 	void UpdateSoon(wxCommandEvent& evt);
 	void CreateMenu(wxWindow* parent, wxString userName);
+	wxButton* backbutton;
 };
 
 class CenteredTextEditor : public wxGridCellTextEditor
@@ -50,26 +51,43 @@ class QLTKFrame : public BaseFrame
 {
 public:
 	QLTKFrame(wxString accName);
+	void UpdateData();
 private:
 	void OnAddButton(wxCommandEvent& evt);
 	void OnAdjButton(wxCommandEvent& evt);
 	void OnDelButton(wxCommandEvent& evt);
-	void UpdateData();
+	void OnSearchButton(wxCommandEvent& evt);
+	void OnRefreshButton(wxCommandEvent& evt);
+	void OnTagChoice(wxCommandEvent& evt);
 	void OnShow(wxShowEvent& evt);
 	void OnDClick(wxGridEvent& evt);
-	void OnSearchButton(wxCommandEvent& evt);
 	void CreateTable();
 	int gridWidth = 700;
 	int gridHeight = 380;
 	wxString userName;
 	wxTextCtrl* search;
-	wxArrayString tags;
 	wxChoice* tag;
 	wxGrid* grid;
 	wxPanel* tagPanel;
 	wxPanel* table;
 	wxStaticText* message;
+	wxStaticText* fake;
 	int nRow, nCol;
+};
+
+class QLTKFrameMini : public BaseFrame
+{
+public:
+	QLTKFrameMini(wxArrayInt selectedRows, wxGrid* grid);
+	void OnSave(wxCommandEvent& evt);
+	void OnCancel(wxCommandEvent& evt);
+	void OnCloseMini(wxCloseEvent& evt);
+	wxPanel* panel;
+	wxArrayInt numRows;
+	wxGrid* gr;
+	wxStaticText* warning = nullptr;
+	wxChoice* attribute;
+	wxTextCtrl* AdjValue;
 };
 
 class QLTKFrame2 : public BaseFrame {
@@ -102,7 +120,6 @@ private:
 	wxStaticText* warning1;
 	wxStaticText* warning2;
 	wxStaticText* warning3;
-	wxStaticText* warning4;
 };
 
 class QLNSFrame : public BaseFrame

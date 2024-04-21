@@ -59,7 +59,7 @@ int TraVe::ReturnLineSearch(string table, string colname, string search)
         Statement* stmt;
         stmt = tv->createStatement();
         int s1 = 0;
-        string CheckData = "SELECT COUNT(*) AS count FROM " + table + " WHERE " + colname + " = '" + search + "'";
+        string CheckData = "SELECT COUNT(*) AS count FROM " + table + " WHERE " + colname + " like '%" + search + "%'";
         ResultSet* result = stmt->executeQuery(CheckData);
         if (result->next()) {
             int count = result->getInt("count");
